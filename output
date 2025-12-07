@@ -1,0 +1,150 @@
+/root/home/app-home-hub
+uid=0(root) gid=0(root) groups=0(root)
+SHELL=/bin/bash
+npm_command=run-script
+NVM_INC=/www/server/nvm/versions/node/v22.21.0/include/node
+unstable_restarts=0
+treekill=true
+npm_config_npm_globalconfig=/www/server/nvm/versions/node/v22.21.0/etc/npmrc
+env=[object Object]
+filter_env=
+NODE=/www/server/nvm/versions/node/v22.21.0/bin/node
+NODE_OPTIONS=--max-old-space-size=3968 --enable-source-maps
+namespace=default
+npm_config_verify_deps_before_run=false
+NEXT_RUNTIME=nodejs
+GEMINI_API_KEY=AIzaSyDZZv3fi2NHWrhDG6GQQCUaILghvPXvHN4
+npm_config__jsr_registry=https://npm.jsr.io/
+restart_time=0
+npm_config_globalconfig=/root/.config/pnpm/rc
+axm_options=[object Object]
+vizion_running=false
+PWD=/root/home/app-home-hub
+LOGNAME=root
+XDG_SESSION_TYPE=tty
+PORT=3000
+PM2_USAGE=CLI
+NODE_ENV=development
+args=-c,pnpm run dev
+RUST_MIN_STACK=8388608
+exec_interpreter=none
+NEXT_DEPLOYMENT_ID=
+PM2_HOME=/root/.pm2
+MOTD_SHOWN=pam
+HOME=/root
+NODE_APP_INSTANCE=0
+LANG=C.UTF-8
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+pm_id=0
+npm_package_version=0.1.0
+version=N/A
+pm_uptime=1765075434640
+km_link=false
+pm_cwd=/root/home/app-home-hub
+pnpm_config_verify_deps_before_run=false
+GENERATIVE_AI_MODEL=googleai/gemini-pro
+__NEXT_PRIVATE_RUNTIME_TYPE=
+SSH_CONNECTION=127.0.0.1 58006 127.0.0.1 22
+autostart=true
+__NEXT_PRIVATE_ORIGIN=http://localhost:3000
+axm_monitor=[object Object]
+instance_var=NODE_APP_INSTANCE
+pmx=true
+INIT_CWD=/root/home/app-home-hub
+npm_lifecycle_script=next dev
+exit_code=0
+NVM_DIR=/www/server/nvm
+unique_id=0285ed99-18bf-4c58-b1b0-fb481bbba8bb
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_SESSION_CLASS=user
+TERM=xterm
+npm_package_name=nextn
+vizion=true
+username=root
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=root
+npm_config_frozen_lockfile=
+watch=false
+windowsHide=true
+automation=true
+axm_actions=
+npm_lifecycle_event=dev
+SHLVL=2
+NVM_CD_FLAGS=
+XDG_SESSION_ID=1259
+npm_config_user_agent=pnpm/10.23.0 npm/? node/v22.21.0 linux x64
+PNPM_SCRIPT_SRC_DIR=/root/home/app-home-hub
+npm_execpath=/www/server/nvm/versions/node/v22.21.0/lib/node_modules/pnpm/bin/pnpm.cjs
+__NEXT_PROCESSED_ENV=true
+XDG_RUNTIME_DIR=/run/user/0
+SSH_CLIENT=127.0.0.1 58006 22
+NODE_PATH=/root/pubg-mobile-home/node_modules/.pnpm/next@15.3.3_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/bin/node_modules:/root/pubg-mobile-home/node_modules/.pnpm/next@15.3.3_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/node_modules:/root/pubg-mobile-home/node_modules/.pnpm/next@15.3.3_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/node_modules:/root/pubg-mobile-home/node_modules/.pnpm/next@15.3.3_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules:/root/pubg-mobile-home/node_modules/.pnpm/node_modules
+NEXT_PRIVATE_WORKER=1
+npm_package_json=/root/home/app-home-hub/package.json
+created_at=1765032804104
+merge_logs=true
+pm_pid_path=/root/.pm2/pids/game-0.pid
+XDG_DATA_DIRS=/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/root/home/app-home-hub/node_modules/.bin:/www/server/nvm/versions/node/v22.21.0/lib/node_modules/pnpm/dist/node-gyp-bin:/www/server/nvm/versions/node/v22.21.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+npm_config_node_gyp=/www/server/nvm/versions/node/v22.21.0/lib/node_modules/pnpm/dist/node_modules/node-gyp/bin/node-gyp.js
+pm_err_log_path=/root/.pm2/logs/game-error.log
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus
+NVM_BIN=/www/server/nvm/versions/node/v22.21.0/bin
+npm_config_registry=https://registry.npmjs.org/
+SSH_TTY=/dev/pts/2
+kill_retry_time=100
+axm_dynamic=[object Object]
+autorestart=true
+node_args=
+exec_mode=fork_mode
+pm_exec_path=/usr/bin/bash
+NEXT_PRIVATE_TRACE_ID=f52962485442b7dc
+npm_node_execpath=/www/server/nvm/versions/node/v22.21.0/bin/node
+OLDPWD=/root
+status=launching
+name=game
+pm_out_log_path=/root/.pm2/logs/game-out.log
+_=/usr/bin/env
+/www/server/nvm/versions/node/v22.21.0/bin/node
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq state UP group default qlen 1000
+    link/ether bc:24:11:f0:77:c5 brd ff:ff:ff:ff:ff:ff
+    altname enp0s18
+    inet 154.36.164.243/24 brd 154.36.164.255 scope global ens18
+       valid_lft forever preferred_lft forever
+    inet6 fe80::be24:11ff:fef0:77c5/64 scope link 
+       valid_lft forever preferred_lft forever
+total 892K
+drwxr-xr-x 10 root root 4.0K Dec  7 11:33 .
+drwxr-xr-x  9 www  www  4.0K Dec  6 21:22 ..
+-rw-r--r--  1 root root  104 Nov  7 00:03 .element.env
+-rwxr-xr-x  1 root root  104 Aug 26 20:15 .env
+drwxr-xr-x  8 root root 4.0K Nov  8 20:43 .git
+-rw-r--r--  1 root root  496 Nov  7 00:03 .gitignore
+drwxr-xr-x  2 root root 4.0K Nov  7 00:03 .idx
+-rw-r--r--  1 root root    0 Nov  7 00:03 .modified
+-rw-r--r--  1 root root  114 Nov  7 00:03 README.md
+-rw-r--r--  1 root root  270 Nov  7 00:03 apphosting.yaml
+-rw-r--r--  1 root root  447 Nov  7 00:03 components.json
+drwxr-xr-x  6 root root 4.0K Dec  7 10:44 dist
+drwxr-xr-x  2 root root 4.0K Nov  7 00:03 docs
+-rw-r--r--  1 root root  468 Nov  8 19:16 ecosystem.config.js
+drwxr-xr-x  2 root root 4.0K Nov  7 00:03 lib
+drwxr-xr-x  2 root root 4.0K Nov  8 20:35 logs
+-rwxr-xr-x  1 root root    0 Aug 26 18:09 next
+-rwxr-xr-x  1 root root  211 Aug  5 22:15 next-env.d.ts
+-rw-r--r--  1 root root  661 Nov  7 00:04 next.config.ts
+drwxr-xr-x  9 root root 4.0K Aug  7 13:54 node_modules
+-rw-r--r--  1 root root 6.1K Dec  7 11:33 output
+-rw-r--r--  1 root root 428K Nov  7 00:03 package-lock.json
+-rw-r--r--  1 root root 2.2K Nov  7 00:03 package.json
+-rw-r--r--  1 root root 361K Nov  7 00:03 pnpm-lock.yaml
+-rw-r--r--  1 root root  135 Nov  7 00:03 postcss.config.mjs
+drwxr-xr-x  8 root root 4.0K Aug  5 22:08 src
+-rw-r--r--  1 root root 3.0K Nov  7 00:03 tailwind.config.ts
+-rw-r--r--  1 root root  696 Nov  7 00:03 tsconfig.json

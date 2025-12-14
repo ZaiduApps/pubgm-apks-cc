@@ -39,12 +39,13 @@ export const siteConfig = {
     },
     downloads: {
         googlePlay: {
-            url: 'https://play.google.com/store/apps/details?id=com.tencent.ig',
-            backgroundImage: 'https://cdn.apks.cc/blinko/1753972567787-1753972566208-google_apk_download.png',
-            srText: '在 Google Play 下载',
+            url: 'https://go.jujujuhaowan.com/detail/1050?inviteCode=B0000359',
+            backgroundImage: 'https://cdn.apks.cc/blinko/shop.png',
+            srText: '前往商城',
         },
         appStore: {
-            url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',  backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
+            url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',  
+            backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
             srText: '在 App Store 下载',
         },
         apk: {
@@ -91,7 +92,7 @@ export const siteConfig = {
             navLabel: '资讯',
             items: [
                 {
-                    slug: 'pubgm-4.1-apk',
+                    slug: 'pubgm-4.1-apk-downs',
                     title: '地铁逃生更新全新「极地动物城」 活动日历 线路图',
                     summary: '地铁新赛季活动日历',
                     content: `

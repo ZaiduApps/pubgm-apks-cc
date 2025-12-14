@@ -12,18 +12,19 @@ export function GameDownloadButtons() {
 
     return (
         <div className="flex flex-col sm:flex-row gap-4">
-            {downloads.googlePlay && (
-                <Button asChild size="lg" className="animated-border-btn !p-0 w-[180px] h-[52px] sm:w-[200px] sm:h-[58px] bg-cover bg-center hover:scale-105 transition-transform duration-300 border border-white/50" style={{backgroundImage: `url('${downloads.googlePlay.backgroundImage}')`}}>
-                    <Link href={downloads.googlePlay.url} target="_blank">
-                        <span className="sr-only">{downloads.googlePlay.srText}</span>
-                    </Link>
-                </Button>
-            )}
 
             {downloads.appStore && (
                 <Button asChild size="lg" className="animated-border-btn !p-0 w-[180px] h-[52px] sm:w-[200px] sm:h-[58px] bg-cover bg-center hover:scale-105 transition-transform duration-300 border border-white/50" style={{backgroundImage: `url('${downloads.appStore.backgroundImage}')`}}>
                     <Link href={downloads.appStore.url}>
                         <span className="sr-only">{downloads.appStore.srText}</span>
+                    </Link>
+                </Button>
+            )}
+
+            {downloads.googlePlay && (
+                <Button asChild size="lg" className="animated-border-btn !p-0 w-[180px] h-[52px] sm:w-[200px] sm:h-[58px] bg-cover bg-center hover:scale-105 transition-transform duration-300 border border-white/50" style={{backgroundImage: `url('${downloads.googlePlay.backgroundImage}')`}}>
+                    <Link href={downloads.googlePlay.url} target="_blank">
+                        <span className="sr-only">{downloads.googlePlay.srText}</span>
                     </Link>
                 </Button>
             )}

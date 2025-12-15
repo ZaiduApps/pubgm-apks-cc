@@ -1,0 +1,13 @@
+User-agent: *
+Disallow:
+
+User-agent: Googlebot
+Disallow:
+
+User-agent: Bingbot
+Disallow:
+
+User-agent: Baiduspider
+Disallow:
+
+Sitemap: https://pubgm.apks.cc/sitemap.xml

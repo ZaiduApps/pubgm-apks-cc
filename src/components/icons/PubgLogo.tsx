@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 export function PubgLogo() {
   return (
     <div className="flex items-center gap-3">
-      <Image 
+      <img 
         src={siteConfig.header.logo.url} 
         alt={siteConfig.header.logo.alt}
         width={40}

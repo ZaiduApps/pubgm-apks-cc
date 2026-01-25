@@ -26,7 +26,11 @@ export function Footer() {
                     {siteConfig.footer.feedback.email}
                 </a>
                 <FeedbackDialog />
+                <a href={`https://apks.cc/`} className="hover:text-primary transition-colors">
+                    🔥前往https://apks.cc获取更多精彩内容🔥
+                </a>
             </div>
+            
         </div>
       </div>
     </footer>

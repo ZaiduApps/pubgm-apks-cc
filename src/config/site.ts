@@ -56,7 +56,7 @@ export const siteConfig = {
                 title: '选择下载渠道',
                 description: '请选择您偏好的下载方式。',
                 panUrl: 'https://www.123pan.com/s/4H3LVv-gUpI',
-                officialUrl: 'https://f.gbcass.com/PUBGMOBILE_Global_4.2.0_uawebsite_livik01_271E08F1A.apk',
+                officialUrl: 'https://apks.cc/app/com.tencent.ig',
             }
         },
     },

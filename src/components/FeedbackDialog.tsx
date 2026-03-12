@@ -1,5 +1,4 @@
-
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -7,30 +6,22 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { siteConfig } from '@/config/site';
 import { submitFeedback } from '@/app/actions';
 import { Loader2 } from 'lucide-react';
 import { FeedbackInput, FeedbackInputSchema } from '@/lib/types';
-
 
 export function FeedbackDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +44,7 @@ export function FeedbackDialog() {
       if (result.success) {
         toast({
           title: '反馈已提交',
-          description: '感谢您的宝贵意见！',
+          description: '感谢你的宝贵意见。',
         });
         setIsOpen(false);
         form.reset();
@@ -64,17 +55,17 @@ export function FeedbackDialog() {
       toast({
         variant: 'destructive',
         title: '提交出错',
-        description: error instanceof Error ? error.message : '未能提交您的反馈，请稍后再试。',
+        description: error instanceof Error ? error.message : '未能提交反馈，请稍后再试。',
       });
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="link" className="p-0 h-auto text-xs text-muted-foreground hover:text-primary">
+        <Button variant="link" className="h-auto p-0 text-xs text-muted-foreground hover:text-primary">
           {siteConfig.footer.feedback.buttonText}
         </Button>
       </DialogTrigger>
@@ -92,7 +83,7 @@ export function FeedbackDialog() {
                 <FormItem>
                   <FormLabel>反馈标题</FormLabel>
                   <FormControl>
-                    <Input placeholder="例如：网站样式建议或内容错误" {...field} />
+                    <Input placeholder="例如：页面显示异常或内容建议" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,7 +96,7 @@ export function FeedbackDialog() {
                 <FormItem>
                   <FormLabel>详细内容</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="请详细描述您的问题或建议..." rows={5} {...field} />
+                    <Textarea placeholder="请详细描述你的问题或建议..." rows={5} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,21 +107,21 @@ export function FeedbackDialog() {
               name="contact"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>您的联系方式 (可选)</FormLabel>
+                  <FormLabel>联系方式（可选）</FormLabel>
                   <FormControl>
-                    <Input placeholder="邮箱或电话，方便我们与您联系" {...field} />
+                    <Input placeholder="邮箱或电话，方便我们联系你" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-                <DialogClose asChild>
-                    <Button type="button" variant="secondary">
-                        取消
-                    </Button>
-                </DialogClose>
-                <Button type="submit" disabled={isSubmitting}>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  取消
+                </Button>
+              </DialogClose>
+              <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 提交反馈
               </Button>

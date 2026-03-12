@@ -1,21 +1,20 @@
-
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+﻿'use client';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const mockComments = [
   {
     user: '职业玩家123',
     avatar: 'https://placehold.co/40x40.png?text=P',
-    comment: '很棒的攻略！关于使用新抓爬机制的技巧真的帮到我的队伍了。',
+    comment: '这篇攻略很实用，尤其是落点选择和转移路线部分。',
     date: '2小时前',
   },
   {
     user: '狙神女王',
     avatar: 'https://placehold.co/40x40.png?text=S',
-    comment: '对M416和Beryl的分析很到位。我还是坚持用Beryl，火力更猛。',
+    comment: 'M416 和 Beryl 的对比写得很清楚，适合新手参考。',
     date: '5小时前',
   },
 ];
@@ -35,11 +34,7 @@ export function CommentSection() {
             </Avatar>
             <div className="flex-1">
               <form>
-                <Textarea
-                  placeholder="加入讨论..."
-                  className="mb-2"
-                  rows={3}
-                />
+                <Textarea placeholder="加入讨论..." className="mb-2" rows={3} />
                 <Button type="submit">发表评论</Button>
               </form>
             </div>
@@ -67,5 +62,3 @@ export function CommentSection() {
     </Card>
   );
 }
-
-    

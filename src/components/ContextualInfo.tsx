@@ -1,5 +1,4 @@
-
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -33,9 +32,9 @@ export function ContextualInfo({ content }: ContextualInfoProps) {
   };
 
   return (
-    <Card className="mt-12 mb-8 bg-card/50 border-accent/30">
+    <Card className="mt-12 mb-8 border-accent/30 bg-card/50">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-        <CardTitle className="text-lg font-medium flex items-center">
+        <CardTitle className="flex items-center text-lg font-medium">
           <Bot className="mr-2 h-5 w-5 text-accent" />
           AI 智能提示
         </CardTitle>
@@ -52,28 +51,26 @@ export function ContextualInfo({ content }: ContextualInfoProps) {
       </CardHeader>
       <CardContent>
         {isLoading ? (
-            <p className="text-sm text-muted-foreground">AI 正在分析内容以提供战略技巧...</p>
+          <p className="text-sm text-muted-foreground">AI 正在分析内容并生成建议...</p>
         ) : error ? (
-            <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>错误</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-            </Alert>
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>错误</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         ) : suggestions.length > 0 ? (
-          <ul className="space-y-3 mt-2">
+          <ul className="mt-2 space-y-3">
             {suggestions.map((suggestion, index) => (
               <li key={index} className="flex items-start">
-                <Lightbulb className="h-5 w-5 mr-3 mt-1 text-accent shrink-0" />
+                <Lightbulb className="mr-3 mt-1 h-5 w-5 shrink-0 text-accent" />
                 <span className="text-muted-foreground">{suggestion}</span>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-sm text-muted-foreground">点击“获取技巧”以接收基于本文的 AI 策略和分析。</p>
+          <p className="text-sm text-muted-foreground">点击“获取技巧”以接收基于本文的 AI 策略建议。</p>
         )}
       </CardContent>
     </Card>
   );
 }
-
-    

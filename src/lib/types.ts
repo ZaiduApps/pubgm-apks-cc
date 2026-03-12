@@ -1,4 +1,4 @@
-import { z } from 'zod';
+﻿import { z } from 'zod';
 
 export const FeedbackInputSchema = z.object({
   title: z.string().min(1, '反馈标题不能为空').max(100, '标题不能超过100个字符'),

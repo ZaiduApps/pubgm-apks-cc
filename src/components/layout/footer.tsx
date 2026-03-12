@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import { PubgLogo } from '@/components/icons/PubgLogo';
 import { siteConfig } from '@/config/site';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
@@ -8,29 +8,28 @@ export function Footer() {
     <footer className="border-t border-border/40 py-8">
       <div className="px-4 md:px-6">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="flex flex-col items-center gap-4 md:items-start">
+          <div className="flex flex-col items-center gap-4 md:items-start">
             <Link href="/">
-                <PubgLogo />
+              <PubgLogo />
             </Link>
-            <p className="text-sm text-muted-foreground text-center md:text-left max-w-xs">
-                {siteConfig.footer.description}
+            <p className="max-w-xs text-center text-sm text-muted-foreground md:text-left">
+              {siteConfig.footer.description}
             </p>
-            </div>
+          </div>
         </div>
-        <div className="mt-6 text-center text-xs text-muted-foreground space-y-2">
-            <div>
-                {siteConfig.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
-            </div>
-            <div className="flex justify-center items-center gap-4">
-                <a href={`mailto:${siteConfig.footer.feedback.email}`} className="hover:text-primary transition-colors">
-                    {siteConfig.footer.feedback.email}
-                </a>
-                <FeedbackDialog />
-                <a href={`https://apks.cc/`} className="hover:text-primary transition-colors">
-                    🔥前往https://apks.cc获取更多精彩内容🔥
-                </a>
-            </div>
-            
+        <div className="mt-6 space-y-2 text-center text-xs text-muted-foreground">
+          <div>
+            {siteConfig.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <a href={`mailto:${siteConfig.footer.feedback.email}`} className="transition-colors hover:text-primary">
+              {siteConfig.footer.feedback.email}
+            </a>
+            <FeedbackDialog />
+            <a href="https://apks.cc/" className="transition-colors hover:text-primary">
+              前往 apks.cc 获取更多内容
+            </a>
+          </div>
         </div>
       </div>
     </footer>

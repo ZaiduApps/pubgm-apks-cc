@@ -1,5 +1,4 @@
-
-import { getArticleBySlug, siteConfig } from '@/config/site';
+﻿import { getArticleBySlug, siteConfig } from '@/config/site';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { MarkdownContent } from '@/components/MarkdownContent';
@@ -8,11 +7,12 @@ import { CommentSection } from '@/components/CommentSection';
 import type { Metadata } from 'next';
 
 type Props = {
-  params: { slug: string }
-}
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug);
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     return {
@@ -31,42 +31,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
   }
 
+  const authorText = 'author' in article && article.author ? ` by ${article.author}` : '';
+
   return (
-    <article className="container mx-auto px-4 md:px-6 py-8 md:py-12">
-      <div className="max-w-4xl mx-auto">
+    <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+      <div className="mx-auto max-w-4xl">
         <header className="mb-8">
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
-            <Image
-              src={article.imageUrl}
-              alt={article.title}
-              fill
-              className="object-cover"
-              priority
-            />
+          <div className="relative mb-6 aspect-video w-full overflow-hidden rounded-lg">
+            <Image src={article.imageUrl} alt={article.title} fill className="object-cover" priority />
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-tight mb-3">
+          <h1 className="mb-3 text-3xl font-bold leading-tight tracking-tighter sm:text-4xl md:text-5xl">
             {article.title}
           </h1>
-          <p className="text-muted-foreground text-sm">
-            发布于 {article.date} {article.author && ` by ${article.author}`}
+          <p className="text-sm text-muted-foreground">
+            发布于 {article.date}
+            {authorText}
           </p>
         </header>
 
         <MarkdownContent content={article.content} />
-        
         <ContextualInfo content={article.content} />
-
         <CommentSection />
       </div>
     </article>
   );
 }
-
-    

@@ -1,5 +1,4 @@
-
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PubgLogo } from '@/components/icons/PubgLogo';
@@ -26,27 +25,29 @@ export function Header() {
   const navLinks = [
     { href: '#home', label: '首页', sectionId: 'home' },
     ...siteConfig.sections
-      .filter(section => section.enabled !== false)
-      .map(section => ({
+      .filter((section) => section.enabled !== false)
+      .map((section) => ({
         href: `#${section.id}`,
         label: section.navLabel,
         sectionId: section.id,
       })),
-    ...(siteConfig.video.enabled ? [{ href: `#${siteConfig.video.id}`, label: siteConfig.video.navLabel, sectionId: siteConfig.video.id }] : []),
+    ...(siteConfig.video.enabled
+      ? [{ href: `#${siteConfig.video.id}`, label: siteConfig.video.navLabel, sectionId: siteConfig.video.id }]
+      : []),
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const sectionsToObserve = navLinks
-        .map(link => document.getElementById(link.sectionId))
+        .map((link) => document.getElementById(link.sectionId))
         .filter(Boolean);
 
       let currentSection = 'home';
 
-      sectionsToObserve.forEach(section => {
+      sectionsToObserve.forEach((section) => {
         if (section) {
           const sectionTop = section.offsetTop;
-          if (window.scrollY >= sectionTop - 100) { // 100px offset
+          if (window.scrollY >= sectionTop - 100) {
             currentSection = section.id;
           }
         }
@@ -56,7 +57,7 @@ export function Header() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Set initial active section
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -67,29 +68,25 @@ export function Header() {
     e.preventDefault();
     const targetId = href.substring(1);
 
-    // If we're on a different page, navigate to the homepage with the hash
     if (window.location.pathname !== '/') {
       window.location.href = `/${href}`;
       return;
     }
 
-    // If we're already on the homepage, scroll to the section
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
-      // Adjust scroll position to account for sticky header
-      const headerOffset = 80; // height of header + some margin
+      const headerOffset = 80;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: 'smooth',
       });
 
-      // Manually set active section for instant feedback on click
       setActiveSection(targetId);
     }
-    setIsSheetOpen(false); // Close sheet on link click
+    setIsSheetOpen(false);
   };
 
   return (
@@ -112,7 +109,7 @@ export function Header() {
                       <PubgLogo />
                     </Link>
                   </SheetHeader>
-                  <nav className="flex flex-col space-y-4 mt-6">
+                  <nav className="mt-6 flex flex-col space-y-4">
                     {navLinks.map(({ href, label, sectionId }) => {
                       const Icon = navIcons[sectionId];
                       return (
@@ -121,14 +118,14 @@ export function Header() {
                           href={href}
                           onClick={(e) => handleLinkClick(e, href)}
                           className={cn(
-                            "flex items-center space-x-2 text-lg font-medium hover:text-foreground",
+                            'flex items-center space-x-2 text-lg font-medium hover:text-foreground',
                             activeSection === sectionId ? 'text-foreground' : 'text-foreground/60'
                           )}
                         >
                           {Icon && <Icon className="h-5 w-5" />}
                           <span>{label}</span>
                         </a>
-                      )
+                      );
                     })}
                   </nav>
                 </SheetContent>
@@ -137,17 +134,15 @@ export function Header() {
             <Link href="/" className="flex items-center space-x-2">
               <PubgLogo />
             </Link>
-            <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
               {navLinks.map(({ href, label, sectionId }) => (
                 <a
                   key={label}
                   href={href}
                   onClick={(e) => handleLinkClick(e, href)}
                   className={cn(
-                    "relative transition-colors hover:text-foreground/80 nav-link",
-                    activeSection === sectionId
-                      ? 'text-foreground nav-link-active'
-                      : 'text-foreground/60'
+                    'nav-link relative transition-colors hover:text-foreground/80',
+                    activeSection === sectionId ? 'nav-link-active text-foreground' : 'text-foreground/60'
                   )}
                 >
                   {label}
@@ -157,22 +152,17 @@ export function Header() {
           </div>
 
           <div className="flex items-center">
-            <Button
-              asChild
-              className="animated-border-btn
-                          w-[106px] 
-                          md:w-auto"
-            >
+            <Button asChild className="animated-border-btn w-[106px] md:w-auto">
               <a
                 href="https://go.jujujuhaowan.com/?inviteCode=B0000359"
                 target="_blank"
-                rel="地铁逃生新赛季充值"
+                rel="noopener noreferrer"
               >
                 🎁 官网优惠购买
               </a>
             </Button>
 
-            <span className="hidden md:inline mx-2">or</span>
+            <span className="mx-2 hidden md:inline">or</span>
 
             <Button
               onClick={() => setIsApkDialogOpen(true)}
@@ -187,4 +177,3 @@ export function Header() {
     </>
   );
 }
-

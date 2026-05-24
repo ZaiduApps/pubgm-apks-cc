@@ -1,10 +1,10 @@
-﻿import { getArticleBySlug, siteConfig } from '@/config/site';
-import { notFound } from 'next/navigation';
+﻿import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { MarkdownContent } from '@/components/MarkdownContent';
 import { ContextualInfo } from '@/components/ContextualInfo';
 import { CommentSection } from '@/components/CommentSection';
 import type { Metadata } from 'next';
+import { getArticleBySlugFromConfig, getSiteConfig } from '@/lib/site-config';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -12,11 +12,12 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const config = await getSiteConfig();
+  const article = getArticleBySlugFromConfig(config, slug);
 
   if (!article) {
     return {
-      title: `文章未找到 - ${siteConfig.name}`,
+      title: `文章未找到 - ${config.name}`,
     };
   }
 
@@ -33,7 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const config = await getSiteConfig();
+  const article = getArticleBySlugFromConfig(config, slug);
 
   if (!article) {
     notFound();

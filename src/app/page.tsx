@@ -4,19 +4,19 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { GameDownloadButtons } from '@/components/GameDownloadButtons';
 import { ArrowRight } from 'lucide-react';
-import { siteConfig } from '@/config/site';
-import type { Article } from '@/config/site';
 import { CommunitySquare } from '@/components/CommunitySquare';
+import { getSiteConfig, type SiteArticle } from '@/lib/site-config';
 
-export default function Home() {
-  const keywords = siteConfig.seo.keywords;
+export default async function Home() {
+  const config = await getSiteConfig();
+  const keywords = config.seo.keywords;
 
   return (
     <div className="flex flex-col gap-12 pb-16 md:gap-16">
       <section id="home" className="relative flex aspect-video w-full items-center justify-center text-center text-white">
         <Image
-          src={siteConfig.hero.backgroundImage}
-          alt={`${siteConfig.name} 下载`}
+          src={config.hero.backgroundImage}
+          alt={`${config.name} 下载`}
           data-ai-hint="battle royale action"
           fill
           sizes="100vw"
@@ -30,19 +30,19 @@ export default function Home() {
         <div className="container z-10 px-4 md:px-6">
           <div className="mx-auto flex max-w-3xl flex-col items-center pb-8 pt-24 sm:pt-32">
             <h1 className="mb-4 text-4xl font-bold tracking-tighter text-shadow-lg animate-fade-in-down sm:text-5xl md:text-6xl lg:text-7xl">
-              {siteConfig.hero.title}
+              {config.hero.title}
             </h1>
             <p className="mb-8 max-w-2xl text-base text-foreground/80 animate-fade-in-up [animation-delay:0.2s] sm:text-lg md:text-xl">
-              {siteConfig.hero.description}
+              {config.hero.description}
             </p>
             <div id="download" className="animate-fade-in-up [animation-delay:0.4s]">
-              <GameDownloadButtons />
+              <GameDownloadButtons downloads={config.downloads} />
             </div>
           </div>
         </div>
       </section>
 
-      {siteConfig.sections.map((section) => {
+      {config.sections.map((section) => {
         if (section.enabled === false) return null;
         if (section.id !== 'community' && (!section.items || section.items.length === 0)) {
           return null;
@@ -58,7 +58,7 @@ export default function Home() {
 
                 {section.id === 'articles' ? (
                   <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                    {(section.items as Article[]).map((article) => (
+                    {(section.items as SiteArticle[]).map((article) => (
                       <Card
                         key={article.slug}
                         className="group flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg"
@@ -96,7 +96,7 @@ export default function Home() {
                   </div>
                 ) : section.id === 'updates' ? (
                   <div className="flex flex-col gap-8">
-                    {(section.items as Article[]).slice(0, 4).map((item) => (
+                    {(section.items as SiteArticle[]).slice(0, 4).map((item) => (
                       <Link key={item.slug} href={`/articles/${item.slug}`} className="group">
                         <Card className="flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:flex-row">
                           <div className="relative aspect-[1312/600] w-full shrink-0 overflow-hidden md:w-1/3">
@@ -128,14 +128,14 @@ export default function Home() {
         );
       })}
 
-      {siteConfig.video.enabled && (
-        <section id={siteConfig.video.id} className="container mx-auto scroll-mt-20 px-4 md:px-6">
-          <h2 className="mb-8 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{siteConfig.video.title}</h2>
+      {config.video.enabled && (
+        <section id={config.video.id} className="container mx-auto scroll-mt-20 px-4 md:px-6">
+          <h2 className="mb-8 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{config.video.title}</h2>
           <div className="aspect-video">
             <iframe
               className="h-full w-full rounded-lg shadow-lg"
-              src={`${siteConfig.video.url}?muted=1`}
-              title={siteConfig.video.playerTitle}
+              src={`${config.video.url}?muted=1`}
+              title={config.video.playerTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />

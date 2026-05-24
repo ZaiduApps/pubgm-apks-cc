@@ -4,21 +4,23 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
-import { siteConfig } from '@/config/site';
+import { getSiteConfig } from '@/lib/site-config';
 
 // Use generateMetadata for robust server-side head tag generation
 export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+
   return {
     title: {
-      default: `${siteConfig.name} - ${siteConfig.seo.title}`,
-      template: `%s - ${siteConfig.name}`,
+      default: `${config.name} - ${config.seo.title}`,
+      template: `%s - ${config.name}`,
     },
-    description: siteConfig.seo.description,
-    keywords: siteConfig.seo.keywords,
+    description: config.seo.description,
+    keywords: config.seo.keywords,
     openGraph: {
-      title: `${siteConfig.name} - ${siteConfig.seo.title}`,
-      description: siteConfig.seo.description,
-      images: [siteConfig.seo.ogImage],
+      title: `${config.name} - ${config.seo.title}`,
+      description: config.seo.description,
+      images: [config.seo.ogImage],
     },
   };
 }
@@ -28,6 +30,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  return <RootLayoutInner>{children}</RootLayoutInner>;
+}
+
+async function RootLayoutInner({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const config = await getSiteConfig();
+
   return (
     <html lang="zh-Hans" className="dark">
       <head>
@@ -38,19 +50,19 @@ export default function RootLayout({
           The <noscript> tag is a trick to allow dangerouslySetInnerHTML
           in the head without causing React hydration errors.
         */}
-        {siteConfig.analytics.customHeadHtml && (
+        {config.analytics.customHeadHtml && (
           <noscript
             dangerouslySetInnerHTML={{
-              __html: `</noscript>${siteConfig.analytics.customHeadHtml}<noscript>`,
+              __html: `</noscript>${config.analytics.customHeadHtml}<noscript>`,
             }}
           />
         )}
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <div className="flex flex-col min-h-screen">
-          <Header />
+          <Header config={config} />
           <main className="flex-grow">{children}</main>
-          <Footer />
+          <Footer config={config} />
         </div>
         <Toaster />
       </body>

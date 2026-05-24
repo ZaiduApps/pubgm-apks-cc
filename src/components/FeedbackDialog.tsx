@@ -18,12 +18,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { siteConfig } from '@/config/site';
 import { submitFeedback } from '@/app/actions';
 import { Loader2 } from 'lucide-react';
 import { FeedbackInput, FeedbackInputSchema } from '@/lib/types';
 
-export function FeedbackDialog() {
+type FeedbackDialogProps = {
+  feedback: {
+    buttonText?: string;
+    dialogDescription?: string;
+    dialogTitle?: string;
+  };
+};
+
+export function FeedbackDialog({ feedback }: FeedbackDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -66,13 +73,15 @@ export function FeedbackDialog() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="link" className="h-auto p-0 text-xs text-muted-foreground hover:text-primary">
-          {siteConfig.footer.feedback.buttonText}
+          {feedback.buttonText || '反馈建议'}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
-          <DialogTitle>{siteConfig.footer.feedback.dialogTitle}</DialogTitle>
-          <DialogDescription>{siteConfig.footer.feedback.dialogDescription}</DialogDescription>
+          <DialogTitle>{feedback.dialogTitle || '提交你的反馈'}</DialogTitle>
+          <DialogDescription>
+            {feedback.dialogDescription || '我们非常重视你的意见，请填写以下信息。'}
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">

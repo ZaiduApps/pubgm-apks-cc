@@ -1,31 +1,56 @@
 ﻿import Link from 'next/link';
 import { PubgLogo } from '@/components/icons/PubgLogo';
-import { siteConfig } from '@/config/site';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
 
-export function Footer() {
+type FooterProps = {
+  config: {
+    footer: {
+      copyright: string;
+      description: string;
+      feedback: {
+        buttonText: string;
+        dialogDescription: string;
+        dialogTitle: string;
+        email: string;
+      };
+    };
+    header: {
+      logo: {
+        alt: string;
+        url: string;
+      };
+    };
+    name: string;
+  };
+};
+
+export function Footer({ config }: FooterProps) {
   return (
     <footer className="border-t border-border/40 py-8">
       <div className="px-4 md:px-6">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex flex-col items-center gap-4 md:items-start">
             <Link href="/">
-              <PubgLogo />
+              <PubgLogo
+                logoAlt={config.header.logo.alt}
+                logoUrl={config.header.logo.url}
+                siteName={config.name}
+              />
             </Link>
             <p className="max-w-xs text-center text-sm text-muted-foreground md:text-left">
-              {siteConfig.footer.description}
+              {config.footer.description}
             </p>
           </div>
         </div>
         <div className="mt-6 space-y-2 text-center text-xs text-muted-foreground">
           <div>
-            {siteConfig.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
+            {config.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
           </div>
           <div className="flex items-center justify-center gap-4">
-            <a href={`mailto:${siteConfig.footer.feedback.email}`} className="transition-colors hover:text-primary">
-              {siteConfig.footer.feedback.email}
+            <a href={`mailto:${config.footer.feedback.email}`} className="transition-colors hover:text-primary">
+              {config.footer.feedback.email}
             </a>
-            <FeedbackDialog />
+            <FeedbackDialog feedback={config.footer.feedback} />
             <a href="https://apks.cc/" className="transition-colors hover:text-primary">
               前往 apks.cc 获取更多内容
             </a>

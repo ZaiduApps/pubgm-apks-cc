@@ -207,6 +207,17 @@ export const siteConfig = {
       dialogDescription: '我们非常重视你的意见，请填写以下信息。',
     },
   },
+  advertisement: {
+    header: {
+      enabled: true,
+      text: '🎁 官网优惠购买',
+      url: 'https://go.jujujuhaowan.com/?inviteCode=B0000359',
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      secondaryText: 'or',
+      downloadButtonText: '游戏下载',
+    },
+  },
   sections: [
     {
       id: 'community',

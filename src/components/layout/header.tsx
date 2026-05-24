@@ -6,8 +6,50 @@ import { Button } from '@/components/ui/button';
 import { Gamepad2, Menu, MessageSquare, Newspaper, Rss, Video } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
-import { siteConfig } from '@/config/site';
 import { ApkDownloadDialog } from '../ApkDownloadDialog';
+
+type HeaderProps = {
+  config: {
+    advertisement: {
+      header: {
+        downloadButtonText: string;
+        enabled: boolean;
+        rel: string;
+        secondaryText: string;
+        target: string;
+        text: string;
+        url: string;
+      };
+    };
+    downloads: {
+      apk: {
+        dialog: {
+          description: string;
+          officialUrl: string;
+          panUrl: string;
+          title: string;
+        };
+      };
+    };
+    header: {
+      logo: {
+        alt: string;
+        url: string;
+      };
+    };
+    name: string;
+    sections: Array<{
+      enabled?: boolean;
+      id: string;
+      navLabel: string;
+    }>;
+    video: {
+      enabled: boolean;
+      id: string;
+      navLabel: string;
+    };
+  };
+};
 
 const navIcons: { [key: string]: React.ElementType } = {
   home: Gamepad2,
@@ -17,22 +59,23 @@ const navIcons: { [key: string]: React.ElementType } = {
   video: Video,
 };
 
-export function Header() {
+export function Header({ config }: HeaderProps) {
   const [activeSection, setActiveSection] = useState('home');
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isApkDialogOpen, setIsApkDialogOpen] = useState(false);
+  const headerAd = config.advertisement.header;
 
   const navLinks = [
     { href: '#home', label: '首页', sectionId: 'home' },
-    ...siteConfig.sections
+    ...config.sections
       .filter((section) => section.enabled !== false)
       .map((section) => ({
         href: `#${section.id}`,
         label: section.navLabel,
         sectionId: section.id,
       })),
-    ...(siteConfig.video.enabled
-      ? [{ href: `#${siteConfig.video.id}`, label: siteConfig.video.navLabel, sectionId: siteConfig.video.id }]
+    ...(config.video.enabled
+      ? [{ href: `#${config.video.id}`, label: config.video.navLabel, sectionId: config.video.id }]
       : []),
   ];
 
@@ -106,7 +149,11 @@ export function Header() {
                   <SheetHeader>
                     <SheetTitle className="sr-only">主菜单</SheetTitle>
                     <Link href="/" className="flex items-center space-x-2">
-                      <PubgLogo />
+                      <PubgLogo
+                        logoAlt={config.header.logo.alt}
+                        logoUrl={config.header.logo.url}
+                        siteName={config.name}
+                      />
                     </Link>
                   </SheetHeader>
                   <nav className="mt-6 flex flex-col space-y-4">
@@ -132,7 +179,11 @@ export function Header() {
               </Sheet>
             </div>
             <Link href="/" className="flex items-center space-x-2">
-              <PubgLogo />
+              <PubgLogo
+                logoAlt={config.header.logo.alt}
+                logoUrl={config.header.logo.url}
+                siteName={config.name}
+              />
             </Link>
             <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
               {navLinks.map(({ href, label, sectionId }) => (
@@ -152,28 +203,32 @@ export function Header() {
           </div>
 
           <div className="flex items-center">
-            <Button asChild className="animated-border-btn w-[106px] md:w-auto">
-              <a
-                href="https://go.jujujuhaowan.com/?inviteCode=B0000359"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                🎁 官网优惠购买
-              </a>
-            </Button>
+            {headerAd.enabled && headerAd.url ? (
+              <>
+                <Button asChild className="animated-border-btn w-[106px] md:w-auto">
+                  <a href={headerAd.url} target={headerAd.target} rel={headerAd.rel}>
+                    {headerAd.text}
+                  </a>
+                </Button>
 
-            <span className="mx-2 hidden md:inline">or</span>
+                <span className="mx-2 hidden md:inline">{headerAd.secondaryText}</span>
+              </>
+            ) : null}
 
             <Button
               onClick={() => setIsApkDialogOpen(true)}
               className="animated-border-btn hidden md:inline-flex"
             >
-              游戏下载
+              {headerAd.downloadButtonText}
             </Button>
           </div>
         </div>
       </header>
-      <ApkDownloadDialog open={isApkDialogOpen} onOpenChange={setIsApkDialogOpen} />
+      <ApkDownloadDialog
+        dialog={config.downloads.apk.dialog}
+        open={isApkDialogOpen}
+        onOpenChange={setIsApkDialogOpen}
+      />
     </>
   );
 }

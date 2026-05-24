@@ -1,0 +1,66 @@
+
+> nextn@0.1.0 dev G:\pubgm-apks-cc
+> next dev
+
+   ▲ Next.js 15.5.7
+   - Local:        http://localhost:3000
+   - Network:      http://198.18.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 13.3s (1083 modules)
+ ✓ Compiled in 1733ms (380 modules)
+ GET / 200 in 15117ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 589ms (720 modules)
+ GET /favicon.ico 200 in 872ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 697ms (1091 modules)
+ GET /community 404 in 1327ms
+ GET /favicon.ico 200 in 44ms
+ GET /health 404 in 141ms
+ GET / 200 in 353ms
+ GET /favicon.ico 200 in 68ms
+ GET / 200 in 184ms
+ GET /favicon.ico 200 in 20ms
+ GET / 200 in 165ms
+ GET /favicon.ico 200 in 15ms
+ GET / 200 in 183ms
+ GET /favicon.ico 200 in 14ms
+ GET / 200 in 214ms
+ GET /favicon.ico 200 in 20ms
+ GET / 200 in 188ms
+ GET /favicon.ico 200 in 16ms
+ GET / 200 in 213ms
+ GET /favicon.ico 200 in 18ms
+ GET / 200 in 164ms
+ GET /favicon.ico 200 in 18ms
+ GET / 200 in 202ms
+ GET /favicon.ico 200 in 19ms
+   Reload env: .env.local
+ ✓ Compiled in 1227ms (1083 modules)
+[site-config] remote payload applied for key: pubgm
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 2268ms
+ GET / 200 in 2265ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 2093ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 233ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 970ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 933ms (720 modules)
+ GET /favicon.ico 200 in 1281ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 1716ms
+ GET /favicon.ico 200 in 27ms
+ GET / 500 in 186ms
+ GET /favicon.ico 200 in 56ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 1103ms
+ GET /favicon.ico 200 in 21ms
+[site-config] remote payload applied for key: pubgm
+ GET / 200 in 419ms
+ GET /favicon.ico 200 in 20ms

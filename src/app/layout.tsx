@@ -39,6 +39,7 @@ async function RootLayoutInner({
   children: React.ReactNode;
 }>) {
   const config = await getSiteConfig();
+  const shouldInjectCustomHeadHtml = process.env.NODE_ENV === 'production';
 
   return (
     <html lang="zh-Hans" className="dark">
@@ -50,8 +51,9 @@ async function RootLayoutInner({
           The <noscript> tag is a trick to allow dangerouslySetInnerHTML
           in the head without causing React hydration errors.
         */}
-        {config.analytics.customHeadHtml && (
+        {shouldInjectCustomHeadHtml && config.analytics.customHeadHtml && (
           <noscript
+            suppressHydrationWarning
             dangerouslySetInnerHTML={{
               __html: `</noscript>${config.analytics.customHeadHtml}<noscript>`,
             }}

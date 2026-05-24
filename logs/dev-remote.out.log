@@ -1,0 +1,24 @@
+
+> nextn@0.1.0 dev G:\pubgm-apks-cc
+> next dev
+
+   ▲ Next.js 15.5.7
+   - Local:        http://localhost:3004
+   - Network:      http://198.18.0.1:3004
+
+ ✓ Starting...
+ ✓ Ready in 3.3s
+ ○ Compiling / ...
+ GET / 200 in 8985ms
+ GET / 200 in 417ms
+ GET /favicon.ico 200 in 1265ms
+ GET / 200 in 644ms
+ GET / 200 in 990ms
+ GET /favicon.ico 200 in 34ms
+ GET / 200 in 494ms
+ GET / 200 in 314ms
+ GET / 200 in 357ms
+ GET /favicon.ico 200 in 692ms
+ GET / 200 in 412ms
+ GET /favicon.ico 200 in 19ms
+[?25h

@@ -1,0 +1,260 @@
+ ⚠ Port 3000 is in use by process 25172, using available port 3004 instead.
+
+[1m[33mwarn[39m[22m - As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.
+[1m[33mwarn[39m[22m - Remove it from the `plugins` array in your configuration to eliminate this warning.
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+ ⚠ ./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/view.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/lib/express.js
+./node_modules/.pnpm/express@4.22.1/node_modules/express/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/reflection.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/index.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentat_13388d903aa62870f95b5e615361e981/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/.pnpm/@opentelemetry+sdk-node@0.52.1_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/.pnpm/@genkit-ai+core@1.25.0_@goo_ff6e5e27a2fd98aaffcfc34dd9c787dc/node_modules/@genkit-ai/core/lib/node.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/common.js
+./node_modules/.pnpm/genkit@1.25.0_@google-cloud_afaabc5a8e7d3785e88eff9c329587a1/node_modules/genkit/lib/index.mjs
+./src/ai/flows/contextual-information-tool.ts
+./src/app/actions.ts

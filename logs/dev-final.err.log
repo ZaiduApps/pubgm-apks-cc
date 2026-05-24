@@ -1,0 +1,26 @@
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[site-config] remote request exception: http://127.0.0.1:9527/site/landing-config?key=pubgm
+ ⨯ Error: [site-config] remote config is required but unavailable for key: pubgm
+    at eval (src\lib\site-config.ts:267:11)
+  265 |   const remote = await fetchRemoteSiteConfig();
+  266 |   if (shouldUseRemoteConfig() && DISABLE_LOCAL_FALLBACK && !remote) {
+> 267 |     throw new Error(
+      |           ^
+  268 |       `[site-config] remote config is required but unavailable for key: ${DEFAULT_SITE_KEY}`,
+  269 |     );
+  270 |   } {
+  digest: '3114311842'
+}
+ ⨯ Error: [site-config] remote config is required but unavailable for key: pubgm
+    at eval (src\lib\site-config.ts:267:11)
+  265 |   const remote = await fetchRemoteSiteConfig();
+  266 |   if (shouldUseRemoteConfig() && DISABLE_LOCAL_FALLBACK && !remote) {
+> 267 |     throw new Error(
+      |           ^
+  268 |       `[site-config] remote config is required but unavailable for key: ${DEFAULT_SITE_KEY}`,
+  269 |     );
+  270 |   } {
+  digest: '3114311842'
+}
+[site-config] remote request exception: http://127.0.0.1:9527/site/landing-config?key=pubgm

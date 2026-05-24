@@ -1,0 +1,14 @@
+
+> nextn@0.1.0 dev G:\pubgm-apks-cc
+> next dev
+
+   ▲ Next.js 15.5.7
+   - Local:        http://localhost:3003
+   - Network:      http://198.18.0.1:3003
+
+ ✓ Starting...
+ ✓ Ready in 3.9s
+ ○ Compiling / ...
+ GET / 200 in 14920ms
+ ✓ Compiled / in 68ms
+[?25h

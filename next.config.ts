@@ -1,8 +1,16 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   distDir: 'dist',
+  serverExternalPackages: [
+    'genkit',
+    '@genkit-ai/googleai',
+    '@genkit-ai/core',
+    'express',
+    'require-in-the-middle',
+    '@opentelemetry/sdk-node',
+    '@opentelemetry/instrumentation',
+  ],
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -31,6 +39,25 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      {
+        message: /@tailwindcss\/line-clamp plugin is now included by default/i,
+      },
+      {
+        module: /express[\\/]lib[\\/]view\.js/,
+        message: /Critical dependency: the request of a dependency is an expression/i,
+      },
+      {
+        module: /require-in-the-middle[\\/]index\.js/,
+        message:
+          /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/i,
+      },
+    ];
+
+    return config;
   },
 };
 

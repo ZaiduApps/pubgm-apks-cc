@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
 import { getSiteConfig } from '@/lib/site-config';
 
-// Use generateMetadata for robust server-side head tag generation
+// 使用 generateMetadata 生成稳定的服务端 SEO 标签
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getSiteConfig();
 
@@ -39,19 +39,17 @@ async function RootLayoutInner({
   children: React.ReactNode;
 }>) {
   const config = await getSiteConfig();
-  const shouldInjectCustomHeadHtml = process.env.NODE_ENV === 'production';
+  const shouldInjectCustomHeadHtml = Boolean(config.analytics.customHeadHtml);
 
   return (
     <html lang="zh-Hans" className="dark">
       <head>
         {/* 
-          The <head> tag is mostly managed by Next.js via the Metadata API.
-          We are injecting custom HTML here for analytics and other scripts
-          that need to be present in the initial server-rendered HTML.
-          The <noscript> tag is a trick to allow dangerouslySetInnerHTML
-          in the head without causing React hydration errors.
+          <head> 主要由 Next.js Metadata API 管理。
+          这里注入统计和搜索引擎验证 HTML，方便本地与线上做 SEO 对比。
+          <noscript> 包裹用于在 head 中安全插入原始 HTML。
         */}
-        {shouldInjectCustomHeadHtml && config.analytics.customHeadHtml && (
+        {shouldInjectCustomHeadHtml && (
           <noscript
             suppressHydrationWarning
             dangerouslySetInnerHTML={{

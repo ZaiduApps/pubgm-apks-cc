@@ -28,6 +28,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const USE_REMOTE_IN_DEV = process.env.SITE_CONFIG_USE_REMOTE_IN_DEV === 'true';
 const DEBUG_REMOTE = process.env.SITE_CONFIG_DEBUG === 'true';
 const DISABLE_LOCAL_FALLBACK = process.env.SITE_CONFIG_DISABLE_LOCAL_FALLBACK === 'true';
+let hasLoggedRemoteRuntime = false;
 
 function shouldUseRemoteConfig() {
   if (!API_BASE) {
@@ -39,6 +40,26 @@ function shouldUseRemoteConfig() {
   }
 
   return USE_REMOTE_IN_DEV;
+}
+
+function getRemoteRequestUrl() {
+  if (!API_BASE) {
+    return '';
+  }
+
+  const baseUrl = API_BASE.replace(/\/$/, '');
+  return `${baseUrl}/site/landing-config?key=${encodeURIComponent(DEFAULT_SITE_KEY)}`;
+}
+
+function logRemoteRuntime() {
+  if (!DEBUG_REMOTE || hasLoggedRemoteRuntime) {
+    return;
+  }
+
+  hasLoggedRemoteRuntime = true;
+  console.info(
+    `[site-config] runtime: env=${process.env.NODE_ENV || 'development'} remote=${shouldUseRemoteConfig()} apiBase=${API_BASE || '(empty)'} requestUrl=${getRemoteRequestUrl() || '(disabled)'} localFallback=${DISABLE_LOCAL_FALLBACK ? 'disabled' : 'enabled'} siteKey=${DEFAULT_SITE_KEY}`,
+  );
 }
 
 function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): SiteConfigShape {
@@ -211,12 +232,16 @@ function toSitePayload(payload: unknown): Partial<SiteConfigShape> | null {
 }
 
 async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
+  logRemoteRuntime();
+
   if (!shouldUseRemoteConfig()) {
+    if (DEBUG_REMOTE) {
+      console.info('[site-config] remote config disabled, using local config');
+    }
     return null;
   }
 
-  const baseUrl = API_BASE.replace(/\/$/, '');
-  const url = `${baseUrl}/site/landing-config?key=${encodeURIComponent(DEFAULT_SITE_KEY)}`;
+  const url = getRemoteRequestUrl();
 
   try {
     const response = await fetch(url, {
@@ -224,7 +249,12 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
     });
     if (!response.ok) {
       if (DEBUG_REMOTE) {
-        console.warn('[site-config] remote request failed:', response.status, url);
+        console.warn(
+          '[site-config] remote request failed:',
+          response.status,
+          url,
+          `localFallback=${DISABLE_LOCAL_FALLBACK ? 'disabled' : 'enabled'}`,
+        );
       }
       return null;
     }
@@ -234,7 +264,11 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
       const envelope = json as ApiEnvelope;
       if (envelope.code !== 0) {
         if (DEBUG_REMOTE) {
-          console.warn('[site-config] remote envelope code is not 0:', envelope.code);
+          console.warn(
+            '[site-config] remote envelope code is not 0:',
+            envelope.code,
+            `localFallback=${DISABLE_LOCAL_FALLBACK ? 'disabled' : 'enabled'}`,
+          );
         }
         return null;
       }
@@ -253,9 +287,13 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
       console.info('[site-config] remote payload applied for key:', DEFAULT_SITE_KEY);
     }
     return normalizeConfig(transformedPayload);
-  } catch {
+  } catch (error) {
     if (DEBUG_REMOTE) {
-      console.warn('[site-config] remote request exception:', url);
+      console.warn(
+        '[site-config] remote request exception:',
+        url,
+        error instanceof Error ? error.message : error,
+      );
     }
     return null;
   }
@@ -267,6 +305,9 @@ export const getSiteConfig = cache(async (): Promise<SiteConfigShape> => {
     throw new Error(
       `[site-config] remote config is required but unavailable for key: ${DEFAULT_SITE_KEY}`,
     );
+  }
+  if (shouldUseRemoteConfig() && !remote && DEBUG_REMOTE) {
+    console.warn('[site-config] remote config unavailable, falling back to local config');
   }
   return remote || normalizeConfig(siteConfig);
 });

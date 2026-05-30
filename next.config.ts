@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  distDir: 'dist',
   serverExternalPackages: [
     'genkit',
     '@genkit-ai/googleai',

@@ -3,21 +3,29 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GameDownloadButtons } from '@/components/GameDownloadButtons';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BookOpen, ExternalLink, HelpCircle } from 'lucide-react';
 import { CommunitySquare } from '@/components/CommunitySquare';
-import { getSiteConfig, type SiteArticle } from '@/lib/site-config';
+import { JsonLd } from '@/components/JsonLd';
+import { buildMainSiteTopicUrl, getCommunityTopic } from '@/lib/community-api';
+import { buildHomeJsonLd, getSiteConfig, type SiteArticle } from '@/lib/site-config';
 
 export default async function Home() {
   const config = await getSiteConfig();
+  const topicId = String(config.data_source?.topic_id || '').trim();
+  const topic = await getCommunityTopic(topicId);
+  const communityInteractionUrl = buildMainSiteTopicUrl(topic, topicId);
   const keywords = config.seo.keywords;
+  const faqItems = config.enrichment.faqs.filter((item) => item.question && item.answer);
+  const hasSeoGuide = faqItems.length > 0;
 
   return (
     <div className="flex flex-col gap-12 pb-16 md:gap-16">
+      <JsonLd items={buildHomeJsonLd(config)} />
+
       <section id="home" className="relative flex aspect-video w-full items-center justify-center text-center text-white">
         <Image
           src={config.hero.backgroundImage}
           alt={`${config.name} 下载`}
-          data-ai-hint="battle royale action"
           fill
           sizes="100vw"
           unoptimized
@@ -42,6 +50,41 @@ export default async function Home() {
         </div>
       </section>
 
+      {hasSeoGuide && (
+        <section id="guide" className="container mx-auto scroll-mt-20 px-4 md:px-6">
+          <div className="mb-8 flex items-center gap-3">
+            <BookOpen className="h-7 w-7 text-primary" />
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">专题指南</h2>
+          </div>
+          <div className="grid gap-6">
+            {faqItems.length > 0 && (
+              <div className="rounded-lg border border-border/60 bg-card/70 p-5">
+                <div className="mb-4 flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5 text-primary" />
+                  <h3 className="text-xl font-bold">常见问题</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {faqItems.slice(0, 6).map((item) => (
+                    <details
+                      key={item.id}
+                      open
+                      className="h-full rounded-md border border-border/60 bg-background/60 p-4"
+                    >
+                      <summary className="cursor-pointer whitespace-normal break-words text-base font-semibold leading-snug">
+                        {item.question}
+                      </summary>
+                      <p className="mt-2 whitespace-normal break-words text-sm leading-6 text-muted-foreground">
+                        {item.answer}
+                      </p>
+                    </details>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {config.sections.map((section) => {
         if (section.enabled === false) return null;
         if (section.id !== 'community' && (!section.items || section.items.length === 0)) {
@@ -51,12 +94,47 @@ export default async function Home() {
         return (
           <section key={section.id} id={section.id} className="container mx-auto scroll-mt-20 px-4 md:px-6">
             {section.id === 'community' ? (
-              <CommunitySquare />
+              <CommunitySquare interactionUrl={communityInteractionUrl} topic={topic} />
             ) : (
               <>
-                <h2 className="mb-8 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{section.title}</h2>
-
-                {section.id === 'articles' ? (
+                <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{section.title}</h2>
+                  {section.id === 'topic_posts' ? (
+                    <Button asChild variant="outline" size="sm" className="self-start sm:self-auto">
+                      <a href={communityInteractionUrl} target="_blank" rel="noopener noreferrer">
+                        去话题互动
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  ) : null}
+                </div>
+                {section.id === 'updates' ? (
+                  <div className="flex flex-col gap-8">
+                    {(section.items as SiteArticle[]).slice(0, 4).map((item) => (
+                      <Link key={item.slug} href={`/articles/${item.slug}`} className="group">
+                        <Card className="flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:flex-row">
+                          <div className="relative aspect-[1312/600] w-full shrink-0 overflow-hidden md:w-1/3">
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.title}
+                              fill
+                              sizes="100vw"
+                              unoptimized
+                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          </div>
+                          <CardContent className="flex flex-col justify-center p-6">
+                            <CardTitle className="text-xl font-bold transition-colors group-hover:text-primary md:text-2xl">
+                              {item.title} {item.version && `- v${item.version}`}
+                            </CardTitle>
+                            <CardDescription className="mt-2 text-sm">{item.date}</CardDescription>
+                            <p className="mt-4 line-clamp-3 text-base text-muted-foreground">{item.summary}</p>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
                   <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
                     {(section.items as SiteArticle[]).map((article) => (
                       <Card
@@ -68,7 +146,6 @@ export default async function Home() {
                             <Image
                               src={article.imageUrl}
                               alt={article.title}
-                              data-ai-hint={article.imageHint}
                               fill
                               sizes="100vw"
                               unoptimized
@@ -94,34 +171,7 @@ export default async function Home() {
                       </Card>
                     ))}
                   </div>
-                ) : section.id === 'updates' ? (
-                  <div className="flex flex-col gap-8">
-                    {(section.items as SiteArticle[]).slice(0, 4).map((item) => (
-                      <Link key={item.slug} href={`/articles/${item.slug}`} className="group">
-                        <Card className="flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:flex-row">
-                          <div className="relative aspect-[1312/600] w-full shrink-0 overflow-hidden md:w-1/3">
-                            <Image
-                              src={item.imageUrl}
-                              alt={item.title}
-                              data-ai-hint={item.imageHint}
-                              fill
-                              sizes="100vw"
-                              unoptimized
-                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                          </div>
-                          <CardContent className="flex flex-col justify-center p-6">
-                            <CardTitle className="text-xl font-bold transition-colors group-hover:text-primary md:text-2xl">
-                              {item.title} {item.version && `- v${item.version}`}
-                            </CardTitle>
-                            <CardDescription className="mt-2 text-sm">{item.date}</CardDescription>
-                            <p className="mt-4 line-clamp-3 text-base text-muted-foreground">{item.summary}</p>
-                          </CardContent>
-                        </Card>
-                      </Link>
-                    ))}
-                  </div>
-                ) : null}
+                )}
               </>
             )}
           </section>

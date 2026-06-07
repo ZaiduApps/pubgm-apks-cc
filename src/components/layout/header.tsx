@@ -41,6 +41,7 @@ type HeaderProps = {
     sections: Array<{
       enabled?: boolean;
       id: string;
+      items?: unknown[];
       navLabel: string;
     }>;
     video: {
@@ -64,11 +65,18 @@ export function Header({ config }: HeaderProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isApkDialogOpen, setIsApkDialogOpen] = useState(false);
   const headerAd = config.advertisement.header;
+  const hasApkDownload = Boolean(
+    config.downloads.apk.dialog.panUrl || config.downloads.apk.dialog.officialUrl,
+  );
 
   const navLinks = [
     { href: '#home', label: '首页', sectionId: 'home' },
     ...config.sections
-      .filter((section) => section.enabled !== false)
+      .filter(
+        (section) =>
+          section.enabled !== false &&
+          (section.id === 'community' || (Array.isArray(section.items) && section.items.length > 0)),
+      )
       .map((section) => ({
         href: `#${section.id}`,
         label: section.navLabel,
@@ -216,6 +224,7 @@ export function Header({ config }: HeaderProps) {
             ) : null}
 
             <Button
+              disabled={!hasApkDownload}
               onClick={() => setIsApkDialogOpen(true)}
               className="animated-border-btn hidden md:inline-flex"
             >

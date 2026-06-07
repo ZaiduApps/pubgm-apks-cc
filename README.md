@@ -44,6 +44,15 @@ SITE_CONFIG_DISABLE_LOCAL_FALLBACK=true
 SITE_CONFIG_DEBUG=true
 ```
 
+Recommended production config:
+
+```env
+SITE_CONFIG_API_BASE=http://127.0.0.1:9527
+SITE_KEY=pubgm
+NEXT_PUBLIC_SITE_URL=https://pubgm.apks.cc
+SITE_URL=https://pubgm.apks.cc
+```
+
 ## Environment Behavior
 
 - Production (`NODE_ENV=production`)
@@ -68,6 +77,8 @@ When `SITE_CONFIG_DEBUG=true`, the server logs:
 - `analytics.customHeadHtml` is injected in both development and production
 - Local `http://localhost:3000/` can be compared directly with production for verification tags and analytics scripts
 - The same custom head HTML powers Baidu, Google, 360, Sogou verification and Baidu Analytics when present in site config
+- `/robots.txt` is generated from the public site URL and points to `/sitemap.xml`
+- `/sitemap.xml` includes the homepage and article detail pages generated from the active site config
 
 ## Build Safety
 

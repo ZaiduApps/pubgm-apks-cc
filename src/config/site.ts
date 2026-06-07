@@ -1,6 +1,7 @@
 ﻿export type SiteConfig = typeof siteConfig;
 
 export interface Article {
+  id?: string;
   slug: string;
   title: string;
   summary: string;
@@ -10,6 +11,16 @@ export interface Article {
   imageUrl: string;
   imageHint: string;
   version?: string;
+  appId?: string;
+  commentCount?: number;
+  likeCount?: number;
+  postType?: string;
+  topicId?: string;
+  topicIds?: string[];
+  topicName?: string;
+  topicSlug?: string;
+  updatedAt?: string;
+  viewCount?: number;
 }
 
 export interface Section {
@@ -18,9 +29,102 @@ export interface Section {
   navLabel: string;
   enabled?: boolean;
   items: Article[];
+  count?: number;
+  post_type?: string;
+  sort?: string;
+  source_mode?: string;
+  source_summary?: {
+    count?: number;
+    empty_reason?: string;
+    item_count?: number;
+    post_type?: string;
+    sort?: string;
+    source_kind?: string;
+    source_mode?: string;
+    topic_id?: string;
+  } | null;
+  topic_id?: string;
 }
 
 export interface Update extends Article {}
+
+export interface DownloadSectionItem {
+  id: string;
+  label: string;
+  description: string;
+  url: string;
+  kind: string;
+  platform: string;
+  badge: string;
+  primary: boolean;
+  target: '_blank' | '_self';
+  rel: string;
+  sort: number;
+  enabled: boolean;
+}
+
+export interface DownloadSection {
+  id: string;
+  title: string;
+  description: string;
+  enabled: boolean;
+  sort: number;
+  items: DownloadSectionItem[];
+}
+
+export interface EnrichmentFaq {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export interface EnrichmentGuideItem {
+  badge: string;
+  description: string;
+  href: string;
+  id: string;
+  kind: string;
+  platform: string;
+  title: string;
+}
+
+export interface EnrichmentContentItem {
+  date: string;
+  href: string;
+  id: string;
+  section_id: string;
+  section_title: string;
+  summary: string;
+  title: string;
+}
+
+export interface SiteEnrichment {
+  faqs: EnrichmentFaq[];
+  downloadGuide: {
+    title: string;
+    description: string;
+    items: EnrichmentGuideItem[];
+  };
+  contentDigest: {
+    title: string;
+    description: string;
+    items: EnrichmentContentItem[];
+  };
+}
+
+export interface LandingDataSource {
+  app_id: string;
+  article_limit: number;
+  curated_article_ids: string[];
+  curated_post_ids: string[];
+  mode: string;
+  pkg: string;
+  post_limit: number;
+  section_configs: Array<Partial<Section>>;
+  sort: string;
+  topic_id: string;
+  update_limit: number;
+}
 
 const articles: Article[] = [
   {
@@ -176,18 +280,217 @@ export const siteConfig = {
       backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
       srText: '在 App Store 下载',
     },
-    apk: {
-      backgroundImage: 'https://cdn.apks.cc/blinko/1753971933326-1753971932556-apk_download.png',
-      line1: 'Android Download',
-      line2: '安卓下载',
-      dialog: {
+      apk: {
+        backgroundImage: 'https://cdn.apks.cc/blinko/1753971933326-1753971932556-apk_download.png',
+        line1: 'Android Download',
+        line2: '安卓下载',
+        dialog: {
         title: '选择下载渠道',
         description: '请选择您偏好的下载方式。',
         panUrl: 'https://www.123pan.com/s/4H3LVv-gUpI',
-        officialUrl: 'https://apks.cc/app/com.tencent.ig',
+          officialUrl: 'https://apks.cc/app/com.tencent.ig',
+        },
       },
-    },
+      hero_buttons: [
+        {
+          id: 'google-play',
+          label: '前往商店',
+          description: 'Android 商店入口。',
+          url: 'https://go.jujujuhaowan.com/detail/1050?inviteCode=B0000359',
+          backgroundImage: 'https://cdn.apks.cc/blinko/shop.png',
+          kind: 'store',
+          platform: 'Android',
+          badge: 'Google Play',
+          primary: true,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          sort: 0,
+          enabled: true,
+          action_type: 'link',
+        },
+        {
+          id: 'app-store',
+          label: '在 App Store 下载',
+          description: 'iPhone 与 iPad 商店入口。',
+          url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',
+          backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
+          kind: 'ios',
+          platform: 'iOS',
+          badge: 'App Store',
+          primary: false,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          sort: 1,
+          enabled: true,
+          action_type: 'link',
+        },
+        {
+          id: 'apk',
+          label: '安卓下载',
+          description: 'Android APK 下载入口。',
+          url: 'https://www.123pan.com/s/4H3LVv-gUpI',
+          backgroundImage: 'https://cdn.apks.cc/blinko/1753971933326-1753971932556-apk_download.png',
+          kind: 'android',
+          platform: 'Android',
+          badge: 'APK',
+          primary: true,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          sort: 2,
+          enabled: true,
+          action_type: 'modal',
+          modal: {
+            title: '选择下载渠道',
+            description: '请选择您偏好的下载方式。',
+            items: [
+              {
+                id: 'apk-pan',
+                label: '网盘下载',
+                description: '通过网盘获取安卓安装包。',
+                url: 'https://www.123pan.com/s/4H3LVv-gUpI',
+                kind: 'cloud',
+                platform: 'Android',
+                badge: 'APK',
+                primary: true,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                sort: 0,
+                enabled: true,
+              },
+              {
+                id: 'apk-official',
+                label: '官网详情页',
+                description: '查看版本信息、包名和下载说明。',
+                url: 'https://apks.cc/app/com.tencent.ig',
+                kind: 'official',
+                platform: 'Android',
+                badge: '官方',
+                primary: false,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                sort: 1,
+                enabled: true,
+              },
+            ],
+          },
+        },
+      ],
+      sections: [
+      {
+        id: 'official',
+        title: '官方与商店下载',
+        description: '适合优先选择官方入口、应用商店和稳定更新通道的玩家。',
+        enabled: true,
+        sort: 0,
+        items: [
+          {
+            id: 'google-play',
+            label: 'Google Play',
+            description: '通过商店入口进入 PUBG Mobile 页面。',
+            url: 'https://go.jujujuhaowan.com/detail/1050?inviteCode=B0000359',
+            kind: 'store',
+            platform: 'Android',
+            badge: '推荐',
+            primary: true,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            sort: 0,
+            enabled: true,
+          },
+          {
+            id: 'app-store',
+            label: 'App Store',
+            description: 'iPhone 和 iPad 用户可通过 App Store 获取。',
+            url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',
+            kind: 'ios',
+            platform: 'iOS',
+            badge: '',
+            primary: false,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            sort: 1,
+            enabled: true,
+          },
+        ],
+      },
+      {
+        id: 'android',
+        title: '安卓 APK 与备用渠道',
+        description: '适合需要 APK、网盘或备用镜像入口的安卓设备。',
+        enabled: true,
+        sort: 1,
+        items: [
+          {
+            id: 'apk-pan',
+            label: '网盘下载',
+            description: '通过网盘获取安卓安装包。',
+            url: 'https://www.123pan.com/s/4H3LVv-gUpI',
+            kind: 'cloud',
+            platform: 'Android',
+            badge: 'APK',
+            primary: true,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            sort: 0,
+            enabled: true,
+          },
+          {
+            id: 'apk-official',
+            label: '官网详情页',
+            description: '查看版本信息、包名和下载说明。',
+            url: 'https://apks.cc/app/com.tencent.ig',
+            kind: 'official',
+            platform: 'Android',
+            badge: '',
+            primary: false,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            sort: 1,
+            enabled: true,
+          },
+        ],
+      },
+    ] as DownloadSection[],
   },
+  enrichment: {
+    faqs: [
+      {
+        id: 'download',
+        question: 'PUBG Mobile 怎么下载？',
+        answer: '页面提供商店、App Store、网盘和官网详情入口，建议按设备平台选择对应下载渠道。',
+      },
+      {
+        id: 'android',
+        question: 'PUBG Mobile 支持 Android APK 吗？',
+        answer: '安卓用户可以查看 APK 与备用渠道分区，按页面提示选择网盘或官网详情入口。',
+      },
+      {
+        id: 'ios',
+        question: 'iPhone 如何获取 PUBG Mobile？',
+        answer: 'iPhone 和 iPad 用户可通过 App Store 入口进入对应地区商店页面。',
+      },
+      {
+        id: 'updates',
+        question: 'PUBG Mobile 最新版本内容在哪里看？',
+        answer: '版本更新日志会展示当前专题聚合的更新重点、活动内容和玩法变化。',
+      },
+      {
+        id: 'guides',
+        question: '地铁逃生攻略会更新吗？',
+        answer: '攻略、资讯和社区内容会随后台已发布内容自动进入专题页展示。',
+      },
+    ],
+    downloadGuide: {
+      title: 'PUBG Mobile 下载指南',
+      description: '按设备、平台和渠道类型选择下载入口，优先使用官方、商店或主推渠道。',
+      items: [] as EnrichmentGuideItem[],
+    },
+    contentDigest: {
+      title: 'PUBG Mobile 内容导览',
+      description: '聚合攻略、版本更新和社区内容，方便快速定位重点信息。',
+      items: [] as EnrichmentContentItem[],
+    },
+  } as SiteEnrichment,
   video: {
     id: 'video',
     title: '地铁逃生 4.2 版本介绍',
@@ -218,6 +521,19 @@ export const siteConfig = {
       downloadButtonText: '游戏下载',
     },
   },
+  data_source: {
+    mode: 'default_all',
+    app_id: '',
+    pkg: '',
+    topic_id: '',
+    article_limit: 6,
+    post_limit: 6,
+    update_limit: 3,
+    sort: 'latest',
+    curated_article_ids: [] as string[],
+    curated_post_ids: [] as string[],
+    section_configs: [] as Array<Partial<Section>>,
+  } as LandingDataSource,
   sections: [
     {
       id: 'community',

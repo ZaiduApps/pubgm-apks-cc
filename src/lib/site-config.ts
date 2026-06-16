@@ -2,6 +2,11 @@ import { cache } from 'react';
 
 import { siteConfig } from '@/config/site';
 import type { CommunityComment, CommunityTopic } from '@/lib/community-api';
+import {
+  buildSiteUrl,
+  normalizeRequestHost,
+  resolveSiteIdentity,
+} from '@/lib/site-runtime';
 
 type SiteConfigShape = typeof siteConfig;
 type SiteArticle = SiteConfigShape['sections'][number]['items'][number];
@@ -23,6 +28,7 @@ type ArticleJsonLdOptions = {
   canonicalUrl?: string;
   comments?: CommunityComment[];
   commentsTotal?: number;
+  siteUrl?: string;
   topic?: CommunityTopic | null;
   topicUrl?: string;
 };
@@ -39,16 +45,11 @@ type AdminLandingPayload = {
   video?: Record<string, any>;
 };
 
-const DEFAULT_SITE_KEY = process.env.SITE_KEY?.trim() || 'pubgm';
 const API_BASE = process.env.SITE_CONFIG_API_BASE?.trim() || '';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const USE_REMOTE_IN_DEV = process.env.SITE_CONFIG_USE_REMOTE_IN_DEV === 'true';
 const DEBUG_REMOTE = process.env.SITE_CONFIG_DEBUG === 'true';
 const DISABLE_LOCAL_FALLBACK = process.env.SITE_CONFIG_DISABLE_LOCAL_FALLBACK === 'true';
-const DEFAULT_PUBLIC_SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  process.env.SITE_URL?.trim() ||
-  'https://pubgm.apks.cc';
 let hasLoggedRemoteRuntime = false;
 
 function shouldUseRemoteConfig() {
@@ -63,23 +64,23 @@ function shouldUseRemoteConfig() {
   return USE_REMOTE_IN_DEV;
 }
 
-function getRemoteRequestUrl() {
+function getRemoteRequestUrl(siteKey: string) {
   if (!API_BASE) {
     return '';
   }
 
   const baseUrl = API_BASE.replace(/\/$/, '');
-  return `${baseUrl}/site/landing-config?key=${encodeURIComponent(DEFAULT_SITE_KEY)}`;
+  return `${baseUrl}/site/landing-config?key=${encodeURIComponent(siteKey)}`;
 }
 
-function logRemoteRuntime() {
+function logRemoteRuntime(siteKey: string, host: string) {
   if (!DEBUG_REMOTE || hasLoggedRemoteRuntime) {
     return;
   }
 
   hasLoggedRemoteRuntime = true;
   console.info(
-    `[site-config] runtime: env=${process.env.NODE_ENV || 'development'} remote=${shouldUseRemoteConfig()} apiBase=${API_BASE || '(empty)'} requestUrl=${getRemoteRequestUrl() || '(disabled)'} localFallback=${DISABLE_LOCAL_FALLBACK ? 'disabled' : 'enabled'} siteKey=${DEFAULT_SITE_KEY}`,
+    `[site-config] runtime: env=${process.env.NODE_ENV || 'development'} remote=${shouldUseRemoteConfig()} apiBase=${API_BASE || '(empty)'} requestUrl=${getRemoteRequestUrl(siteKey) || '(disabled)'} localFallback=${DISABLE_LOCAL_FALLBACK ? 'disabled' : 'enabled'} siteKey=${siteKey} host=${host || '(empty)'}`,
   );
 }
 
@@ -492,9 +493,20 @@ function normalizeEnrichment(
         .filter((item: EnrichmentGuideItem) => item.href && item.title),
     },
     contentDigest: {
-      title: '',
-      description: '',
-      items: [],
+      title: normalizeText(raw.contentDigest?.title, fallback.contentDigest.title),
+      description: normalizeText(raw.contentDigest?.description, fallback.contentDigest.description),
+      items:
+        rawContentItems
+          .map((item: Record<string, any>, index: number): EnrichmentContentItem => ({
+            date: normalizeDateText(item.date),
+            href: normalizeText(item.href || item.url),
+            id: normalizeText(item.id, `content-${index + 1}`),
+            section_id: normalizeText(item.section_id || item.sectionId),
+            section_title: normalizeText(item.section_title || item.sectionTitle),
+            summary: normalizeText(item.summary),
+            title: normalizeText(item.title, '内容条目'),
+          }))
+          .filter((item: EnrichmentContentItem) => item.href && item.title) || fallback.contentDigest.items,
     },
   };
 }
@@ -516,6 +528,10 @@ function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): Si
       ...siteConfig.seo,
       ...(input?.seo || {}),
       description: normalizeText(input?.seo?.description, siteConfig.seo.description),
+      faviconUrl: normalizeText(
+        input?.seo?.faviconUrl || (input?.seo as Record<string, any> | undefined)?.favicon_url,
+        siteConfig.seo.faviconUrl,
+      ),
       keywords: seoKeywords,
       ogImage: normalizeText(input?.seo?.ogImage, siteConfig.seo.ogImage),
       title: normalizeText(input?.seo?.title, siteConfig.seo.title),
@@ -580,6 +596,18 @@ function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): Si
         ...siteConfig.advertisement.header,
         ...(input?.advertisement?.header || {}),
       },
+      headerDownload: {
+        ...siteConfig.advertisement.headerDownload,
+        ...(input?.advertisement?.headerDownload || {}),
+        enabled: input?.advertisement?.headerDownload?.enabled ?? siteConfig.advertisement.headerDownload.enabled,
+        text: normalizeText(
+          input?.advertisement?.headerDownload?.text ||
+            input?.advertisement?.header?.downloadButtonText,
+          siteConfig.advertisement.headerDownload.text,
+        ),
+        heroButtonId: normalizeText(input?.advertisement?.headerDownload?.heroButtonId),
+        modalItemId: normalizeText(input?.advertisement?.headerDownload?.modalItemId),
+      },
     },
     data_source: {
       ...siteConfig.data_source,
@@ -633,6 +661,12 @@ function transformAdminPayload(input: AdminLandingPayload): Partial<SiteConfigSh
     seo: {
       ...input.seo,
       description: String(landingSeo.description || input.seo?.description || ''),
+      faviconUrl: String(
+        landingSeo.faviconUrl ||
+          landingSeo.favicon_url ||
+          input.basic?.favicon_url ||
+          '',
+      ),
       keywords: parsedKeywords,
       ogImage: String(landingSeo.ogImage || input.seo?.ogImage || ''),
       title: String(landingSeo.title || input.seo?.title || ''),
@@ -648,6 +682,17 @@ function transformAdminPayload(input: AdminLandingPayload): Partial<SiteConfigSh
       header: {
         ...input.advertisement?.header,
         ...(landingAd.header || {}),
+      },
+      headerDownload: {
+        ...(landingAd.headerDownload || {}),
+        enabled: landingAd.headerDownload?.enabled ?? true,
+        text: String(
+          landingAd.headerDownload?.text ||
+            landingAd.header?.downloadButtonText ||
+            '游戏下载',
+        ),
+        heroButtonId: String(landingAd.headerDownload?.heroButtonId || ''),
+        modalItemId: String(landingAd.headerDownload?.modalItemId || ''),
       },
     },
     footer: {
@@ -689,8 +734,19 @@ function toSitePayload(payload: unknown): Partial<SiteConfigShape> | null {
   return typedPayload as Partial<SiteConfigShape>;
 }
 
-async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
-  logRemoteRuntime();
+const getSiteConfigByIdentity = cache(async (host: string, siteKey: string): Promise<SiteConfigShape> => {
+  const remote = await fetchRemoteSiteConfig(host, siteKey);
+  if (shouldUseRemoteConfig() && DISABLE_LOCAL_FALLBACK && !remote) {
+    throw new Error(`[site-config] remote config is required but unavailable for key: ${siteKey}`);
+  }
+  if (shouldUseRemoteConfig() && !remote && DEBUG_REMOTE) {
+    console.warn('[site-config] remote config unavailable, falling back to local config');
+  }
+  return remote || normalizeConfig(siteConfig);
+});
+
+async function fetchRemoteSiteConfig(host: string, siteKey: string): Promise<SiteConfigShape | null> {
+  logRemoteRuntime(siteKey, host);
 
   if (!shouldUseRemoteConfig()) {
     if (DEBUG_REMOTE) {
@@ -699,7 +755,7 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
     return null;
   }
 
-  const url = getRemoteRequestUrl();
+  const url = getRemoteRequestUrl(siteKey);
 
   try {
     const response = await fetch(url, {
@@ -742,7 +798,7 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
       return null;
     }
     if (DEBUG_REMOTE) {
-      console.info('[site-config] remote payload applied for key:', DEFAULT_SITE_KEY);
+      console.info('[site-config] remote payload applied for key:', siteKey);
     }
     return normalizeConfig(transformedPayload);
   } catch (error) {
@@ -757,18 +813,14 @@ async function fetchRemoteSiteConfig(): Promise<SiteConfigShape | null> {
   }
 }
 
-export const getSiteConfig = cache(async (): Promise<SiteConfigShape> => {
-  const remote = await fetchRemoteSiteConfig();
-  if (shouldUseRemoteConfig() && DISABLE_LOCAL_FALLBACK && !remote) {
-    throw new Error(
-      `[site-config] remote config is required but unavailable for key: ${DEFAULT_SITE_KEY}`,
-    );
+export async function getSiteConfig(requestHost = ''): Promise<SiteConfigShape> {
+  const host = normalizeRequestHost(requestHost);
+  const identity = resolveSiteIdentity(host);
+  if (!identity) {
+    throw new Error(`[site-config] unmapped host: ${host || '(empty)'}`);
   }
-  if (shouldUseRemoteConfig() && !remote && DEBUG_REMOTE) {
-    console.warn('[site-config] remote config unavailable, falling back to local config');
-  }
-  return remote || normalizeConfig(siteConfig);
-});
+  return getSiteConfigByIdentity(identity.host, identity.key);
+}
 
 export function getArticleBySlugFromConfig(config: SiteConfigShape, slug: string): null | SiteArticle {
   for (const section of config.sections) {
@@ -781,8 +833,8 @@ export function getArticleBySlugFromConfig(config: SiteConfigShape, slug: string
   return null;
 }
 
-export function getPublicSiteUrl() {
-  return DEFAULT_PUBLIC_SITE_URL.replace(/\/$/, '');
+export function getPublicSiteUrl(requestHost = '') {
+  return buildSiteUrl(requestHost);
 }
 
 export function stripMarkdownToPlainText(value: unknown) {
@@ -839,16 +891,8 @@ export function getArticleTopicId(config: SiteConfigShape, article?: SiteArticle
   return '';
 }
 
-function toAbsoluteUrl(value: string) {
-  if (/^https?:\/\//i.test(value)) {
-    return value;
-  }
-  const siteUrl = getPublicSiteUrl();
-  return `${siteUrl}${value.startsWith('/') ? value : `/${value}`}`;
-}
-
-export function buildHomeJsonLd(config: SiteConfigShape) {
-  const siteUrl = getPublicSiteUrl();
+export function buildHomeJsonLd(config: SiteConfigShape, requestHost = '') {
+  const siteUrl = getPublicSiteUrl(requestHost);
   const downloadItems = getEnabledDownloadItems(config.downloads.sections);
   const heroDownloadItems =
     downloadItems.length > 0
@@ -911,7 +955,8 @@ export function buildArticleJsonLd(
   article: SiteArticle,
   options: ArticleJsonLdOptions = {},
 ) {
-  const canonicalUrl = options.canonicalUrl || toAbsoluteUrl(`/articles/${article.slug}`);
+  const siteUrl = options.siteUrl || getPublicSiteUrl();
+  const canonicalUrl = options.canonicalUrl || `${siteUrl}/articles/${article.slug}`;
   const description = getArticleSeoDescription(article);
   const articleBody = truncateSeoText(article.content, 5000);
   const comments = options.comments || [];
@@ -957,7 +1002,7 @@ export function buildArticleJsonLd(
       itemListElement: [
         {
           '@type': 'ListItem',
-          item: getPublicSiteUrl(),
+          item: siteUrl,
           name: config.name,
           position: 1,
         },

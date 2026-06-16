@@ -46,7 +46,7 @@ export interface Section {
   topic_id?: string;
 }
 
-export interface Update extends Article {}
+export type Update = Article;
 
 export interface DownloadSectionItem {
   id: string;
@@ -128,9 +128,9 @@ export interface LandingDataSource {
 
 const articles: Article[] = [
   {
-    slug: 'pubgm-login-solution-sim-card',
-    title: '《PUBG Mobile》登录失败卡加载？新手必看的 SIM 卡排查指南',
-    summary: '很多新用户首次进入国际服时会卡在加载页。本文给你一套稳定可复现的排查步骤。',
+    slug: 'game-login-network-checklist',
+    title: '游戏登录失败卡加载？新手必看的网络排查指南',
+    summary: '很多用户首次进入游戏时会卡在加载页。本文给你一套稳定可复现的排查步骤。',
     content: `## 为什么会卡在加载页面？
 
 常见原因不是手机性能，而是网络链路和区域识别。
@@ -149,10 +149,10 @@ const articles: Article[] = [
     imageHint: 'phone sim card',
   },
   {
-    slug: 'pubgm-metro-royale-accelerator-recommendation',
-    title: '地铁逃生模式加速器怎么选？先看这 4 个标准',
-    summary: '低延迟和稳定性比“峰值速度”更重要，按这四个标准选择基本不会踩坑。',
-    content: `## 地铁逃生对网络要求更高
+    slug: 'game-accelerator-recommendation',
+    title: '海外游戏加速器怎么选？先看这 4 个标准',
+    summary: '低延迟和稳定性比峰值速度更重要，按这四个标准选择基本不会踩坑。',
+    content: `## 海外游戏对网络要求更高
 
 这个模式容错率低，掉线或高延迟都会直接影响战利品收益。
 
@@ -194,11 +194,11 @@ const articles: Article[] = [
 
 const updates: Update[] = [
   {
-    slug: 'version-4-3',
-    version: '4.3',
-    title: '🔥 PUBG MOBILE 4.3 版本更新速览',
+    slug: 'version-latest',
+    version: 'latest',
+    title: '游戏版本更新速览',
     summary: '新版本加入职业技能系统、全新主题玩法与经典模式扩展内容。',
-    content: `# PUBG MOBILE 4.3 更新重点
+    content: `# 游戏版本更新重点
 
 > 发布时间：2026年03月12日
 
@@ -226,48 +226,35 @@ const updates: Update[] = [
 ];
 
 export const siteConfig = {
-  name: 'PUBG Mobile',
+  name: 'Game Topic',
   seo: {
-    title: '地铁逃生手游官网 | 下载、更新、攻略 - 官方入口',
-    description: '提供 PUBG Mobile 最新下载、版本更新、攻略与社区内容。',
+    title: '游戏专题页 | 下载、更新、攻略 - 官方入口',
+    description: '提供游戏最新下载、版本更新、攻略与社区内容。',
     keywords: [
-      'PUBG Mobile',
-      'PUBG Mobile 官网',
-      'PUBG Mobile 下载',
-      '地铁逃生',
-      'PUBG Mobile 更新',
-      'PUBG Mobile 攻略',
-      'pubgm apk',
+      '游戏专题',
+      '游戏官网',
+      '游戏下载',
+      '游戏攻略',
+      '游戏更新',
+      '游戏攻略',
+      'game apk',
     ],
     ogImage: 'https://cdn.apks.cc/blinko/1753974441995-1753974441505-share.jpg',
+    faviconUrl: '',
   },
   analytics: {
-    customHeadHtml: `
-      <meta name="baidu-site-verification" content="codeva-9XyV2k6cAS" />
-      <meta name="google-site-verification" content="wheyJrkeJteNmtsowo1dyWiAtd18QqJR0VGilx25600" />
-      <meta name="360-site-verification" content="999219046b1b9e0ef3a7f7c0f481fe20" />
-      <meta name="sogou_site_verification" content="2rU7VTaXRK" />
-      <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b2e255a5512aa46a4f692adf9c8bfe00";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-      </script>
-    `,
+    customHeadHtml: '',
   },
   header: {
     logo: {
       url: 'https://cdn.apks.cc/blinko/1753973194134-1753973193794-nav_logo.png',
-      alt: 'PUBG Mobile Logo',
+      alt: 'Game Topic Logo',
     },
   },
   hero: {
     backgroundImage: 'https://cdn.apks.cc/blinko/1920x960_1773327676_0001.png',
-    title: '史诗级大逃杀手游，4.3 版本现已上线',
-    description: '超多活动与玩法更新，立即加入 PUBG MOBILE。',
+    title: '热门游戏专题，最新版本现已上线',
+    description: '聚合下载入口、版本更新、攻略资讯与社区内容。',
   },
   downloads: {
     googlePlay: {
@@ -276,7 +263,7 @@ export const siteConfig = {
       srText: '前往商店',
     },
     appStore: {
-      url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',
+      url: 'https://example.com/app-store',
       backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
       srText: '在 App Store 下载',
     },
@@ -312,7 +299,7 @@ export const siteConfig = {
           id: 'app-store',
           label: '在 App Store 下载',
           description: 'iPhone 与 iPad 商店入口。',
-          url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',
+          url: 'https://example.com/app-store',
           backgroundImage: 'https://cdn.apks.cc/blinko/1753972022261-1753972021905-app_store.png',
           kind: 'ios',
           platform: 'iOS',
@@ -386,7 +373,7 @@ export const siteConfig = {
           {
             id: 'google-play',
             label: 'Google Play',
-            description: '通过商店入口进入 PUBG Mobile 页面。',
+            description: '通过商店入口进入游戏页面。',
             url: 'https://go.jujujuhaowan.com/detail/1050?inviteCode=B0000359',
             kind: 'store',
             platform: 'Android',
@@ -401,7 +388,7 @@ export const siteConfig = {
             id: 'app-store',
             label: 'App Store',
             description: 'iPhone 和 iPad 用户可通过 App Store 获取。',
-            url: 'https://apps.apple.com/hk/app/pubg-mobile/id1330123889',
+            url: 'https://example.com/app-store',
             kind: 'ios',
             platform: 'iOS',
             badge: '',
@@ -456,53 +443,53 @@ export const siteConfig = {
     faqs: [
       {
         id: 'download',
-        question: 'PUBG Mobile 怎么下载？',
+        question: '游戏怎么下载安装？',
         answer: '页面提供商店、App Store、网盘和官网详情入口，建议按设备平台选择对应下载渠道。',
       },
       {
         id: 'android',
-        question: 'PUBG Mobile 支持 Android APK 吗？',
+        question: '游戏支持 Android APK 吗？',
         answer: '安卓用户可以查看 APK 与备用渠道分区，按页面提示选择网盘或官网详情入口。',
       },
       {
         id: 'ios',
-        question: 'iPhone 如何获取 PUBG Mobile？',
+        question: 'iPhone 如何获取游戏？',
         answer: 'iPhone 和 iPad 用户可通过 App Store 入口进入对应地区商店页面。',
       },
       {
         id: 'updates',
-        question: 'PUBG Mobile 最新版本内容在哪里看？',
+        question: '游戏最新版本内容在哪里看？',
         answer: '版本更新日志会展示当前专题聚合的更新重点、活动内容和玩法变化。',
       },
       {
         id: 'guides',
-        question: '地铁逃生攻略会更新吗？',
+        question: '游戏攻略会更新吗？',
         answer: '攻略、资讯和社区内容会随后台已发布内容自动进入专题页展示。',
       },
     ],
     downloadGuide: {
-      title: 'PUBG Mobile 下载指南',
+      title: '游戏下载指南',
       description: '按设备、平台和渠道类型选择下载入口，优先使用官方、商店或主推渠道。',
       items: [] as EnrichmentGuideItem[],
     },
     contentDigest: {
-      title: 'PUBG Mobile 内容导览',
+      title: '游戏内容导览',
       description: '聚合攻略、版本更新和社区内容，方便快速定位重点信息。',
       items: [] as EnrichmentContentItem[],
     },
   } as SiteEnrichment,
   video: {
     id: 'video',
-    title: '地铁逃生 4.2 版本介绍',
-    url: 'https://cdn.apks.cc/blinko/%E3%80%90%E7%AE%80%E4%B8%AD%E7%89%88%E6%9C%AC%E6%94%BB%E7%95%A5%E3%80%91PUBGM%204.2%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%94%BB%E7%95%A5.mp4',
-    playerTitle: 'PUBGM 4.2 版本视频',
+    title: '游戏版本介绍',
+    url: 'https://example.com/game-version.mp4',
+    playerTitle: '游戏版本视频',
     navLabel: '官方频道',
     enabled: false,
   },
   footer: {
-    description: '这里是获取 PUBG Mobile 新闻、更新和社区信息的聚合站点。',
+    description: '这里是获取游戏新闻、更新和社区信息的聚合专题页。',
     copyright:
-      '© {year} PUBG Mobile. 游戏内容与素材版权归其发行商及授权方所有。',
+      '© {year} Game Topic. 游戏内容与素材版权归其发行商及授权方所有。',
     feedback: {
       email: 'apkscc-feedback@foxmail.com',
       buttonText: '反馈建议',
@@ -519,6 +506,12 @@ export const siteConfig = {
       rel: 'noopener noreferrer',
       secondaryText: 'or',
       downloadButtonText: '游戏下载',
+    },
+    headerDownload: {
+      enabled: true,
+      text: '游戏下载',
+      heroButtonId: 'apk',
+      modalItemId: 'apk-pan',
     },
   },
   data_source: {

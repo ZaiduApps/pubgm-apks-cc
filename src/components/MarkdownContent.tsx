@@ -1,4 +1,5 @@
 import type { Components } from 'react-markdown';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
@@ -120,12 +121,16 @@ export function MarkdownContent({ content, excludedImageUrls = [] }: MarkdownCon
       renderedImageUrls.add(normalizedUrl);
 
       return (
-        <img
-          alt={alt || '文章配图'}
-          className="mx-auto my-8 block max-h-[58vh] w-full max-w-[760px] rounded-lg bg-muted/20 object-contain"
-          loading="lazy"
-          src={src}
-        />
+        <span className="relative mx-auto my-8 block aspect-video max-h-[58vh] w-full max-w-[760px] overflow-hidden rounded-lg bg-muted/20">
+          <Image
+            alt={alt || '文章配图'}
+            className="object-contain"
+            fill
+            sizes="(min-width: 768px) 760px, 100vw"
+            src={src}
+            unoptimized
+          />
+        </span>
       );
     },
     pre: ({ className, children, ...props }) => (

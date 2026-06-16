@@ -1,5 +1,5 @@
 ﻿'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { PubgLogo } from '@/components/icons/PubgLogo';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,34 @@ import { Gamepad2, Menu, MessageSquare, Newspaper, Rss, Video } from 'lucide-rea
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { ApkDownloadDialog } from '../ApkDownloadDialog';
+
+type DownloadDialogItem = {
+  description?: string;
+  enabled?: boolean;
+  id?: string;
+  kind?: string;
+  label?: string;
+  rel?: string;
+  target?: string;
+  url?: string;
+};
+
+type HeroDownloadButton = {
+  action_type?: string;
+  description?: string;
+  enabled?: boolean;
+  id?: string;
+  label?: string;
+  modal?: {
+    description?: string;
+    items?: DownloadDialogItem[];
+    title?: string;
+  };
+  primary?: boolean;
+  rel?: string;
+  target?: string;
+  url?: string;
+};
 
 type HeaderProps = {
   config: {
@@ -20,6 +48,12 @@ type HeaderProps = {
         text: string;
         url: string;
       };
+      headerDownload?: {
+        enabled?: boolean;
+        heroButtonId?: string;
+        modalItemId?: string;
+        text?: string;
+      };
     };
     downloads: {
       apk: {
@@ -30,6 +64,7 @@ type HeaderProps = {
           title: string;
         };
       };
+      hero_buttons?: HeroDownloadButton[];
     };
     header: {
       logo: {
@@ -63,29 +98,52 @@ const navIcons: { [key: string]: React.ElementType } = {
 export function Header({ config }: HeaderProps) {
   const [activeSection, setActiveSection] = useState('home');
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [isApkDialogOpen, setIsApkDialogOpen] = useState(false);
+  const [isHeaderDownloadOpen, setIsHeaderDownloadOpen] = useState(false);
   const headerAd = config.advertisement.header;
-  const hasApkDownload = Boolean(
-    config.downloads.apk.dialog.panUrl || config.downloads.apk.dialog.officialUrl,
+  const headerDownload = config.advertisement.headerDownload || {
+    enabled: true,
+    text: headerAd.downloadButtonText,
+  };
+  const heroButtons = (config.downloads.hero_buttons || []).filter(
+    (button) => button.enabled !== false,
   );
+  const selectedHeroButton =
+    heroButtons.find((button) => button.id === headerDownload.heroButtonId) ||
+    heroButtons.find((button) => button.primary) ||
+    heroButtons[0];
+  const selectedHeroModalItems = (selectedHeroButton?.modal?.items || []).filter(
+    (item) => item.enabled !== false && item.url,
+  );
+  const legacyApkItems = [
+    config.downloads.apk.dialog.panUrl,
+    config.downloads.apk.dialog.officialUrl,
+  ].filter(Boolean);
+  const headerDownloadText = headerDownload.text || headerAd.downloadButtonText || '游戏下载';
+  const showHeaderDownload = headerDownload.enabled !== false;
+  const isHeaderDownloadLink = selectedHeroButton?.action_type !== 'modal' && Boolean(selectedHeroButton?.url);
+  const headerDownloadDialog =
+    selectedHeroButton?.action_type === 'modal' && selectedHeroModalItems.length > 0
+      ? selectedHeroButton.modal
+      : config.downloads.apk.dialog;
+  const hasHeaderDownloadTarget =
+    isHeaderDownloadLink || selectedHeroModalItems.length > 0 || legacyApkItems.length > 0;
 
-  const navLinks = [
-    { href: '#home', label: '首页', sectionId: 'home' },
-    ...config.sections
-      .filter(
-        (section) =>
-          section.enabled !== false &&
-          (section.id === 'community' || (Array.isArray(section.items) && section.items.length > 0)),
-      )
-      .map((section) => ({
-        href: `#${section.id}`,
-        label: section.navLabel,
-        sectionId: section.id,
-      })),
-    ...(config.video.enabled
-      ? [{ href: `#${config.video.id}`, label: config.video.navLabel, sectionId: config.video.id }]
-      : []),
-  ];
+  const navLinks = useMemo(
+    () => [
+      { href: '#home', label: '首页', sectionId: 'home' },
+      ...config.sections
+        .filter((section) => section.enabled !== false)
+        .map((section) => ({
+          href: `#${section.id}`,
+          label: section.navLabel,
+          sectionId: section.id,
+        })),
+      ...(config.video.enabled
+        ? [{ href: `#${config.video.id}`, label: config.video.navLabel, sectionId: config.video.id }]
+        : []),
+    ],
+    [config.sections, config.video.enabled, config.video.id, config.video.navLabel],
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -223,20 +281,36 @@ export function Header({ config }: HeaderProps) {
               </>
             ) : null}
 
-            <Button
-              disabled={!hasApkDownload}
-              onClick={() => setIsApkDialogOpen(true)}
-              className="animated-border-btn hidden md:inline-flex"
-            >
-              {headerAd.downloadButtonText}
-            </Button>
+            {showHeaderDownload && isHeaderDownloadLink ? (
+              <Button
+                asChild
+                className="animated-border-btn hidden md:inline-flex"
+              >
+                <a
+                  href={selectedHeroButton?.url || '#'}
+                  target={selectedHeroButton?.target || '_blank'}
+                  rel={selectedHeroButton?.rel || 'noopener noreferrer'}
+                >
+                  {headerDownloadText}
+                </a>
+              </Button>
+            ) : showHeaderDownload ? (
+              <Button
+                disabled={!hasHeaderDownloadTarget}
+                onClick={() => setIsHeaderDownloadOpen(true)}
+                className="animated-border-btn hidden md:inline-flex"
+              >
+                {headerDownloadText}
+              </Button>
+            ) : null}
           </div>
         </div>
       </header>
       <ApkDownloadDialog
-        dialog={config.downloads.apk.dialog}
-        open={isApkDialogOpen}
-        onOpenChange={setIsApkDialogOpen}
+        dialog={headerDownloadDialog || config.downloads.apk.dialog}
+        open={isHeaderDownloadOpen}
+        onOpenChange={setIsHeaderDownloadOpen}
+        preferredItemId={headerDownload.modalItemId}
       />
     </>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
@@ -23,9 +24,17 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamic = 'force-dynamic';
+
+async function getRequestHost() {
+  const requestHeaders = await headers();
+  return requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const config = await getSiteConfig();
+  const requestHost = await getRequestHost();
+  const config = await getSiteConfig(requestHost);
   const article = getArticleBySlugFromConfig(config, slug);
 
   if (!article) {
@@ -35,7 +44,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonical = `${getPublicSiteUrl()}/articles/${article.slug}`;
+  const siteUrl = getPublicSiteUrl(requestHost);
+  const canonical = `${siteUrl}/articles/${article.slug}`;
   const description = getArticleSeoDescription(article);
 
   return {
@@ -64,14 +74,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
-  const config = await getSiteConfig();
+  const requestHost = await getRequestHost();
+  const config = await getSiteConfig(requestHost);
   const article = getArticleBySlugFromConfig(config, slug);
 
   if (!article) {
     notFound();
   }
 
-  const canonical = `${getPublicSiteUrl()}/articles/${article.slug}`;
+  const siteUrl = getPublicSiteUrl(requestHost);
+  const canonical = `${siteUrl}/articles/${article.slug}`;
   const articleId = article.id || article.slug;
   const topicId = getArticleTopicId(config, article);
   const [commentsResult, topic] = await Promise.all([
@@ -90,6 +102,7 @@ export default async function ArticlePage({ params }: Props) {
           canonicalUrl: canonical,
           comments: commentsResult.list,
           commentsTotal: commentsResult.total,
+          siteUrl,
           topic,
           topicUrl: interactionUrl,
         })}

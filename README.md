@@ -1,134 +1,82 @@
-# PUBG Mobile Hub
+# Game Topic Hub
 
-Next.js site with a server-side site-config loader.
+Next.js 通用游戏专题页。一个部署实例可以承载多个域名，并按访问域名解析专题 key，再通过远程接口渲染不同专题内容。
 
 ## Run
 
 - Install: `pnpm install`
 - Dev: `pnpm dev`
+- Typecheck: `pnpm typecheck`
 - Build: `pnpm build`
 - Start: `pnpm start`
 
-## Runtime TypeError Fix
+## Multi-Domain Rendering
 
-- `__webpack_modules__[moduleId] is not a function` is caused by Next.js development/build output conflicts
-- The root cause is not the remote config URL when logs already show `remote payload applied`
-- The project now uses the default `.next` output directory
-- `pnpm build` now blocks when this project already has a running `next dev` process
+核心流程：
 
-Recovery steps:
+1. 用户访问 `a.apks.cc` 或 `b.apks.cc`
+2. 服务端读取 `Host` / `x-forwarded-host`
+3. `SITE_DOMAIN_KEY_MAP` 把域名解析为专题 key
+4. 服务端请求 `GET {SITE_CONFIG_API_BASE}/site/landing-config?key={key}`
+5. 首页、文章页、metadata、robots、sitemap 使用当前域名和当前专题配置渲染
 
-1. Stop the current `pnpm dev` process
-2. Delete legacy `dist` output when it still exists
-3. Run `pnpm build` alone, or restart `pnpm dev` alone
-
-## Site Config Source
-
-- Unified entry: `src/lib/site-config.ts`
-- Local fallback config: `src/config/site.ts`
-- Remote API: `GET {SITE_CONFIG_API_BASE}/site/landing-config?key={SITE_KEY}`
-
-## Next.js Environment Files
-
-- Next.js auto-loads `.env.local`, `.env.development.local`, `.env.production.local`
-- `.element.env` is not loaded by `next dev`
-- Copy values from `.env.example` into `.env.local` for local development
-
-Recommended local development config:
+示例：
 
 ```env
 SITE_CONFIG_API_BASE=http://127.0.0.1:9527
-SITE_KEY=pubgm
-SITE_CONFIG_USE_REMOTE_IN_DEV=true
+SITE_DOMAIN_KEY_MAP=pokemonchampions.apks.cc:pokemonchampions,browndust2.apks.cc:browndust2,limbuscompany.apks.cc:limbuscompany
+NEXT_PUBLIC_MAIN_SITE_URL=https://apks.cc
+MAIN_SITE_URL=https://apks.cc
 SITE_CONFIG_DISABLE_LOCAL_FALLBACK=true
 SITE_CONFIG_DEBUG=true
 ```
 
-Recommended production config:
+`SITE_KEY` 仍可作为本地开发或单站点兜底 key 使用。
 
-```env
-SITE_CONFIG_API_BASE=http://127.0.0.1:9527
-SITE_KEY=pubgm
-NEXT_PUBLIC_SITE_URL=https://pubgm.apks.cc
-SITE_URL=https://pubgm.apks.cc
-```
+## Unknown Domains
 
-## Environment Behavior
+当配置了 `SITE_DOMAIN_KEY_MAP` 且访问域名未命中映射时，middleware 会跳转到 `MAIN_SITE_URL`。这可以避免未配置域名生成重复 SEO 页面。
 
-- Production (`NODE_ENV=production`)
-  - Uses remote config when `SITE_CONFIG_API_BASE` is set
-  - Falls back to local `src/config/site.ts` when remote request fails
-- Development (`NODE_ENV!=production`)
-  - Uses local config by default
-  - Uses remote config only when `SITE_CONFIG_USE_REMOTE_IN_DEV=true`
-  - Recommended debug mode sets `SITE_CONFIG_DISABLE_LOCAL_FALLBACK=true` so remote failures surface immediately
+## SEO
 
-## Debugging Signals
-
-When `SITE_CONFIG_DEBUG=true`, the server logs:
-
-- whether remote config is enabled
-- the request URL being used
-- whether local fallback is enabled or disabled
-- whether remote payload was applied or local fallback was used
-
-## SEO and Analytics Injection
-
-- `analytics.customHeadHtml` is injected in both development and production
-- Local `http://localhost:3000/` can be compared directly with production for verification tags and analytics scripts
-- The same custom head HTML powers Baidu, Google, 360, Sogou verification and Baidu Analytics when present in site config
-- `/robots.txt` is generated from the public site URL and points to `/sitemap.xml`
-- `/sitemap.xml` includes the homepage and article detail pages generated from the active site config
-
-## Build Safety
-
-- Do not run `pnpm dev` and `pnpm build` at the same time for the same project
-- `pnpm build` performs a preflight process check and fails fast when a local dev server is already running
-- Legacy `dist` output is historical only, `.next` is now the active Next.js build directory
+- 页面使用动态 SSR，HTML 首屏直接包含当前专题内容。
+- `metadataBase`、canonical、OpenGraph URL、`robots.txt`、`sitemap.xml` 基于当前请求域名生成。
+- `analytics.customHeadHtml` 支持按专题注入站长验证和统计代码。
 
 ## Remote Config API Contract
 
-Accepted response formats:
+推荐接口：
+
+```http
+GET /site/landing-config?key=game_a
+```
+
+支持 envelope：
 
 ```json
 {
   "code": 0,
   "data": {
-    "name": "PUBG Mobile",
+    "name": "Game A",
     "seo": {
-      "title": "...",
-      "description": "...",
-      "keywords": ["..."]
+      "title": "Game A 官网专题",
+      "description": "Game A 下载、更新与攻略。",
+      "keywords": ["Game A", "游戏下载"]
     },
     "hero": {
-      "title": "...",
-      "description": "...",
-      "backgroundImage": "..."
+      "title": "Game A 最新版本",
+      "description": "聚合下载入口、版本更新和攻略内容。",
+      "backgroundImage": "https://cdn.example.com/game-a.jpg"
     },
     "sections": []
   }
 }
 ```
 
-```json
-{
-  "name": "PUBG Mobile",
-  "seo": {
-    "title": "...",
-    "description": "...",
-    "keywords": ["..."]
-  },
-  "hero": {
-    "title": "...",
-    "description": "...",
-    "backgroundImage": "..."
-  },
-  "sections": []
-}
-```
+也支持直接返回配置对象。Envelope 响应要求 `code=0`。
 
-Envelope responses require `code=0`.
+## Build Safety
 
-## Hydration Note
-
-Custom head HTML is injected through the root layout so development and production expose the same SEO verification and analytics markers.
+- `pnpm build` 会先检查当前项目是否有运行中的 `next dev` 进程。
+- 不要在同一个项目目录同时运行 `pnpm dev` 和 `pnpm build`。
+- 构建期已启用 TypeScript 和 lint 校验。

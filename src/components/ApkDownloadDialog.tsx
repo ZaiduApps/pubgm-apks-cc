@@ -33,9 +33,15 @@ interface ApkDownloadDialogProps {
   };
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  preferredItemId?: string;
 }
 
-export function ApkDownloadDialog({ dialog, open, onOpenChange }: ApkDownloadDialogProps) {
+export function ApkDownloadDialog({
+  dialog,
+  open,
+  onOpenChange,
+  preferredItemId = '',
+}: ApkDownloadDialogProps) {
   const legacyItems: DownloadDialogItem[] = [
     {
       id: 'apk-pan',
@@ -50,9 +56,13 @@ export function ApkDownloadDialog({ dialog, open, onOpenChange }: ApkDownloadDia
       url: dialog.officialUrl,
     },
   ];
-  const items = (dialog.items?.length ? dialog.items : legacyItems).filter(
+  const enabledItems = (dialog.items?.length ? dialog.items : legacyItems).filter(
     (item) => item.enabled !== false && item.url,
   );
+  const preferredItem = enabledItems.find((item) => item.id === preferredItemId);
+  const items = preferredItem
+    ? [preferredItem, ...enabledItems.filter((item) => item.id !== preferredItemId)]
+    : enabledItems;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

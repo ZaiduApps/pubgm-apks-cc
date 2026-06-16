@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { headers } from 'next/headers';
 
 import { getPublicSiteUrl, getSiteConfig } from '@/lib/site-config';
 
@@ -9,8 +10,10 @@ function normalizeLastModified(value: string | undefined) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const config = await getSiteConfig();
-  const siteUrl = getPublicSiteUrl();
+  const requestHeaders = await headers();
+  const requestHost = requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
+  const config = await getSiteConfig(requestHost);
+  const siteUrl = getPublicSiteUrl(requestHost);
   const seen = new Set<string>();
   const urls: MetadataRoute.Sitemap = [
     {

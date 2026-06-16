@@ -1,6 +1,6 @@
 ﻿import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GameDownloadButtons } from '@/components/GameDownloadButtons';
 import { ArrowRight, BookOpen, ExternalLink, HelpCircle } from 'lucide-react';
@@ -8,9 +8,14 @@ import { CommunitySquare } from '@/components/CommunitySquare';
 import { JsonLd } from '@/components/JsonLd';
 import { buildMainSiteTopicUrl, getCommunityTopic } from '@/lib/community-api';
 import { buildHomeJsonLd, getSiteConfig, type SiteArticle } from '@/lib/site-config';
+import { headers } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const config = await getSiteConfig();
+  const requestHeaders = await headers();
+  const requestHost = requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
+  const config = await getSiteConfig(requestHost);
   const topicId = String(config.data_source?.topic_id || '').trim();
   const topic = await getCommunityTopic(topicId);
   const communityInteractionUrl = buildMainSiteTopicUrl(topic, topicId);
@@ -20,7 +25,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-12 pb-16 md:gap-16">
-      <JsonLd items={buildHomeJsonLd(config)} />
+      <JsonLd items={buildHomeJsonLd(config, requestHost)} />
 
       <section id="home" className="relative flex aspect-video w-full items-center justify-center text-center text-white">
         <Image
@@ -87,9 +92,8 @@ export default async function Home() {
 
       {config.sections.map((section) => {
         if (section.enabled === false) return null;
-        if (section.id !== 'community' && (!section.items || section.items.length === 0)) {
-          return null;
-        }
+        const sectionItems = (section.items || []) as SiteArticle[];
+        const hasSectionItems = sectionItems.length > 0;
 
         return (
           <section key={section.id} id={section.id} className="container mx-auto scroll-mt-20 px-4 md:px-6">
@@ -108,9 +112,13 @@ export default async function Home() {
                     </Button>
                   ) : null}
                 </div>
-                {section.id === 'updates' ? (
+                {!hasSectionItems ? (
+                  <div className="rounded-lg border border-border/60 bg-card/70 px-5 py-6 text-sm text-muted-foreground">
+                    当前分区内容正在整理中，请稍后查看。
+                  </div>
+                ) : section.id === 'updates' ? (
                   <div className="flex flex-col gap-8">
-                    {(section.items as SiteArticle[]).slice(0, 4).map((item) => (
+                    {sectionItems.slice(0, 4).map((item) => (
                       <Link key={item.slug} href={`/articles/${item.slug}`} className="group">
                         <Card className="flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:flex-row">
                           <div className="relative aspect-[1312/600] w-full shrink-0 overflow-hidden md:w-1/3">
@@ -136,7 +144,7 @@ export default async function Home() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                    {(section.items as SiteArticle[]).map((article) => (
+                    {sectionItems.map((article) => (
                       <Card
                         key={article.slug}
                         className="group flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg"

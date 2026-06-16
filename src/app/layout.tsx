@@ -1,16 +1,26 @@
 
 import type {Metadata} from 'next';
 import './globals.css';
+import { headers } from 'next/headers';
 import { BaiduAnalyticsScripts, CustomHeadTags } from '@/components/CustomHeadTags';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
 import { getPublicSiteUrl, getSiteConfig } from '@/lib/site-config';
 
+export const dynamic = 'force-dynamic';
+
+async function getRequestHost() {
+  const requestHeaders = await headers();
+  return requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
+}
+
 // 使用 generateMetadata 生成稳定的服务端 SEO 标签
 export async function generateMetadata(): Promise<Metadata> {
-  const config = await getSiteConfig();
-  const siteUrl = getPublicSiteUrl();
+  const requestHost = await getRequestHost();
+  const config = await getSiteConfig(requestHost);
+  const siteUrl = getPublicSiteUrl(requestHost);
+  const faviconUrl = config.seo.faviconUrl || config.header.logo.url || '/favicon.ico';
 
   return {
     metadataBase: new URL(siteUrl),
@@ -20,6 +30,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: config.seo.description,
     keywords: config.seo.keywords,
+    icons: {
+      apple: faviconUrl,
+      icon: faviconUrl,
+      shortcut: faviconUrl,
+    },
     alternates: {
       canonical: siteUrl,
     },
@@ -45,7 +60,8 @@ async function RootLayoutInner({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const config = await getSiteConfig();
+  const requestHost = await getRequestHost();
+  const config = await getSiteConfig(requestHost);
 
   return (
     <html lang="zh-Hans" className="dark">

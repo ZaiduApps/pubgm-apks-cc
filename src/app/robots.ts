@@ -1,9 +1,12 @@
 import type { MetadataRoute } from 'next';
+import { headers } from 'next/headers';
 
 import { getPublicSiteUrl } from '@/lib/site-config';
 
-export default function robots(): MetadataRoute.Robots {
-  const siteUrl = getPublicSiteUrl();
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const requestHeaders = await headers();
+  const requestHost = requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
+  const siteUrl = getPublicSiteUrl(requestHost);
 
   return {
     rules: [

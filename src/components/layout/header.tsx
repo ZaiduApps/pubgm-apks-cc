@@ -130,16 +130,16 @@ export function Header({ config }: HeaderProps) {
 
   const navLinks = useMemo(
     () => [
-      { href: '#home', label: '首页', sectionId: 'home' },
+      { href: '/#home', label: '首页', sectionId: 'home' },
       ...config.sections
         .filter((section) => section.enabled !== false)
         .map((section) => ({
-          href: `#${section.id}`,
+          href: `/#${section.id}`,
           label: section.navLabel,
           sectionId: section.id,
         })),
       ...(config.video.enabled
-        ? [{ href: `#${config.video.id}`, label: config.video.navLabel, sectionId: config.video.id }]
+        ? [{ href: `/#${config.video.id}`, label: config.video.navLabel, sectionId: config.video.id }]
         : []),
     ],
     [config.sections, config.video.enabled, config.video.id, config.video.navLabel],
@@ -175,10 +175,11 @@ export function Header({ config }: HeaderProps) {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const targetId = href.substring(1);
+    const targetId = href.split('#')[1] || 'home';
 
     if (window.location.pathname !== '/') {
-      window.location.href = `/${href}`;
+      setIsSheetOpen(false);
+      window.location.href = href;
       return;
     }
 

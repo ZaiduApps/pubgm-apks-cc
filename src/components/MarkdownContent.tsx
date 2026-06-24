@@ -133,6 +133,9 @@ export function MarkdownContent({ content, excludedImageUrls = [] }: MarkdownCon
         </span>
       );
     },
+    h1: ({ className, ...props }) => (
+      <h2 className={className} {...props} />
+    ),
     pre: ({ className, children, ...props }) => (
       <pre
         className={cn(

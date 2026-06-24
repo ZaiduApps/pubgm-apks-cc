@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",

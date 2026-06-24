@@ -5,6 +5,11 @@ import { getPublicSiteUrl, getSiteConfig } from '@/lib/site-config';
 
 function normalizeLastModified(value: string | undefined) {
   if (!value) return new Date();
+  const dateParts = value.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+  if (dateParts) {
+    const [, year, month, day] = dateParts;
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  }
   const timestamp = new Date(value).getTime();
   return Number.isFinite(timestamp) ? new Date(timestamp) : new Date();
 }

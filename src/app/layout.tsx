@@ -66,6 +66,10 @@ async function RootLayoutInner({
   return (
     <html lang="zh-Hans" className="dark">
       <head>
+        <link rel="preconnect" href="https://cdn.apks.cc" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn-pubgm-cms.vasdgame.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.apks.cc" />
+        <link rel="dns-prefetch" href="https://cdn-pubgm-cms.vasdgame.com" />
         <CustomHeadTags customHeadHtml={config.analytics.customHeadHtml} />
       </head>
       <body className="font-body antialiased bg-background text-foreground">

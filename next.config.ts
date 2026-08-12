@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
     '@opentelemetry/sdk-node',
     '@opentelemetry/instrumentation',
   ],
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=60, stale-while-revalidate=300' },
+        ],
+      },
+    ];
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

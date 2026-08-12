@@ -3,6 +3,8 @@ import { headers } from 'next/headers';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+import Link from 'next/link';
+import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { CommentSection } from '@/components/CommentSection';
 import { JsonLd } from '@/components/JsonLd';
 import { hasMarkdownImageUrl, MarkdownContent } from '@/components/MarkdownContent';
@@ -13,6 +15,8 @@ import {
 } from '@/lib/community-api';
 import {
   buildArticleJsonLd,
+  type SiteArticle,
+  type SiteConfigShape,
   getArticleBySlugFromConfig,
   getArticleSeoDescription,
   getArticleTopicId,
@@ -38,10 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticleBySlugFromConfig(config, slug);
 
   if (!article) {
-    return {
-      robots: { index: false, follow: true },
-      title: `文章未找到 - ${config.name}`,
-    };
+    notFound();
   }
 
   const siteUrl = getPublicSiteUrl(requestHost);
@@ -135,6 +136,9 @@ export default async function ArticlePage({ params }: Props) {
           content={article.content}
           excludedImageUrls={shouldRenderCover ? [article.imageUrl] : []}
         />
+
+        <RelatedArticles config={config} currentSlug={article.slug} />
+
         <CommentSection
           comments={commentsResult.list}
           interactionUrl={interactionUrl}
@@ -143,5 +147,50 @@ export default async function ArticlePage({ params }: Props) {
         />
       </div>
     </article>
+  );
+}
+
+
+function RelatedArticles({
+  config,
+  currentSlug,
+}: {
+  config: SiteConfigShape;
+  currentSlug: string;
+}) {
+  // 从所有启用 section 收集文章（排除当前）
+  const related = (config.sections || [])
+    .filter((section) => section.enabled !== false && section.id !== 'community')
+    .flatMap((section) => (section.items || []) as SiteArticle[])
+    .filter((item) => item.slug && item.slug !== currentSlug)
+    .slice(0, 4);
+
+  if (related.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="mt-12">
+      <h2 className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">相关推荐</h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {related.map((item) => (
+          <Link key={item.slug} href={`/articles/${item.slug}`} className="group block">
+            <Card className="h-full transition-colors group-hover:border-primary/50">
+              <CardContent className="p-5">
+                <CardTitle className="mb-2 line-clamp-2 text-base font-semibold group-hover:text-primary">
+                  {item.title}
+                </CardTitle>
+                {item.summary ? (
+                  <CardDescription className="line-clamp-2 text-sm text-muted-foreground">
+                    {item.summary}
+                  </CardDescription>
+                ) : null}
+                <p className="mt-3 text-xs text-muted-foreground/70">{item.date}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

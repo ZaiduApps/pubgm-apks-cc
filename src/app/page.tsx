@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GameDownloadButtons } from '@/components/GameDownloadButtons';
-import { ArrowRight, BookOpen, ExternalLink, HelpCircle } from 'lucide-react';
+import { ArrowRight, BookOpen, ExternalLink, HelpCircle, Download, Smartphone } from 'lucide-react';
 import { CommunitySquare } from '@/components/CommunitySquare';
 import { JsonLd } from '@/components/JsonLd';
 import { buildMainSiteTopicUrl, getCommunityTopic } from '@/lib/community-api';
@@ -54,6 +54,48 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {(() => {
+        const guide = config.enrichment.downloadGuide;
+        const guideItems = guide?.items?.filter((item) => item.title && item.href) || [];
+        if (!guide || guideItems.length === 0) return null;
+        return (
+          <section id="download-guide" className="container mx-auto scroll-mt-20 px-4 md:px-6">
+            <div className="mb-8 flex items-center gap-3">
+              <Download className="h-7 w-7 text-primary" />
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{guide.title}</h2>
+            </div>
+            {guide.description ? (
+              <p className="mb-6 max-w-3xl text-base text-muted-foreground md:text-lg">{guide.description}</p>
+            ) : null}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {guideItems.map((item) => (
+                <a
+                  key={item.id || item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-lg border border-border/60 bg-card/70 p-5 transition-shadow hover:shadow-lg"
+                >
+                  <div className="mb-2 flex items-center gap-2">
+                    <Smartphone className="h-5 w-5 text-primary" />
+                    {item.badge ? (
+                      <span className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">{item.badge}</span>
+                    ) : null}
+                    {item.platform ? (
+                      <span className="text-xs text-muted-foreground">{item.platform}</span>
+                    ) : null}
+                  </div>
+                  <div className="text-lg font-bold group-hover:text-primary">{item.title}</div>
+                  {item.description ? (
+                    <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                  ) : null}
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {hasSeoGuide && (
         <section id="guide" className="container mx-auto scroll-mt-20 px-4 md:px-6">

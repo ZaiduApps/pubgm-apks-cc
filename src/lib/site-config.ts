@@ -994,6 +994,19 @@ export function buildArticleJsonLd(
     articleJsonLd.commentCount = commentCount;
   }
 
+  if (comments.length > 0) {
+    articleJsonLd.comment = comments.slice(0, 20).map((comment) => ({
+      '@type': 'Comment',
+      text: comment.content,
+      dateCreated: comment.createdAt,
+      upvoteCount: comment.likeCount,
+      author: {
+        '@type': 'Person',
+        name: comment.userName,
+      },
+    }));
+  }
+
   const jsonLdItems: Array<Record<string, any>> = [
     articleJsonLd,
     {
@@ -1015,36 +1028,6 @@ export function buildArticleJsonLd(
       ],
     },
   ];
-
-  jsonLdItems.push({
-    '@context': 'https://schema.org',
-    '@type': 'DiscussionForumPosting',
-    headline: article.title,
-    text: articleBody,
-    url: canonicalUrl,
-    datePublished: article.date,
-    dateModified: article.updatedAt || article.date,
-    author,
-    commentCount,
-    discussionUrl: options.topicUrl,
-    about: options.topic
-      ? {
-          '@type': 'Thing',
-          name: options.topic.name,
-          url: options.topicUrl,
-        }
-      : undefined,
-    comment: comments.slice(0, 20).map((comment) => ({
-      '@type': 'Comment',
-      text: comment.content,
-      dateCreated: comment.createdAt,
-      upvoteCount: comment.likeCount,
-      author: {
-        '@type': 'Person',
-        name: comment.userName,
-      },
-    })),
-  });
 
   return jsonLdItems;
 }

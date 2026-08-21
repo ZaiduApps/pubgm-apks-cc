@@ -126,10 +126,18 @@ export default async function ArticlePage({ params }: Props) {
           <h1 className="mb-3 text-3xl font-bold leading-tight tracking-tighter sm:text-4xl md:text-5xl">
             {article.title}
           </h1>
-          <p className="text-sm text-muted-foreground">
-            发布于 {article.date}
-            {authorText}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+            <time dateTime={article.date}>发布于 {article.date}</time>
+            {article.updatedAt && article.updatedAt !== article.date ? (
+              <time dateTime={article.updatedAt}>更新于 {article.updatedAt}</time>
+            ) : null}
+            {authorText ? <span>{authorText.trim()}</span> : null}
+          </div>
+          {article.summary ? (
+            <p className="mt-5 border-l-2 border-primary/60 pl-4 text-base leading-7 text-muted-foreground md:text-lg">
+              {article.summary}
+            </p>
+          ) : null}
         </header>
 
         <MarkdownContent
@@ -158,12 +166,29 @@ function RelatedArticles({
   config: SiteConfigShape;
   currentSlug: string;
 }) {
-  // 从所有启用 section 收集文章（排除当前）
+  const current = (config.sections || [])
+    .flatMap((section) => (section.items || []) as SiteArticle[])
+    .find((item) => item.slug === currentSlug);
+  const currentTerms = new Set(
+    `${current?.topicName || ''} ${current?.title || ''}`
+      .split(/[\s，。、“”！？：；（）()/-]+/)
+      .map((term) => term.trim().toLowerCase())
+      .filter((term) => term.length >= 2),
+  );
+
   const related = (config.sections || [])
     .filter((section) => section.enabled !== false && section.id !== 'community')
     .flatMap((section) => (section.items || []) as SiteArticle[])
     .filter((item) => item.slug && item.slug !== currentSlug)
-    .slice(0, 4);
+    .map((item, index) => {
+      const haystack = `${item.topicName || ''} ${item.title} ${item.summary}`.toLowerCase();
+      const matches = [...currentTerms].filter((term) => haystack.includes(term)).length;
+      const dateScore = item.date ? new Date(item.date).getTime() || 0 : 0;
+      return { item, score: matches * 100000000000 + dateScore - index };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+    .map(({ item }) => item);
 
   if (related.length === 0) {
     return null;

@@ -125,6 +125,116 @@ function normalizeKeywords(value: unknown) {
   return siteConfig.seo.keywords;
 }
 
+function normalizeArticleKeywordInput(value: unknown) {
+  if (Array.isArray(value)) {
+    return value
+      .flatMap((item) => {
+        if (item && typeof item === 'object') {
+          const record = item as Record<string, any>;
+          return [record.name, record.label, record.value, record.keyword];
+        }
+        return [item];
+      })
+      .map((item) => String(item || '').trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === 'string') {
+    return value
+      .split(/[\n,，、|]+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+function addUniqueKeyword(target: string[], value: unknown) {
+  const keyword = String(value || '').replace(/\s+/g, ' ').trim();
+  if (
+    !keyword ||
+    target.some((item) => item.toLocaleLowerCase() === keyword.toLocaleLowerCase())
+  ) {
+    return;
+  }
+  target.push(keyword);
+}
+
+function extractArticleVersion(value: unknown) {
+  const text = String(value || '');
+  const match =
+    text.match(/(?:\bv|version)\s*(\d+(?:\.\d+){1,2})/i) ||
+    text.match(/(\d+(?:\.\d+){1,2})\s*版本/i) ||
+    text.match(/版本\s*(\d+(?:\.\d+){1,2})/i);
+  return match?.[1] || '';
+}
+
+// 关键词只从文章自身字段和可验证的搜索意图派生，避免把全站词堆到每一篇文章。
+function buildArticleKeywords({
+  raw,
+  title,
+  summary,
+  content,
+  topicNames,
+  version,
+}: {
+  raw: Record<string, any>;
+  title: string;
+  summary: string;
+  content: string;
+  topicNames: string[];
+  version: string;
+}) {
+  const explicit = [
+    ...normalizeArticleKeywordInput(raw.keywords),
+    ...normalizeArticleKeywordInput(raw.seo_keywords),
+    ...normalizeArticleKeywordInput(raw.seoKeywords),
+    ...normalizeArticleKeywordInput(raw.tags),
+  ];
+  const sourceText = `${title} ${summary} ${content} ${topicNames.join(' ')} ${version} ${raw.app_id || raw.appId || ''}`;
+  const isPubgm = /pubg\s*mobile|pubgm|pubg国际服|绝地求生|地铁逃生|com\.tencent\.ig/i.test(sourceText);
+  const hasDownloadIntent = /下载|安装|安装包|apk|安卓|ios|商店|download|install/i.test(sourceText);
+  const hasLoginIssue = /login\s*(?:error|eer)|登录|无法|失败|报错|error|错误|进不去|卡在|加载/i.test(sourceText);
+  const hasMetroIntent = /地铁逃生|metro\s*royale|metro/i.test(sourceText);
+  const hasUpdateIntent = /更新|版本|update|patch|\bv\d+\.\d+/i.test(sourceText);
+  const detectedVersion = extractArticleVersion(`${title} ${summary} ${content} ${version}`);
+  const result: string[] = [];
+
+  explicit.forEach((keyword) => addUniqueKeyword(result, keyword));
+  addUniqueKeyword(result, title);
+  topicNames.forEach((topicName) => addUniqueKeyword(result, topicName));
+
+  if (isPubgm) {
+    addUniqueKeyword(result, 'PUBG Mobile');
+    addUniqueKeyword(result, 'PUBGM');
+  }
+  if (isPubgm && hasDownloadIntent) {
+    addUniqueKeyword(result, 'PUBG Mobile 下载');
+    addUniqueKeyword(result, 'pubg国际服下载');
+    if (/apk|安装包|安卓|android/i.test(sourceText)) {
+      addUniqueKeyword(result, 'PUBGM APK下载');
+    }
+  }
+  if (isPubgm && hasLoginIssue) {
+    addUniqueKeyword(result, 'PUBGM 无法登录');
+    addUniqueKeyword(result, '无法登录PUBGM');
+    addUniqueKeyword(result, 'PUBGM login error');
+    addUniqueKeyword(result, 'login error 报错');
+    addUniqueKeyword(result, 'PUBGM 登录失败');
+  }
+  if (isPubgm && hasMetroIntent) {
+    addUniqueKeyword(result, '地铁逃生');
+    if (hasDownloadIntent) addUniqueKeyword(result, '地铁逃生下载');
+    if (hasUpdateIntent) addUniqueKeyword(result, '地铁逃生更新');
+    if (detectedVersion) addUniqueKeyword(result, `地铁逃生${detectedVersion}版本`);
+  }
+  if (isPubgm && detectedVersion) {
+    addUniqueKeyword(result, `PUBG Mobile ${detectedVersion}版本`);
+  }
+
+  return result.slice(0, 16);
+}
+
 function normalizeDateText(value: unknown) {
   const text = String(value || '').trim();
   if (!text) {
@@ -165,21 +275,32 @@ function normalizeArticle(input: unknown, index: number): SiteArticle {
     topicInfo.slug,
     ...topicInfos.map((topic: Record<string, any>) => topic?.slug),
   ]);
+  const summary = normalizeText(raw.summary || raw.description, title);
+  const content = normalizeMarkdownText(
+    raw.content,
+    `# ${title}\n\n${normalizeText(raw.summary || raw.description, '')}`,
+  );
+  const version = normalizeText(raw.version);
 
   return {
     id: id || undefined,
     slug: normalizeText(raw.slug, slugify(raw._id || raw.gid || title, `item-${index + 1}`)),
     title,
-    summary: normalizeText(raw.summary || raw.description, title),
-    content: normalizeMarkdownText(
-      raw.content,
-      `# ${title}\n\n${normalizeText(raw.summary || raw.description, '')}`,
-    ),
+    summary,
+    content,
+    keywords: buildArticleKeywords({
+      raw,
+      title,
+      summary,
+      content,
+      topicNames,
+      version,
+    }),
     author: normalizeText(raw.author || raw.author_name, '站点编辑部'),
     date: normalizeDateText(raw.date || raw.release_at || raw.publish_at || raw.created_at),
     imageUrl: normalizeText(raw.imageUrl || raw.image_cover || raw.cover || raw.display_cover, fallbackImage),
     imageHint: normalizeText(raw.imageHint || raw.image_hint, title),
-    version: normalizeText(raw.version) || undefined,
+    version: version || undefined,
     appId: normalizeText(raw.appId || raw.app_id) || undefined,
     commentCount: normalizeNumber(raw.commentCount ?? raw.comment_count),
     likeCount: normalizeNumber(raw.likeCount ?? raw.like_count),
@@ -977,7 +1098,9 @@ export function buildArticleJsonLd(
     dateModified: article.updatedAt || article.date,
     datePublished: article.date,
     inLanguage: 'zh-CN',
-    keywords: Array.from(new Set([...(config.seo.keywords || []), topicName])).filter(Boolean),
+    keywords: Array.from(
+      new Set([...(config.seo.keywords || []), ...(article.keywords || []), topicName]),
+    ).filter(Boolean),
     mainEntityOfPage: canonicalUrl,
     publisher: {
       '@type': 'Organization',

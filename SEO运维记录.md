@@ -131,3 +131,25 @@
 2. 清除/记录本机 hosts 覆盖，重新生成四站完整基线。
 3. 对 PUBG 先做关键词-页面映射和事实核验，再设计一篇人工审核草稿；不批量伪原创、不把 IndexNow 接收当收录。
 4. 若执行 Admin MCP 写入，必须先提交具体 preview patch 给用户确认；执行后更新本文件并提交 Git。
+
+## 9. 2026-08-23 15:28 本轮竞品、文章关键词与 MCP 预览
+
+### 事实证据
+
+- 竞品 HTTP 复核：TapTap `https://www.taptap.cn/app/83084` 的 Title 为 `PUBG MOBILE国际服 - TapTap`，描述包含最新版/官方正版下载，检测到 4 个 JSON-LD；游戏狗 `https://www.gamedog.cn/android/4000061.html` 的 Title 覆盖 `pubg国际服手游下载`、官方正版、安装和 `v4.5.0`，keywords 为 `pubg国际服,pubg国际服手游下载,pubg国际服官方正版`，H1 为 `pubg国际服`。
+- 文章详情复核：`/articles/6a7f3cbd837db46b93680eb5` HTTP 200，Title 为 `【手游资讯】4.6版本测试服3上线 - PUBG MOBILE`；当前线上 keywords 仍为站点全局列表，未随文章标题/正文变化。
+- Admin MCP 只读重试：`site.list` 返回 `pubgm`、`manageable: true`；`site.get_config` 显示当前专题标题/描述以下载、4.6、登录闪退为主，专题预览 SEO 健康度 `100`，文章聚合 `12` 条。当前配置/文章快照未提供可验证的 4.7 文章。
+- Chrome DevTools MCP 仍返回 `Transport closed`；本轮 Chrome 渲染证据未完成，竞品与线上页面使用 HTTP 初始 HTML 复核，已在交接手册注明边界。
+
+### 实现与预览
+
+- 本地代码已加入文章级 `keywords` 字段、后台 `keywords/seo_keywords/seoKeywords/tags` 归一化、下载/登录故障/地铁逃生/真实版本号的受控派生，并将文章关键词写入详情页 Metadata 和 Article JSON-LD。
+- 关键词策略将用户输入的 `login eer报错` 规范为可验证的 `login error 报错`，同时覆盖 `PUBGM无法登录`、`无法登录PUBGM`、`PUBGM login error`、`PUBGM登录报错`。只有正文真实出现版本号时才生成 `地铁逃生<version>版本`，未把无事实依据的 `地铁逃生4.7版本` 注入首页。
+- Admin MCP `site.update_metadata` 已生成 `pubgm` 的 `mode=preview`，风险 `medium`，预览内容为下载、APK、无法登录、login error、登录报错和版本更新意图；未执行、未部署，等待用户明确确认。临时 confirm token 不写入仓库。
+- 交接文档新增：`SEO工具链与站点交接手册.md`，包含四站目录、数据/API、竞品观察、关键词映射、Bing/IndexNow、Chrome/CDP、MCP 闸门和部署验证。
+
+### 验证与下一步
+
+- 已通过本地 `.\\node_modules\\.bin\\tsc.cmd --noEmit -p tsconfig.typecheck.json`、三个 SEO 脚本 `node --check` 和 `git diff --check`。
+- 下一步：用户确认后重新生成 preview 并立即 execute，重新读取配置和 landing preview；代码提交后再按香港生产边界部署、检查代表文章初始 head，并提交实际变更 URL 到 IndexNow。
+- 4.7 关键词的前置条件：先提供或发布真实 4.7 版本文章；当前 Admin MCP 工具列表没有社区发帖/文章创建能力，不能凭空发帖或伪造版本事实。

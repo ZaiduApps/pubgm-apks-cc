@@ -6,6 +6,7 @@ export interface Article {
   title: string;
   summary: string;
   content: string;
+  keywords?: string[];
   author?: string;
   date: string;
   imageUrl: string;

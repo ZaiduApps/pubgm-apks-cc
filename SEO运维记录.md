@@ -92,9 +92,10 @@
 | 2026-08-23 13:00 | 访问共享笔记并解析 APKSCC Admin MCP 说明 | EdgeEver 分享页/API `200`；获得 MCP endpoint、工具范围和 preview 闸门 | 共享笔记 token 见用户提供链接 |
 | 2026-08-23 13:05 | MCP `initialize`、`tools/list`、站点/配置/话题/帖子查询 | 只读成功；四个非 `main` 站点可管理；没有写操作 | `interface-admin-mcp 1.0.0` |
 | 2026-08-23 13:10 | Chrome/CDP 打开共享笔记 | 失败：DevTools MCP `Transport closed`；未将失败误报为 Chrome 验证成功 | 待 Chrome MCP 恢复后补验 |
-| 2026-08-23 13:15 | 建立本运维账本与凭证隔离规则 | 本地凭证明文保存，公开 GitHub 只提交账本/SOP，不提交 key | 本次变更提交记录 |
-| 2026-08-23 13:20 | 凭证暴露检查与运行时闸门 | 发现 Bing/IndexNow key 在历史提交；移除基线脚本默认 key，缺少 `INDEXNOW_KEY` 时不再请求 key 文件 | `git log -S`、`scripts/seo-ops-baseline.mjs` |
+| 2026-08-23 13:15 | 建立本运维账本与凭证隔离规则 | 本地凭证明文保存，公开 GitHub 只提交账本/SOP，不提交 key | `5a86eac` |
+| 2026-08-23 13:20 | 凭证暴露检查与运行时闸门 | 发现 Bing/IndexNow key 在历史提交；移除基线脚本默认 key，缺少 `INDEXNOW_KEY` 时不再请求 key 文件 | `git log -S`、`scripts/seo-ops-baseline.mjs`、`5a86eac` |
 | 2026-08-23 13:25 | Admin MCP 发帖能力搜索 | `tools/list` 未发现社区发帖/文章创建工具；`ops.capability_search` 仅返回只读检索和通用高风险工作流，未执行写入 | MCP 请求 `capability-post-1..5` |
+| 2026-08-23 13:35 | 本阶段提交与远端同步 | 文档、SOP、基线脱敏改动已推送；未部署生产、未执行 MCP 写操作 | `5a86eac`，`origin/main` 同步 |
 
 ## 7. 每次运维后追加模板
 

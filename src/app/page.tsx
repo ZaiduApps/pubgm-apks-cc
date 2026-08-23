@@ -132,6 +132,39 @@ export default async function Home() {
         </section>
       )}
 
+      {(() => {
+        const digest = config.enrichment.contentDigest;
+        const digestItems = digest?.items?.filter((item) => item.href && item.title) || [];
+        if (!digest || digestItems.length === 0) return null;
+
+        return (
+          <section id="content-digest" className="container mx-auto scroll-mt-20 px-4 md:px-6">
+            <div className="mb-8 flex items-center gap-3">
+              <BookOpen className="h-7 w-7 text-primary" />
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{digest.title}</h2>
+            </div>
+            {digest.description ? (
+              <p className="mb-6 max-w-3xl text-base text-muted-foreground md:text-lg">{digest.description}</p>
+            ) : null}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {digestItems.map((item) => (
+                <a
+                  key={item.id || item.href}
+                  href={item.href}
+                  className="group rounded-lg border border-border/60 bg-card/70 p-5 transition-shadow hover:shadow-lg"
+                >
+                  <p className="text-xs text-muted-foreground">{item.section_title || '专题内容'} {item.date ? `· ${item.date}` : ''}</p>
+                  <h3 className="mt-2 text-lg font-bold group-hover:text-primary">{item.title}</h3>
+                  {item.summary ? (
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">{item.summary}</p>
+                  ) : null}
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
       {config.sections.map((section) => {
         if (section.enabled === false) return null;
         const sectionItems = (section.items || []) as SiteArticle[];

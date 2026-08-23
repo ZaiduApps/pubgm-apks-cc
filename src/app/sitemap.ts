@@ -14,6 +14,17 @@ function normalizeLastModified(value: string | undefined) {
   return Number.isFinite(timestamp) ? new Date(timestamp) : new Date();
 }
 
+function getLatestContentModifiedAt(
+  config: Awaited<ReturnType<typeof getSiteConfig>>,
+) {
+  const timestamps = config.sections
+    .flatMap((section) => section.items || [])
+    .map((item) => normalizeLastModified(item.updatedAt || item.date).getTime())
+    .filter(Number.isFinite);
+
+  return timestamps.length > 0 ? new Date(Math.max(...timestamps)) : new Date();
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const requestHeaders = await headers();
   const requestHost = requestHeaders.get('x-forwarded-host') || requestHeaders.get('host') || '';
@@ -23,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const urls: MetadataRoute.Sitemap = [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified: getLatestContentModifiedAt(config),
       changeFrequency: 'daily',
       priority: 1,
     },
@@ -35,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       seen.add(item.slug);
       urls.push({
         url: `${siteUrl}/articles/${item.slug}`,
-        lastModified: normalizeLastModified(item.date),
+        lastModified: normalizeLastModified(item.updatedAt || item.date),
         changeFrequency: section.id === 'updates' ? 'weekly' : 'monthly',
         priority: section.id === 'updates' ? 0.8 : 0.7,
       });

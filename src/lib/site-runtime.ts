@@ -1,5 +1,6 @@
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '::1']);
 const DEFAULT_DOMAIN_KEY_MAP: Array<[string, string]> = [
+  ['pubgm.apks.cc', 'pubgm'],
   ['pokemonchampions.apks.cc', 'pokemonchampions'],
   ['browndust2.apks.cc', 'browndust2'],
   ['limbuscompany.apks.cc', 'limbuscompany'],

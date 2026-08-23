@@ -48,6 +48,21 @@ const extractCanonical = (html) => {
   return canonical ? getAttr(canonical, 'href') : '';
 };
 
+const extractHeadMetadataPlacement = (html) => {
+  const headEnd = html.toLowerCase().indexOf('</head>');
+  const findIndex = (pattern) => html.search(pattern);
+
+  const titleIndex = findIndex(/<title\b/i);
+  const descriptionIndex = findIndex(/<meta\b[^>]*name=["']description["']/i);
+  const canonicalIndex = findIndex(/<link\b[^>]*rel=["']canonical["']/i);
+
+  return {
+    titleInHead: headEnd >= 0 && titleIndex >= 0 && titleIndex < headEnd,
+    descriptionInHead: headEnd >= 0 && descriptionIndex >= 0 && descriptionIndex < headEnd,
+    canonicalInHead: headEnd >= 0 && canonicalIndex >= 0 && canonicalIndex < headEnd,
+  };
+};
+
 const extractImageAltStats = (html) => {
   const images = html.match(/<img\b[^>]*>/gi) || [];
   const missingAlt = images.filter((img) => !getAttr(img, 'alt')).length;
@@ -95,6 +110,7 @@ for (const url of urls) {
     title: stripTags((html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || ''),
     description: extractMeta(html, 'description'),
     canonical: extractCanonical(html),
+    metadataPlacement: extractHeadMetadataPlacement(html),
     h1: extractHeadings(html, 1),
     h2: extractHeadings(html, 2).slice(0, 12),
     jsonLdTypes: extractJsonLdTypes(html),

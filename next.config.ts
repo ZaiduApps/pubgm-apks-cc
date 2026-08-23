@@ -1,6 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // 爬虫必须在初始 HTML head 中拿到 title、description 和 canonical，避免
+  // Next.js 流式 metadata 追加到 body 后被 Bing 的首轮抓取遗漏。
+  htmlLimitedBots:
+    /bot|crawler|spider|bingpreview|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp/i,
   serverExternalPackages: [
     'genkit',
     '@genkit-ai/googleai',

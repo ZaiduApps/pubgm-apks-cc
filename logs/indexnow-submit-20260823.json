@@ -1,0 +1,13 @@
+{
+  "submittedAt": "2026-08-23T06:26:24.997Z",
+  "submittedAtBeijing": "2026-08-23 14:26:24",
+  "mode": "submit",
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "results": [
+    { "site": "pubgm.apks.cc", "urlCount": 16, "status": 200 },
+    { "site": "pokemonchampions.apks.cc", "urlCount": 7, "status": 200 },
+    { "site": "browndust2.apks.cc", "urlCount": 8, "status": 200 },
+    { "site": "limbuscompany.apks.cc", "urlCount": 6, "status": 200 }
+  ],
+  "interpretation": "IndexNow accepted the notifications; this is not proof of crawl, indexing, ranking, or traffic recovery."
+}

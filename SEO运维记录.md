@@ -74,6 +74,20 @@
 - 首页 SSR、缓存边界、内部链接和 crawler metadata 修复发生在 `2026-08-12` 之后，时间不支持直接把 7 月 27 日下跌归因于“服务端请求数据渲染”。必须继续对齐：发布记录 -> Nginx/Cloudflare -> Bing 抓取 -> URL/查询词 -> canonical/索引。
 - SERP 当日样本曾观察到：`PUBG MOBILE APK 下载` 的结果包含 APKPure、3DM、Softonic 等；`PUBG Mobile 国际服下载` 包含 TapTap、PUBG 官方站、Gamedog、3DM 等。只作为有日期的竞品样本，不填未验证的搜索量/难度。
 
+### 4.1 2026-08-23 提交与收录复核
+
+- 通过公网 DNS 读取四站 sitemap 后，IndexNow 于 `2026-08-23 14:26:24`（北京时间）提交共 `37` 条 canonical URL：PUBG `16`、Pokémon `7`、Brown Dust 2 `8`、Limbus `6`；四站均返回 HTTP `200`。这只证明 IndexNow 接收通知，不证明已抓取或已收录。
+- Bing Webmaster `GetCrawlStats` 根属性最新数据为 `2026-08-22`：`InIndex=5,798`、当日 `CrawledPages=683`、累计 `Code2xx=6,695`、累计 `Code5xx=72`、当日 `CrawlErrors=15`。`2026-07-26` 对应为 `InIndex=4,891`、`CrawledPages=325`、累计 `Code2xx=5,480`、累计 `Code5xx=66`、当日 `CrawlErrors=10`。根属性收录数量增加约 `18.5%`，没有出现 7/26 后的收录总量坍塌。
+- 展现/点击明显没有恢复到 7/26 前水平：`2026-07-20..26` 日均约 `556.7 clicks / 6,823.1 impressions`；`2026-07-27..08-02` 日均约 `52.7 / 546.6`；`2026-08-14..21` 日均约 `26.9 / 238.8`。API 最新日 `2026-08-21` 为 `50 clicks / 285 impressions`。
+- 当前 API 属性只有 `https://apks.cc/`；对四个子域分别调用 `GetCrawlStats`、`GetRankAndTrafficStats` 返回空数组，因此不能把 `5,798` 拆成 PUBG 单站收录量，也不能从该 API 证明某个子域已恢复。
+- Bing `site:` 查询的本次 HTTP 结果返回与目标域无关的泛化结果，未作为收录数量证据；可靠证据以 Bing Webmaster、服务器日志和 URL 级检查为准。
+
+### 4.2 能否回到 7/26 前效果
+
+当前结论：**不能通过简单回退“7/26 前代码版本”证明或保证恢复**。仓库在 `2026-07-01..08-01` 没有 Git 提交，生产当前版本为 `09c448e`；同时 Bing 根属性 `InIndex` 在上涨，下降发生在展现/点击层。更合理的目标是恢复目标查询的展现和点击，而不是回退页面代码。
+
+待验证假设（未定论）：根域属性归并/查询分布变化、Bing SERP 或需求变化、页面 canonical/内容质量重新评估、7 月窗口的生产配置或外部变更。下一步需要 Bing URL/查询维度和 7/20..8/02 的 Cloudflare/Nginx 原始日志；当前 7 月日志已轮转，不能从现有服务器日志补齐。
+
 ## 5. Admin MCP 能力快照
 
 已通过 `initialize` 和 `tools/list` 验证服务端：`interface-admin-mcp 1.0.0`，协议 `2024-11-05`。
@@ -96,6 +110,8 @@
 | 2026-08-23 13:20 | 凭证暴露检查与运行时闸门 | 发现 Bing/IndexNow key 在历史提交；移除基线脚本默认 key，缺少 `INDEXNOW_KEY` 时不再请求 key 文件 | `git log -S`、`scripts/seo-ops-baseline.mjs`、`5a86eac` |
 | 2026-08-23 13:25 | Admin MCP 发帖能力搜索 | `tools/list` 未发现社区发帖/文章创建工具；`ops.capability_search` 仅返回只读检索和通用高风险工作流，未执行写入 | MCP 请求 `capability-post-1..5` |
 | 2026-08-23 13:35 | 本阶段提交与远端同步 | 文档、SOP、基线脱敏改动已推送；未部署生产、未执行 MCP 写操作 | `5a86eac`，`origin/main` 同步 |
+| 2026-08-23 14:26 | 四站 IndexNow 提交 | 37 条 sitemap canonical URL，四站均 HTTP 200；本机 hosts 临时移除后已恢复 | `logs/indexnow-submit-20260823.json` |
+| 2026-08-23 14:27 | Bing 收录/展现复核与生产只读检查 | 根属性 InIndex 4,891 -> 5,798；展现/点击未恢复；生产 `09c448e`、PM2 online、8/22 Bingbot 请求 200 | `logs/bing-indexing-check-20260823.json` |
 
 ## 7. 每次运维后追加模板
 

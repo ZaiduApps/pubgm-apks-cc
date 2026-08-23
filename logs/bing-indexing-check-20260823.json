@@ -1,0 +1,648 @@
+{
+  "rank": [
+    {
+      "Date": "2026-07-20T15:00:00+08:00",
+      "Clicks": 562,
+      "Impressions": 9192
+    },
+    {
+      "Date": "2026-07-21T15:00:00+08:00",
+      "Clicks": 553,
+      "Impressions": 7040
+    },
+    {
+      "Date": "2026-07-22T15:00:00+08:00",
+      "Clicks": 556,
+      "Impressions": 6907
+    },
+    {
+      "Date": "2026-07-23T15:00:00+08:00",
+      "Clicks": 474,
+      "Impressions": 6294
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Clicks": 516,
+      "Impressions": 6022
+    },
+    {
+      "Date": "2026-07-25T15:00:00+08:00",
+      "Clicks": 574,
+      "Impressions": 6029
+    },
+    {
+      "Date": "2026-07-26T15:00:00+08:00",
+      "Clicks": 662,
+      "Impressions": 6278
+    },
+    {
+      "Date": "2026-07-27T15:00:00+08:00",
+      "Clicks": 190,
+      "Impressions": 1641
+    },
+    {
+      "Date": "2026-07-28T15:00:00+08:00",
+      "Clicks": 35,
+      "Impressions": 449
+    },
+    {
+      "Date": "2026-07-29T15:00:00+08:00",
+      "Clicks": 27,
+      "Impressions": 359
+    },
+    {
+      "Date": "2026-07-30T15:00:00+08:00",
+      "Clicks": 28,
+      "Impressions": 358
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Clicks": 34,
+      "Impressions": 361
+    },
+    {
+      "Date": "2026-08-01T15:00:00+08:00",
+      "Clicks": 24,
+      "Impressions": 314
+    },
+    {
+      "Date": "2026-08-02T15:00:00+08:00",
+      "Clicks": 31,
+      "Impressions": 344
+    },
+    {
+      "Date": "2026-08-03T15:00:00+08:00",
+      "Clicks": 51,
+      "Impressions": 405
+    },
+    {
+      "Date": "2026-08-04T15:00:00+08:00",
+      "Clicks": 17,
+      "Impressions": 278
+    },
+    {
+      "Date": "2026-08-05T15:00:00+08:00",
+      "Clicks": 24,
+      "Impressions": 325
+    },
+    {
+      "Date": "2026-08-06T15:00:00+08:00",
+      "Clicks": 29,
+      "Impressions": 297
+    },
+    {
+      "Date": "2026-08-07T15:00:00+08:00",
+      "Clicks": 22,
+      "Impressions": 241
+    },
+    {
+      "Date": "2026-08-08T15:00:00+08:00",
+      "Clicks": 17,
+      "Impressions": 211
+    },
+    {
+      "Date": "2026-08-09T15:00:00+08:00",
+      "Clicks": 28,
+      "Impressions": 193
+    },
+    {
+      "Date": "2026-08-10T15:00:00+08:00",
+      "Clicks": 21,
+      "Impressions": 251
+    },
+    {
+      "Date": "2026-08-11T15:00:00+08:00",
+      "Clicks": 56,
+      "Impressions": 287
+    },
+    {
+      "Date": "2026-08-12T15:00:00+08:00",
+      "Clicks": 16,
+      "Impressions": 154
+    },
+    {
+      "Date": "2026-08-13T15:00:00+08:00",
+      "Clicks": 13,
+      "Impressions": 284
+    },
+    {
+      "Date": "2026-08-14T15:00:00+08:00",
+      "Clicks": 15,
+      "Impressions": 207
+    },
+    {
+      "Date": "2026-08-15T15:00:00+08:00",
+      "Clicks": 16,
+      "Impressions": 176
+    },
+    {
+      "Date": "2026-08-16T15:00:00+08:00",
+      "Clicks": 18,
+      "Impressions": 175
+    },
+    {
+      "Date": "2026-08-17T15:00:00+08:00",
+      "Clicks": 23,
+      "Impressions": 199
+    },
+    {
+      "Date": "2026-08-18T15:00:00+08:00",
+      "Clicks": 36,
+      "Impressions": 286
+    },
+    {
+      "Date": "2026-08-19T15:00:00+08:00",
+      "Clicks": 33,
+      "Impressions": 280
+    },
+    {
+      "Date": "2026-08-20T15:00:00+08:00",
+      "Clicks": 24,
+      "Impressions": 302
+    },
+    {
+      "Date": "2026-08-21T15:00:00+08:00",
+      "Clicks": 50,
+      "Impressions": 285
+    }
+  ],
+  "crawl": [
+    {
+      "Date": "2026-07-20T15:00:00+08:00",
+      "InIndex": 4670,
+      "CrawledPages": 356,
+      "Code2xx": 5215,
+      "Code5xx": 70,
+      "CrawlErrors": 8
+    },
+    {
+      "Date": "2026-07-21T15:00:00+08:00",
+      "InIndex": 4719,
+      "CrawledPages": 337,
+      "Code2xx": 5273,
+      "Code5xx": 68,
+      "CrawlErrors": 12
+    },
+    {
+      "Date": "2026-07-22T15:00:00+08:00",
+      "InIndex": 4739,
+      "CrawledPages": 520,
+      "Code2xx": 5294,
+      "Code5xx": 67,
+      "CrawlErrors": 31
+    },
+    {
+      "Date": "2026-07-23T15:00:00+08:00",
+      "InIndex": 4776,
+      "CrawledPages": 363,
+      "Code2xx": 5341,
+      "Code5xx": 67,
+      "CrawlErrors": 8
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "InIndex": 4808,
+      "CrawledPages": 325,
+      "Code2xx": 5382,
+      "Code5xx": 66,
+      "CrawlErrors": 9
+    },
+    {
+      "Date": "2026-07-25T15:00:00+08:00",
+      "InIndex": 4845,
+      "CrawledPages": 401,
+      "Code2xx": 5426,
+      "Code5xx": 66,
+      "CrawlErrors": 13
+    },
+    {
+      "Date": "2026-07-26T15:00:00+08:00",
+      "InIndex": 4891,
+      "CrawledPages": 325,
+      "Code2xx": 5480,
+      "Code5xx": 66,
+      "CrawlErrors": 10
+    },
+    {
+      "Date": "2026-07-27T15:00:00+08:00",
+      "InIndex": 4919,
+      "CrawledPages": 541,
+      "Code2xx": 5522,
+      "Code5xx": 66,
+      "CrawlErrors": 7
+    },
+    {
+      "Date": "2026-07-28T15:00:00+08:00",
+      "InIndex": 4963,
+      "CrawledPages": 348,
+      "Code2xx": 5579,
+      "Code5xx": 65,
+      "CrawlErrors": 8
+    },
+    {
+      "Date": "2026-07-29T15:00:00+08:00",
+      "InIndex": 5010,
+      "CrawledPages": 489,
+      "Code2xx": 5633,
+      "Code5xx": 65,
+      "CrawlErrors": 28
+    },
+    {
+      "Date": "2026-07-30T15:00:00+08:00",
+      "InIndex": 5056,
+      "CrawledPages": 425,
+      "Code2xx": 5692,
+      "Code5xx": 65,
+      "CrawlErrors": 7
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "InIndex": 5104,
+      "CrawledPages": 526,
+      "Code2xx": 5758,
+      "Code5xx": 65,
+      "CrawlErrors": 3
+    },
+    {
+      "Date": "2026-08-01T15:00:00+08:00",
+      "InIndex": 5136,
+      "CrawledPages": 429,
+      "Code2xx": 5805,
+      "Code5xx": 65,
+      "CrawlErrors": 7
+    },
+    {
+      "Date": "2026-08-02T15:00:00+08:00",
+      "InIndex": 5184,
+      "CrawledPages": 379,
+      "Code2xx": 5865,
+      "Code5xx": 65,
+      "CrawlErrors": 9
+    },
+    {
+      "Date": "2026-08-03T15:00:00+08:00",
+      "InIndex": 5230,
+      "CrawledPages": 435,
+      "Code2xx": 5942,
+      "Code5xx": 65,
+      "CrawlErrors": 10
+    },
+    {
+      "Date": "2026-08-04T15:00:00+08:00",
+      "InIndex": 5262,
+      "CrawledPages": 304,
+      "Code2xx": 5989,
+      "Code5xx": 65,
+      "CrawlErrors": 9
+    },
+    {
+      "Date": "2026-08-05T15:00:00+08:00",
+      "InIndex": 5298,
+      "CrawledPages": 345,
+      "Code2xx": 6064,
+      "Code5xx": 65,
+      "CrawlErrors": 11
+    },
+    {
+      "Date": "2026-08-06T15:00:00+08:00",
+      "InIndex": 5335,
+      "CrawledPages": 303,
+      "Code2xx": 6104,
+      "Code5xx": 65,
+      "CrawlErrors": 4
+    },
+    {
+      "Date": "2026-08-07T15:00:00+08:00",
+      "InIndex": 5335,
+      "CrawledPages": 394,
+      "Code2xx": 6103,
+      "Code5xx": 65,
+      "CrawlErrors": 5
+    },
+    {
+      "Date": "2026-08-08T15:00:00+08:00",
+      "InIndex": 5366,
+      "CrawledPages": 394,
+      "Code2xx": 6131,
+      "Code5xx": 67,
+      "CrawlErrors": 9
+    },
+    {
+      "Date": "2026-08-09T15:00:00+08:00",
+      "InIndex": 5398,
+      "CrawledPages": 321,
+      "Code2xx": 6158,
+      "Code5xx": 104,
+      "CrawlErrors": 59
+    },
+    {
+      "Date": "2026-08-10T15:00:00+08:00",
+      "InIndex": 5430,
+      "CrawledPages": 471,
+      "Code2xx": 6218,
+      "Code5xx": 69,
+      "CrawlErrors": 2
+    },
+    {
+      "Date": "2026-08-11T15:00:00+08:00",
+      "InIndex": 5458,
+      "CrawledPages": 477,
+      "Code2xx": 6255,
+      "Code5xx": 74,
+      "CrawlErrors": 8
+    },
+    {
+      "Date": "2026-08-12T15:00:00+08:00",
+      "InIndex": 5487,
+      "CrawledPages": 623,
+      "Code2xx": 6303,
+      "Code5xx": 73,
+      "CrawlErrors": 85
+    },
+    {
+      "Date": "2026-08-13T15:00:00+08:00",
+      "InIndex": 5519,
+      "CrawledPages": 610,
+      "Code2xx": 6348,
+      "Code5xx": 71,
+      "CrawlErrors": 16
+    },
+    {
+      "Date": "2026-08-14T15:00:00+08:00",
+      "InIndex": 5558,
+      "CrawledPages": 410,
+      "Code2xx": 6399,
+      "Code5xx": 71,
+      "CrawlErrors": 11
+    },
+    {
+      "Date": "2026-08-15T15:00:00+08:00",
+      "InIndex": 5588,
+      "CrawledPages": 546,
+      "Code2xx": 6425,
+      "Code5xx": 84,
+      "CrawlErrors": 31
+    },
+    {
+      "Date": "2026-08-16T15:00:00+08:00",
+      "InIndex": 5629,
+      "CrawledPages": 535,
+      "Code2xx": 6486,
+      "Code5xx": 71,
+      "CrawlErrors": 23
+    },
+    {
+      "Date": "2026-08-17T15:00:00+08:00",
+      "InIndex": 5654,
+      "CrawledPages": 310,
+      "Code2xx": 6521,
+      "Code5xx": 73,
+      "CrawlErrors": 20
+    },
+    {
+      "Date": "2026-08-18T15:00:00+08:00",
+      "InIndex": 5679,
+      "CrawledPages": 398,
+      "Code2xx": 6540,
+      "Code5xx": 72,
+      "CrawlErrors": 24
+    },
+    {
+      "Date": "2026-08-19T15:00:00+08:00",
+      "InIndex": 5700,
+      "CrawledPages": 366,
+      "Code2xx": 6566,
+      "Code5xx": 72,
+      "CrawlErrors": 13
+    },
+    {
+      "Date": "2026-08-20T15:00:00+08:00",
+      "InIndex": 5725,
+      "CrawledPages": 558,
+      "Code2xx": 6580,
+      "Code5xx": 72,
+      "CrawlErrors": 16
+    },
+    {
+      "Date": "2026-08-22T15:00:00+08:00",
+      "InIndex": 5798,
+      "CrawledPages": 683,
+      "Code2xx": 6695,
+      "Code5xx": 72,
+      "CrawlErrors": 15
+    }
+  ],
+  "queryCount": 337,
+  "queryTop": [
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg官网",
+      "Clicks": 270,
+      "Impressions": 23181,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg",
+      "Clicks": 430,
+      "Impressions": 22166,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg",
+      "Clicks": 269,
+      "Impressions": 6654,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg官网",
+      "Clicks": 163,
+      "Impressions": 5752,
+      "AvgImpressionPosition": 4
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg mobile",
+      "Clicks": 1684,
+      "Impressions": 3886,
+      "AvgImpressionPosition": 1
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg.com",
+      "Clicks": 0,
+      "Impressions": 3788,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg mobile",
+      "Clicks": 844,
+      "Impressions": 1910,
+      "AvgImpressionPosition": 1
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "绝地求生官网",
+      "Clicks": 9,
+      "Impressions": 880,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg国际服下载",
+      "Clicks": 52,
+      "Impressions": 668,
+      "AvgImpressionPosition": 7
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg.com",
+      "Clicks": 0,
+      "Impressions": 540,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubgm",
+      "Clicks": 229,
+      "Impressions": 505,
+      "AvgImpressionPosition": 1
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "绝地求生官网",
+      "Clicks": 4,
+      "Impressions": 483,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg国际服下载",
+      "Clicks": 44,
+      "Impressions": 407,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pupg",
+      "Clicks": 57,
+      "Impressions": 392,
+      "AvgImpressionPosition": 4
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg下载",
+      "Clicks": 25,
+      "Impressions": 372,
+      "AvgImpressionPosition": 7
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg mobile官网",
+      "Clicks": 93,
+      "Impressions": 353,
+      "AvgImpressionPosition": 3
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg,com",
+      "Clicks": 0,
+      "Impressions": 327,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-08-07T15:00:00+08:00",
+      "Query": "pubg",
+      "Clicks": 13,
+      "Impressions": 326,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-08-07T15:00:00+08:00",
+      "Query": "pubg mobile",
+      "Clicks": 12,
+      "Impressions": 294,
+      "AvgImpressionPosition": 5
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pu'b'g",
+      "Clicks": 6,
+      "Impressions": 288,
+      "AvgImpressionPosition": 4
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubgm",
+      "Clicks": 133,
+      "Impressions": 263,
+      "AvgImpressionPosition": 2
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg mobile下载",
+      "Clicks": 35,
+      "Impressions": 243,
+      "AvgImpressionPosition": 3
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg self-service",
+      "Clicks": 0,
+      "Impressions": 208,
+      "AvgImpressionPosition": 9
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg mobile官网下载",
+      "Clicks": 54,
+      "Impressions": 190,
+      "AvgImpressionPosition": 2
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg下载",
+      "Clicks": 18,
+      "Impressions": 185,
+      "AvgImpressionPosition": 6
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "部落冲突国际服",
+      "Clicks": 21,
+      "Impressions": 171,
+      "AvgImpressionPosition": 8
+    },
+    {
+      "Date": "2026-07-24T15:00:00+08:00",
+      "Query": "pubg官网下载",
+      "Clicks": 18,
+      "Impressions": 160,
+      "AvgImpressionPosition": 4
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pupg",
+      "Clicks": 22,
+      "Impressions": 145,
+      "AvgImpressionPosition": 3
+    },
+    {
+      "Date": "2026-07-31T15:00:00+08:00",
+      "Query": "pubg mobile官网",
+      "Clicks": 63,
+      "Impressions": 139,
+      "AvgImpressionPosition": 2
+    },
+    {
+      "Date": "2026-08-14T15:00:00+08:00",
+      "Query": "pubg",
+      "Clicks": 1,
+      "Impressions": 122,
+      "AvgImpressionPosition": 8
+    }
+  ]
+}

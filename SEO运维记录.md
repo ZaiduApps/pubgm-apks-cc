@@ -185,3 +185,4 @@
 - 未修改：Bing 报告中 9 个多 H1、1 个重要页面 robots、2 个 IndexNow、2 个 sitemap 缺失；当前线上逐页证据不复现，不能瞎改。
 - 未决：四站首页 description 仍由后台配置提供且偏短。若要修改，下一步必须提交具体 `site.update_metadata` preview，展示 before/after 后由用户明确确认 execute；不能以代码 fallback 代替远程配置。
 - 观测边界：部署/IndexNow 接收不等于 Bing 已重新抓取、收录或流量恢复；继续观察 7-14 天的 URL、查询、展现、点击与抓取日志。
+- Chrome DevTools MCP 本轮再次返回 `Transport closed`，未将 HTTP 初始 HTML 结果冒充为 Chrome 渲染证据；待 CDP 传输恢复后补做 rendered DOM/Lighthouse 复核。

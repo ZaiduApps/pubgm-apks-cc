@@ -205,3 +205,30 @@
 | `limbuscompany` | 约 87 | 128 | 安卓 APK、更新、登录网络、汉化、入坑、人格/E.G.O |
 
 新描述均基于当前后台配置和已发布专题内容，没有加入未验证版本号或虚构功能。临时 `confirm_token` 未写入仓库、日志或交接文档；需用户明确确认后，使用相同 patch 执行，并立即复读配置、landing preview、四站公网 head 和 IndexNow 变更 URL。
+
+## 13. 2026-08-23 17:25 四站首页 description 执行、缓存刷新与 IndexNow
+
+### 执行结果
+
+- 用户确认执行四站首页 description；原先只写入顶层 `seo.description` 的结果已复核为配置源已更新，但专题页仍由 `landing.seo.description` 覆盖。
+- 已定位读取链路：Admin MCP `site.get_config`、`site.get_landing_preview` 和 `GET /site/landing-config?key=<siteKey>` 均读取 Interface 的同一 Mongo 站点配置；Next.js 的 `src/lib/site-config.ts` 使用 `fetch(..., { next: { revalidate: 60 } })`，其 fetch cache 会跨 PM2 reload 保留。
+- 通过 Admin MCP 对四站执行 `site.update_content`，每站 patch 仅为 `landing.seo.description`，均经过新的 preview -> execute 闸门，风险 `medium`，返回 `updated_sections=["landing"]`。四站长度：PUBG `85 -> 123`、Pokémon `101 -> 143`、Brown Dust 2 `75 -> 121`、Limbus `87 -> 128`。
+- 生产仅清理 `/root/home/apks-sites/.next/cache/fetch-cache`，随后只重载 PM2 `pubgm-app`；未重启 Interface、9527、Nginx 或其他服务。
+
+### 三层验证
+
+- Interface `http://127.0.0.1:9527/site/landing-config`：四站均返回新 `landing.seo.description`，HTTP `200`。
+- Next.js 3000 按四个 Host 请求：四站初始 HTML 均返回新 description。
+- 四站公网 Bingbot UA 请求：均 HTTP `200`；description 长度分别为 `123/143/121/128`，每页 `canonical=1`、`h1=1`。
+- Chrome DevTools MCP 本轮仍返回 `Transport closed`，公网结果是 HTTP 初始 HTML 证据，不冒充 Chrome 渲染证据。
+
+### IndexNow
+
+- 已提交四个首页 canonical：`https://pubgm.apks.cc/`、`https://pokemonchampions.apks.cc/`、`https://browndust2.apks.cc/`、`https://limbuscompany.apks.cc/`。
+- 四站均返回 HTTP `200`，证据：`logs/indexnow-submit-20260823-home-description.json`。这只表示 IndexNow 接收通知，不表示 Bing 已抓取、收录、排名或流量恢复。
+
+### 可复用工具与后续边界
+
+- 新增 `scripts/site-landing-seo-sync.mjs`：默认只生成四站 `landing.seo.description` preview，显式传 `--execute` 才执行；脚本不输出或保存凭证、confirm token。
+- 以后修改首页描述必须同时核对顶层 `seo.description` 与 `landing.seo.description`，并在执行后清理 Next fetch cache 或等待其 TTL 后验证公网 head；不能只以 `site.get_config` 成功作为生效证据。
+- 结果状态：MCP 配置已执行、生产已部署可观测、IndexNow 已接收；Bing 抓取/收录/查询/展现/点击尚未观察，继续观察至少 `7-14` 天。

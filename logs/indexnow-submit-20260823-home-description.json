@@ -1,0 +1,34 @@
+{
+  "submittedAt": "2026-08-23T09:24:38.721Z",
+  "shouldSubmit": true,
+  "results": [
+    {
+      "site": "pubgm.apks.cc",
+      "urlCount": 1,
+      "mode": "submit",
+      "status": 200,
+      "response": ""
+    },
+    {
+      "site": "pokemonchampions.apks.cc",
+      "urlCount": 1,
+      "mode": "submit",
+      "status": 200,
+      "response": ""
+    },
+    {
+      "site": "browndust2.apks.cc",
+      "urlCount": 1,
+      "mode": "submit",
+      "status": 200,
+      "response": ""
+    },
+    {
+      "site": "limbuscompany.apks.cc",
+      "urlCount": 1,
+      "mode": "submit",
+      "status": 200,
+      "response": ""
+    }
+  ]
+}

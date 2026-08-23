@@ -146,6 +146,8 @@ Endpoint 和 key 见 `SEO运维凭证.md`。当前已确认的只读工具：`si
 4. 只用相同 patch、确认 token 和新的 `idempotency_key` 调用 `mode=execute`。
 5. 重新调用 `site.get_config` 和 `site.get_landing_preview`，再做公网 HTML/JSON-LD 验证。
 
+首页 description 需要特别检查两个字段：顶层 `seo.description` 与 `landing.seo.description`。专题渲染会以后者覆盖前者；四站同步可使用 `node scripts/site-landing-seo-sync.mjs` 做 preview，确认后使用 `node scripts/site-landing-seo-sync.mjs --execute`。生产验证若发现 9527 已更新但公网 head 仍旧，先清理 `/root/home/apks-sites/.next/cache/fetch-cache` 并只重载 `pubgm-app`，再重抓四站首页。
+
 当前 MCP 工具列表没有社区发帖/文章创建工具；不能把搜索到的帖子直接当成已发布内容，也不能绕过 MCP 写入闸门调用内部接口。
 
 ## 7. Git、部署与验证

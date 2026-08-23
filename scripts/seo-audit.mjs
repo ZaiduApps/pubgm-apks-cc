@@ -1,4 +1,7 @@
 const urls = process.argv.slice(2);
+const auditUserAgent =
+  process.env.SEO_AUDIT_USER_AGENT ||
+  'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)';
 
 if (urls.length === 0) {
   urls.push('https://pubgm.apks.cc/', 'https://pubgm.apks.cc/articles/pubgm-4.1-apk');
@@ -99,13 +102,14 @@ const extractLinks = (html, url) => {
 for (const url of urls) {
   const response = await fetch(url, {
     headers: {
-      'user-agent': 'PUBG-Mobile-SEO-Audit/1.0',
+      'user-agent': auditUserAgent,
     },
   });
   const html = await response.text();
 
   console.log(JSON.stringify({
     url,
+    userAgent: auditUserAgent,
     status: response.status,
     title: stripTags((html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || ''),
     description: extractMeta(html, 'description'),

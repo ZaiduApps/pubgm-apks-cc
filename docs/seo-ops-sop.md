@@ -94,6 +94,16 @@ node scripts/seo-ops-baseline.mjs
 4. 仅对实际新增/更新/删除的 canonical URL 调用 IndexNow；记录 URL、提交时间、响应状态、响应体摘要，随后分别等待并观察抓取/索引证据。
 5. 后台自动发帖必须有人工审核、事实来源和每日上限。当前没有在代码仓库或已连接工具中发现可确认的后台写入 MCP/发帖接口，因此本阶段只做只读配置与指标采集，不自动发布。
 
+IndexNow 可复跑命令（默认 dry-run）：
+
+```powershell
+$env:INDEXNOW_KEY = '<IndexNow key>'
+node scripts/indexnow-submit.mjs
+node scripts/indexnow-submit.mjs --submit
+```
+
+`--submit` 是显式写入闸门。生产发布时建议再设置 `INDEXNOW_URLS` 为本次实际新增/更新的 canonical URL（逗号或换行分隔）；未设置时脚本仅在显式提交模式下使用当前 sitemap URL 列表。脚本会逐站校验 sitemap、key 文件和 URL host，不接受跨域 URL。
+
 ## 7. 事件诊断与实验
 
 遇到 Bing 下跌，按以下顺序排查：

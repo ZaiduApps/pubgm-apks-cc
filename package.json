@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
-    "seo:audit": "node scripts/seo-audit.mjs"
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "seo:ops": "node scripts/seo-ops-baseline.mjs"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",

@@ -162,3 +162,26 @@
 - IndexNow：提交 `pubgm.apks.cc` sitemap 的 16 条 URL，接口 HTTP 200；证据 `logs/indexnow-submit-20260823-article-keywords.json`。这表示接口接收，不代表 Bing 已抓取或收录。
 - 结果状态：代码已实现；已部署可观测；已被 Bing 接收通知；收录、查询、展现和点击尚未观察。
 - MCP `site.update_metadata` 仍只完成 preview，未 execute；等待用户明确确认后再执行并重新读取配置/专题预览。
+
+## 11. 2026-08-23 16:25 Bing Recommendations 复核与详情页 description 修复
+
+### 复核事实
+
+- Bing Recommendations 报告中的 51 个问题不能直接当作当前线上事实：Bing 明细 API 方法 `GetRecommendations`、`GetRecommendationsSummary`、`GetSiteScanRecommendations` 均返回 `404`，无法取得对应 URL 清单。
+- 使用 Bingbot UA，并通过 `curl --resolve` 绕过美国工作区 hosts 覆盖，对四站当前 sitemap 全部 URL 逐页复核：页面均为 `200`，均有 self-canonical，均有 description，且每页检测到恰好 1 个 `<h1>`；未发现重要页面的 `noindex`/`nofollow`。
+- 复核前仍可确认的短 description 主要来自后台文章摘要过短，以及四个首页远程 SEO 配置（首页当前约 75-101 字符）。首页配置属于 Admin MCP 写入范围，本轮没有绕过 preview/确认闸门修改。
+
+### 实施与验证
+
+- 修改 `src/lib/site-config.ts` 的 `getArticleSeoDescription`：当后台 summary 过短时，将去 Markdown 的正文前段拼接后再截取约 158 字符；不改变事实内容、关键词、robots、canonical、sitemap 或 H1 结构。
+- 本地 `npm run typecheck`、`npm run build`、`git diff --check` 通过。
+- GitHub 提交：`00054cc fix(seo): extend short article descriptions`。
+- 香港生产 `/root/home/apks-sites` 已快进到 `00054cc`；`pnpm install --frozen-lockfile`、`pnpm build` 通过；PM2 `pubgm-app` reload 后 `online`。
+- Bingbot 公网复核：Brown Dust 2、Limbus Company 两个此前 49-96 字符的详情页，以及 PUBG 代表文章，description 已为 157-158 字符；canonical 正确且每页 1 个 H1。
+
+### 结论与未决项
+
+- 已修复：详情页由短 summary 导致的 description 过短问题（代码级、已部署可观测）。
+- 未修改：Bing 报告中 9 个多 H1、1 个重要页面 robots、2 个 IndexNow、2 个 sitemap 缺失；当前线上逐页证据不复现，不能瞎改。
+- 未决：四站首页 description 仍由后台配置提供且偏短。若要修改，下一步必须提交具体 `site.update_metadata` preview，展示 before/after 后由用户明确确认 execute；不能以代码 fallback 代替远程配置。
+- 观测边界：部署/IndexNow 接收不等于 Bing 已重新抓取、收录或流量恢复；继续观察 7-14 天的 URL、查询、展现、点击与抓取日志。

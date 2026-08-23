@@ -10,6 +10,8 @@
 
 当前生产边界：香港 VPS `154.36.164.55`，项目 `/root/home/apks-sites`，PM2 `pubgm-app`，Next.js 监听 `3000`，Nginx/Cloudflare 负责四域名入口。发布前先在当前美国工作区验证，再通过 GitHub 同步并在香港验证；不修改既有 SSH/root 密码、端口、站点映射和无关工作区改动。
 
+根目录账本：`SEO运维记录.md`。每次 SEO 审计、配置变更、内容发布、IndexNow 提交或生产部署后，必须追加时间、范围、动作、事实证据、结果阶段、commit/生产版本和下一步；同时保存对应的基线 JSON、Bing 原始响应或日志路径。有效凭证只放在本机忽略文件 `SEO运维凭证.md`，不得进入公开 Git 历史。
+
 ## 2. 当前基线（2026-08-23）
 
 ### 技术与渲染
@@ -92,7 +94,7 @@ node scripts/seo-ops-baseline.mjs
 2. 本地运行 `pnpm typecheck`、`node scripts/seo-ops-baseline.mjs`、`node scripts/seo-audit.mjs <代表 URL>`；生产 build 使用已验证的 `node node_modules/next/dist/bin/next build --no-lint` 作为依赖缺失时的替代检查，并记录原因。
 3. Git 提交单一职责变更，推送 GitHub；香港生产拉取后构建、重载 PM2/Nginx，验证 PM2 online、监听端口、HTTP 200、Bingbot 初始 head、robots/sitemap。
 4. 仅对实际新增/更新/删除的 canonical URL 调用 IndexNow；记录 URL、提交时间、响应状态、响应体摘要，随后分别等待并观察抓取/索引证据。
-5. 后台自动发帖必须有人工审核、事实来源和每日上限。当前没有在代码仓库或已连接工具中发现可确认的后台写入 MCP/发帖接口，因此本阶段只做只读配置与指标采集，不自动发布。
+5. 后台自动发帖必须有人工审核、事实来源和每日上限。当前已确认 Admin MCP 的 `community.search_posts`、`topic.search` 只读能力，以及 `site.update_*` 配置写入能力；是否存在内容发布写工具必须以每次 `tools/list` 的实际结果为准。任何写入均需 preview、用户明确确认 token、唯一幂等键和执行后复读验证，不自动批量发布。
 
 IndexNow 可复跑命令（默认 dry-run）：
 

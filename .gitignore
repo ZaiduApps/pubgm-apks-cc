@@ -47,3 +47,8 @@ firebase-debug.log
 firestore-debug.log
 logs/dev-session*.log
 logs/*.local-*.log
+
+# 本机 SEO 运维凭证（包含有效 Bing/IndexNow/Admin MCP key）
+/SEO运维凭证.md
+# 基线原始响应会回读 IndexNow key，仅保留在本机证据目录
+/logs/seo-baseline*.json

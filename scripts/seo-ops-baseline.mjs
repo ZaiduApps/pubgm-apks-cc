@@ -16,6 +16,7 @@ const configApiBase = String(process.env.SEO_CONFIG_API_BASE || process.env.SITE
   .replace(/\/$/, '');
 const bingApiKey = String(process.env.BING_WEBMASTER_API_KEY || '').trim();
 const bingSiteUrl = String(process.env.BING_WEBMASTER_SITE_URL || 'https://apks.cc/').trim();
+const indexNowKey = String(process.env.INDEXNOW_KEY || '').trim();
 const outputPath = String(process.env.SEO_BASELINE_OUTPUT || '').trim();
 
 async function fetchText(url, headers = {}) {
@@ -102,8 +103,10 @@ function sitemapStats(xml) {
 
 async function inspectSite(site) {
   const origin = `https://${site.host}`;
+  const paths = ['/', '/robots.txt', '/sitemap.xml'];
+  if (indexNowKey) paths.push(`/${indexNowKey}.txt`);
   const [home, robots, sitemap, keyFile] = await Promise.all(
-    ['/', '/robots.txt', '/sitemap.xml', `/${process.env.INDEXNOW_KEY || '71480f851f5a462899e861af2d387343'}.txt`].map(
+    paths.map(
       (path) => fetchText(`${origin}${path}`).catch((error) => ({ error: error.message })),
     ),
   );
@@ -151,7 +154,11 @@ async function inspectSite(site) {
     home: home.error ? { error: home.error } : { status: home.status, responseHeaders: { 'cache-control': home.headers?.['cache-control'], vary: home.headers?.vary }, ...metadata(home.body) },
     robots: robots.error ? { error: robots.error } : { status: robots.status, hasSitemap: /sitemap:/i.test(robots.body) },
     sitemap: sitemap.error ? { error: sitemap.error } : { status: sitemap.status, ...sitemapStats(sitemap.body) },
-    indexNowKey: keyFile.error ? { error: keyFile.error } : { status: keyFile.status, value: keyFile.body.trim(), matchesExpected: keyFile.body.trim() === (process.env.INDEXNOW_KEY || '71480f851f5a462899e861af2d387343') },
+    indexNowKey: !indexNowKey
+      ? { enabled: false, reason: 'INDEXNOW_KEY is not set' }
+      : keyFile?.error
+        ? { error: keyFile.error }
+        : { status: keyFile.status, matchesExpected: keyFile.body.trim() === indexNowKey },
     config: configSummary,
   };
 }

@@ -153,3 +153,12 @@
 - 已通过本地 `.\\node_modules\\.bin\\tsc.cmd --noEmit -p tsconfig.typecheck.json`、三个 SEO 脚本 `node --check` 和 `git diff --check`。
 - 下一步：用户确认后重新生成 preview 并立即 execute，重新读取配置和 landing preview；代码提交后再按香港生产边界部署、检查代表文章初始 head，并提交实际变更 URL 到 IndexNow。
 - 4.7 关键词的前置条件：先提供或发布真实 4.7 版本文章；当前 Admin MCP 工具列表没有社区发帖/文章创建能力，不能凭空发帖或伪造版本事实。
+
+## 10. 2026-08-23 15:50 文章级关键词部署与 IndexNow
+
+- GitHub：`2399bbc feat(seo): add article keyword metadata` 已推送 `origin/main`。
+- 香港生产：`hk.apk` / `154.36.164.55` 的 `/root/home/apks-sites` 快进到 `2399bbc`；`pnpm install --frozen-lockfile`、`pnpm build` 成功；PM2 `pubgm-app` 重载后 online，生产本地首页和 robots 为 200。
+- 公网 Bingbot 样本：`https://pubgm.apks.cc/`、`/robots.txt`、`/sitemap.xml`、代表文章均 200；代表文章初始 head 已有文章级 keywords（含 `PUBG Mobile 4.6版本`、`地铁逃生4.6版本`）、description、self-canonical，JSON-LD 脚本 2 个。
+- IndexNow：提交 `pubgm.apks.cc` sitemap 的 16 条 URL，接口 HTTP 200；证据 `logs/indexnow-submit-20260823-article-keywords.json`。这表示接口接收，不代表 Bing 已抓取或收录。
+- 结果状态：代码已实现；已部署可观测；已被 Bing 接收通知；收录、查询、展现和点击尚未观察。
+- MCP `site.update_metadata` 仍只完成 preview，未 execute；等待用户明确确认后再执行并重新读取配置/专题预览。

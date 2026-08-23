@@ -984,11 +984,17 @@ export function truncateSeoText(value: unknown, maxLength = 160) {
 }
 
 export function getArticleSeoDescription(article: SiteArticle) {
-  return (
-    truncateSeoText(article.summary, 158) ||
-    truncateSeoText(article.content, 158) ||
-    article.title
-  );
+  const summary = stripMarkdownToPlainText(article.summary);
+  const content = stripMarkdownToPlainText(article.content);
+
+  // 后台摘要可能只有一句话；继续从正文取一段，避免详情页 description
+  // 因摘要过短而无法准确表达文章主题。正文已去除 Markdown，不会把标题标记带进 head。
+  const descriptionSource =
+    summary && content && !content.startsWith(summary)
+      ? `${summary} ${content}`
+      : summary || content;
+
+  return truncateSeoText(descriptionSource, 158) || article.title;
 }
 
 export function getArticleTopicId(config: SiteConfigShape, article?: SiteArticle | null) {

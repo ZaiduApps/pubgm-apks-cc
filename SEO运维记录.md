@@ -186,3 +186,22 @@
 - 未决：四站首页 description 仍由后台配置提供且偏短。若要修改，下一步必须提交具体 `site.update_metadata` preview，展示 before/after 后由用户明确确认 execute；不能以代码 fallback 代替远程配置。
 - 观测边界：部署/IndexNow 接收不等于 Bing 已重新抓取、收录或流量恢复；继续观察 7-14 天的 URL、查询、展现、点击与抓取日志。
 - Chrome DevTools MCP 本轮再次返回 `Transport closed`，未将 HTTP 初始 HTML 结果冒充为 Chrome 渲染证据；待 CDP 传输恢复后补做 rendered DOM/Lighthouse 复核。
+
+## 12. 2026-08-23 16:45 四站首页 description 配置 preview
+
+### 当前事实
+
+- Admin MCP 已恢复：`site.list` 返回 `pubgm`、`pokemonchampions`、`browndust2`、`limbuscompany`，四站均 `manageable: true`。
+- 四次 `site.update_metadata` 均为 `mode=preview`，均返回 `risk_level=medium`、确认有效期 600000ms；未执行写入。
+- 每个 patch 只包含 `seo.description`，title suffix、keywords、app_seo 和其他配置保持不变。
+
+### Preview 方案
+
+| 站点 | 当前 description 长度 | 预览 description 长度 | 主要覆盖意图 |
+|---|---:|---:|---|
+| `pubgm` | 约 85 | 123 | 国际服 APK、安卓/iOS、版本、登录/安装、地铁逃生 |
+| `pokemonchampions` | 约 101 | 143 | 安卓 APK、Switch/iOS/Android、赛季、维护、对战 |
+| `browndust2` | 约 75 | 121 | Brown Dust 2 APK、安装、维护、活动、角色、故障 |
+| `limbuscompany` | 约 87 | 128 | 安卓 APK、更新、登录网络、汉化、入坑、人格/E.G.O |
+
+新描述均基于当前后台配置和已发布专题内容，没有加入未验证版本号或虚构功能。临时 `confirm_token` 未写入仓库、日志或交接文档；需用户明确确认后，使用相同 patch 执行，并立即复读配置、landing preview、四站公网 head 和 IndexNow 变更 URL。

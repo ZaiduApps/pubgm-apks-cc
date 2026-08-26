@@ -18,8 +18,10 @@ const bingApiKey = String(process.env.BING_WEBMASTER_API_KEY || '').trim();
 const bingSiteUrl = String(process.env.BING_WEBMASTER_SITE_URL || 'https://apks.cc/').trim();
 const indexNowKey = String(process.env.INDEXNOW_KEY || '').trim();
 const outputPath = String(process.env.SEO_BASELINE_OUTPUT || '').trim();
+const deepInspection = process.env.SEO_DEEP === '1';
 
 async function fetchText(url, headers = {}) {
+  const startedAt = performance.now();
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -29,12 +31,33 @@ async function fetchText(url, headers = {}) {
     });
     return {
       status: response.status,
+      durationMs: Math.round(performance.now() - startedAt),
       headers: Object.fromEntries(response.headers.entries()),
       body: await response.text(),
     };
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function inspectDeepUrl(url, host) {
+  const result = await fetchText(url).catch((error) => ({ error: error.message }));
+  if (result.error) return { url, host, error: result.error };
+  const page = metadata(result.body);
+  return {
+    url,
+    host,
+    status: result.status,
+    durationMs: result.durationMs,
+    title: page.title,
+    descriptionLength: page.description.length,
+    canonical: page.canonical,
+    canonicalMatchesUrl: page.canonical === url,
+    h1Count: page.h1.length,
+    robots: (result.body.match(/<meta\b[^>]*name=["']robots["'][^>]*>/gi) || []).map((tag) => attr(tag, 'content')),
+    metadataInHead: page.metadataPlacement,
+    jsonLdTypes: page.jsonLdTypes,
+  };
 }
 
 function attr(tag, name) {
@@ -148,6 +171,14 @@ async function inspectSite(site) {
     }
   }
 
+  const deepUrls = deepInspection && !sitemap.error
+    ? Array.from(sitemap.body.matchAll(/<loc>([\s\S]*?)<\/loc>/gi), (match) => match[1].trim())
+        .filter((url) => { try { return new URL(url).hostname === site.host; } catch { return false; } })
+    : [];
+  const deep = deepInspection
+    ? { selected: deepUrls.length, pages: await Promise.all(deepUrls.map((url) => inspectDeepUrl(url, site.host))) }
+    : undefined;
+
   return {
     key: site.key,
     host: site.host,
@@ -160,6 +191,7 @@ async function inspectSite(site) {
         ? { error: keyFile.error }
         : { status: keyFile.status, matchesExpected: keyFile.body.trim() === indexNowKey },
     config: configSummary,
+    ...(deep ? { deep } : {}),
   };
 }
 
@@ -198,6 +230,7 @@ async function inspectBing() {
 const report = {
   generatedAt: new Date().toISOString(),
   userAgent,
+  deepInspection,
   sites: await Promise.all(sites.map(inspectSite)),
   bing: await inspectBing(),
 };

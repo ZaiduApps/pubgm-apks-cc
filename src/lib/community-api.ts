@@ -8,6 +8,12 @@ const MAIN_SITE_URL =
   process.env.MAIN_SITE_URL?.trim().replace(/\/+$/, '') ||
   'https://apks.cc';
 
+// 社区数据属于文章的增强信息，不能无限期阻塞文章正文和 SEO head。
+const COMMUNITY_API_TIMEOUT_MS = Math.max(
+  500,
+  Number(process.env.COMMUNITY_API_TIMEOUT_MS || 2500),
+);
+
 type ApiEnvelope<T> = {
   code?: number;
   data?: T;
@@ -111,9 +117,12 @@ function normalizeTopic(input: ApiTopic | null | undefined): CommunityTopic | nu
 }
 
 async function readApiData<T>(path: string, revalidate = 60): Promise<T | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), COMMUNITY_API_TIMEOUT_MS);
   try {
     const response = await fetch(apiUrl(path), {
       next: { revalidate },
+      signal: controller.signal,
     });
     if (!response.ok) {
       return null;
@@ -125,6 +134,8 @@ async function readApiData<T>(path: string, revalidate = 60): Promise<T | null> 
     return json.data ?? null;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 

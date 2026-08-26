@@ -232,3 +232,31 @@
 - 新增 `scripts/site-landing-seo-sync.mjs`：默认只生成四站 `landing.seo.description` preview，显式传 `--execute` 才执行；脚本不输出或保存凭证、confirm token。
 - 以后修改首页描述必须同时核对顶层 `seo.description` 与 `landing.seo.description`，并在执行后清理 Next fetch cache 或等待其 TTL 后验证公网 head；不能只以 `site.get_config` 成功作为生效证据。
 - 结果状态：MCP 配置已执行、生产已部署可观测、IndexNow 已接收；Bing 抓取/收录/查询/展现/点击尚未观察，继续观察至少 `7-14` 天。
+
+## 14. 2026-08-26 生产异常复核与低风险 SEO 实施
+
+### 事实证据
+
+- 香港生产复核：`pubgm-app`、`interface-api`、`interface-schedule` 均 online；3000、9527、80、443 正常监听；Nginx `-t` 通过；根盘可用约 `3.7GB`。本轮未清理缓存、日志或其他项目。
+- 四站公网首页和四个代表包名的 `/seo/game-page` 当前均 HTTP `200`；代表包名响应约 `0.6-1.1s`。
+- `/seo/game-page` 的约 `3906` 次 `500` 集中在 `2026-08-25 20:42`，来源 `120.85.35.143`，User-Agent 为 `node`，查询为批量包名审计；不是四站 Bingbot 页面请求。本轮不修改 Interface/Mongo。
+- Bingbot 对已不存在的旧文章 URL 继续收到真实 `404 + noindex`；未做首页重定向。
+- Bing 最新可用性能数据仍未恢复至 `2026-07-26` 前量级；该结论不支持通过回退代码保证恢复。
+
+### 实施与验证
+
+- `src/lib/community-api.ts`：社区评论/话题读取增加默认 `2500ms` AbortController 超时，失败继续降级为空数据，不阻塞文章正文、metadata、canonical、JSON-LD。
+- `scripts/seo-ops-baseline.mjs`：新增显式 `SEO_DEEP=1` 深度模式，逐条检查 sitemap URL 的状态码、耗时、description、canonical、robots、H1、初始 head metadata 和 JSON-LD。
+- 深度巡检报告 `logs/seo-deep-20260826.json`：四站共 `37` 个 URL，全部 `200`；无 canonical、H1 或短 description 异常。
+- `node --check scripts/seo-ops-baseline.mjs`、typecheck、`git diff --check` 和代表文章 `seo-audit` 通过。`pnpm build` 被本机 pnpm 依赖构建脚本审批策略拦截；直接 `next build --no-lint` 已完成编译、类型检查、静态页生成和 trace 收集。
+
+### MCP preview
+
+- 重新读取 `pubgm` 配置后生成 `site.update_metadata` preview，仅追加：`PUBGM无法登录`、`无法登录PUBGM`、`PUBGM login error`、`PUBGM登录报错`、`login error 报错`。
+- title suffix 和 description 未改变；风险 `medium`；尚未 execute、部署或提交 IndexNow，等待用户对该具体 preview 明确确认。
+
+### 当前状态与下一步
+
+- 代码改动已实现但尚未提交/部署；MCP 配置为 preview；Bing/IndexNow 未产生本轮写入。
+- 生产空间低于 5GB，本轮停止在部署前，不清理缓存；若要部署需先取得针对 `/root/home/apks-sites/.next/cache` 的单独授权。
+- MCP execute 后才执行生产部署和实际变更 URL 的 IndexNow，并继续观察 7-14 天抓取、查询、展现、点击与 5xx。

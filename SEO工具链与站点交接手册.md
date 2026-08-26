@@ -117,6 +117,11 @@ $env:BING_WEBMASTER_SITE_URL = 'https://apks.cc/'
 $env:SEO_BASELINE_OUTPUT = 'logs/seo-baseline-YYYYMMDD.json'
 node scripts/seo-ops-baseline.mjs
 
+# 逐条巡检 sitemap 页面（显式深度模式；默认基线不增加页面请求量）
+$env:SEO_DEEP = '1'
+$env:SEO_BASELINE_OUTPUT = 'logs/seo-deep-YYYYMMDD.json'
+node scripts/seo-ops-baseline.mjs
+
 # 只提交实际新增/更新/删除的 canonical URL
 node scripts/indexnow-submit.mjs
 ~~~

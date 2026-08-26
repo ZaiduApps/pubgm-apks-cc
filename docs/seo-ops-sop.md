@@ -20,6 +20,7 @@
 - `scripts/seo-audit.mjs` 已默认使用 Bingbot UA，可检查 metadata 是否位于初始 head。
 - Next.js 已配置 `htmlLimitedBots`，防止爬虫 metadata 被流式追加到初始 head 之后。
 - Nginx 当前站点配置已关闭 HTML `proxy_cache`；线上响应仍会带 `Cache-Control: public, max-age=60, stale-while-revalidate=300`，需要通过日志与 Bing 数据观察缓存/重验证效果。
+- 文章页的社区评论/话题请求属于增强数据，`src/lib/community-api.ts` 默认以 `2500ms` 超时并降级为空数据，避免后台接口慢查询阻塞正文、metadata 和 JSON-LD；可通过 `COMMUNITY_API_TIMEOUT_MS` 调整。
 - 本地 hosts 曾覆盖后三个域名到 `127.0.0.1`，CDP 公网验证时应使用公网 DNS 或临时移除覆盖并恢复。
 
 ### 数据来源
@@ -58,6 +59,16 @@ $env:SEO_CONFIG_API_BASE = 'http://127.0.0.1:9527'
 $env:SEO_BASELINE_OUTPUT = 'logs/seo-baseline.json'
 node scripts/seo-ops-baseline.mjs
 ```
+
+需要逐条检查 sitemap 页面时显式启用深度模式（默认基线不增加页面请求量）：
+
+```powershell
+$env:SEO_DEEP = '1'
+$env:SEO_BASELINE_OUTPUT = 'logs/seo-deep-YYYYMMDD.json'
+node scripts/seo-ops-baseline.mjs
+```
+
+深度报告会记录每个 sitemap URL 的状态码、耗时、description 长度、canonical 是否自指、robots、H1 数量、初始 head metadata 和 JSON-LD 类型；它仍是 HTTP 初始 HTML 证据，不替代 Chrome/CDP 渲染证据。
 
 检查四站：状态码、响应时间（可用 curl 另测）、初始 head metadata、H1、JSON-LD、正文字符数、canonical、robots、sitemap URL 数量/lastmod、IndexNow key。若配置 API 可达，同时记录 SEO 字段、数据源、topic_id 与主题活跃度。
 

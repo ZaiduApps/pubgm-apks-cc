@@ -349,6 +349,26 @@
 - 旧 hub 下的文章 URL、`apks.cc/app/*` 和社区帖子 URL 不得批量重定向到 PUBGM 首页；必须逐 URL 核验实体和用户任务。
 - 本轮不改 Nginx、不做 301、不删除旧 URL、不提交 IndexNow；下一步是增强当前 PUBGM 首页的实体/包名/下载更新导航后开展单页实验。
 
+## 20. 2026-08-27 爬虫初始响应对照：旧 hub 与 PUBGM
+
+### 结果
+
+- 对 `https://hub.apks.cc/PUBG%20MOBILE/com.tencent.ig` 与 `https://pubgm.apks.cc/` 使用 Bingbot 兼容 UA 对照抓取；两页均 HTTP `200`，HTML 有完整 `</html>`、单 H1，正文和文章链接位于初始响应，不是空壳页面。
+- 旧 hub 响应约 `970KB`，包含 PUBGM 文章导航和下载入口，但未检测到 JSON-LD。
+- 当前 PUBGM 初始 HTML 包含文章、下载、地铁逃生、登录相关内容，并检测到 `WebSite/SoftwareApplication/FAQPage/ItemList` JSON-LD。
+- 因此暂无证据支持“服务端响应没返回数据导致 Bing 没爬到正文”。
+
+### 响应稳定性
+
+- 旧 hub 多次请求约 `2.2-3.0s`，TTFB 约 `1.1-1.5s`。
+- 当前 PUBGM 多次请求通常约 `2.1-3.0s`，但出现一次总耗时约 `18.0s`；仍返回 `200`，说明存在 SSR 响应长尾。
+- 长尾可能降低 Bing 抓取效率，但当前样本不足以证明已发生抓取超时或内容丢失。
+
+### 后续验证
+
+- 在生产日志按 Bingbot/URL 统计 P50/P95/P99、超时和 5xx，并分别测量 `landing-config` 与社区话题/评论请求耗时。
+- 在取得长尾证据前，不做首页重构或大范围缓存调整；保持正文、title、description、canonical、JSON-LD 在初始响应可用。
+
 ## 17. 2026-08-27 PM2 配置固化与 Bing 查询机会初筛
 
 ### PM2 配置

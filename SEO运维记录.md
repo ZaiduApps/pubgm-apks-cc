@@ -342,6 +342,13 @@
 - 近期实验建议：选择一个有真实资料支撑的 PUBGM 下载或登录排查页面，保留现有 URL，完善 title/H1/正文问题答案/内部链接，完成部署后只提交该 URL 到 IndexNow，观察 `7-14` 天抓取与 query 变化。
 - 页面级 API 已可用，后续每周应保留该报告，比较“当前 sitemap 页面”和“历史 URL”两组，而不是只看根属性总量。
 
+## 19. 2026-08-27 旧高信号 URL 对等性初筛
+
+- 新增 `SEO旧URL对等性清单.md`，记录 Bing 高信号旧 hub 页面与当前 PUBGM 首页的逐 URL 对比、证据和迁移边界。
+- `https://hub.apks.cc/PUBG%20MOBILE/com.tencent.ig` 近 28 天约 `20,572` 展现、`1,913` 点击，旧页面仍 `200`，title/description/下载与文章导航完整；当前 `pubgm.apks.cc/` 仅判定为“部分等价”。
+- 旧 hub 下的文章 URL、`apks.cc/app/*` 和社区帖子 URL 不得批量重定向到 PUBGM 首页；必须逐 URL 核验实体和用户任务。
+- 本轮不改 Nginx、不做 301、不删除旧 URL、不提交 IndexNow；下一步是增强当前 PUBGM 首页的实体/包名/下载更新导航后开展单页实验。
+
 ## 17. 2026-08-27 PM2 配置固化与 Bing 查询机会初筛
 
 ### PM2 配置

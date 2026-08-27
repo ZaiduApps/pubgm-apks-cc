@@ -282,3 +282,39 @@
 - Nginx `-t`：通过；9527 Interface 保持 online。
 - 四站首页：`pubgm`、`pokemonchampions`、`browndust2`、`limbuscompany` 均 HTTP `200`，响应约 `2.4-2.9s`。
 - 当前生产运行方式已从 `pnpm start` 调整为直接 Next 启动，避免再次触发异常的安装链路。后续正式部署需在 PM2 ecosystem 中固化该启动命令，避免 `pm2 resurrect` 恢复旧配置。
+
+## 16. 2026-08-27 四站 SEO 基线与 Bing 文档边界复核
+
+### 本轮范围
+
+- 工作模式：`site inventory + template sample`，目标是建立四站持续 SEO SOP；本轮不改代码、不改 MCP 配置、不发帖、不提交 IndexNow。
+- 参考依据：Bing 官方 Sitemap/抓取控制文档、IndexNow 官方协议文档及 Bing Webmaster API 实际响应；IndexNow 接收不等于抓取或收录。
+- 证据文件：`logs/seo-deep-20260827.json`、`logs/seo-baseline-20260827.json`。
+
+### 当前事实
+
+- 四站 sitemap 共 `37` 个 URL：PUBGM `16`、Pokémon `7`、Brown Dust 2 `8`、Limbus Company `6`；深度巡检全部 HTTP `200`。
+- 四站首页和文章页初始 head 均有 title、description、self-canonical；每页恰好 `1` 个 H1；JSON-LD 分别检测到首页 `WebSite/SoftwareApplication/FAQPage/ItemList`、文章 `Article/BreadcrumbList`。
+- 四站文章未发现 robots noindex、canonical 漂移或 4xx/5xx；PUBGM 仍有 3 篇旧文章 description 约 `101-112` 字符，属于内容时效/意图覆盖不足，不是抓取阻断。
+- Bing Webmaster API 根属性 `https://apks.cc/` 可验证，当前返回约 `382` 条 rank/traffic 行、`2076` 条 query 行；配额返回 daily `1000`、monthly `5000`。这些是 API 报告行，不等同于已收录 URL 数。
+- IndexNow 本轮未提交；本地脚本未注入 `INDEXNOW_KEY`，报告中的 key 状态为未启用。
+- `qiaomu-seo` 知识校验脚本无法运行，因为该技能包的 `data/seo-source-registry.json` 不在当前安装路径；不把校验失败误报为站点问题。Bing Webmaster API 一个旧帮助链接返回 `404`，因此只采用实际 API 响应和仍可访问的官方文档，不引用失效页面的具体规则。
+
+### 第一性原理判断
+
+- 当前主要瓶颈不是继续增加 meta keywords，而是：可验证的 Bing 查询/落地页映射、文章级关键词与问题答案覆盖、更新时间与 sitemap/IndexNow 联动、以及生产启动和 SSR 稳定性。
+- 不应为每个关键词生成一个页面；相近意图应合并到同一可解决问题的文章，版本号和故障词必须有正文事实支撑。
+
+### 后续循环 SOP（建议）
+
+1. 每日：采集四站状态码、响应耗时、robots、sitemap、canonical、H1、metadata、5xx 和生产磁盘；异常先分“可抓取/可渲染/可索引/已收录”阶段。
+2. 每周：调用 Bing `GetUserSites`、`GetQueryStats`、`GetRankAndTrafficStats`、配额接口，按根域与子域、日期、query/page 维度保存快照；不把 API 接收写成收录。
+3. 内容变更后：先核对后台专题/文章事实和话题 ID，再做 MCP `preview -> 明确确认 -> execute`；只对实际变更 canonical URL 做 IndexNow，随后验证公网初始 head。
+4. 每两周：用 Bing 查询/落地页与 sitemap 交叉表挑选页面，做一个可回滚的小实验，观察至少 `7-14` 天；判断指标为抓取成功率、索引覆盖、query 展现/点击和合格访问，不以单次排名判断。
+
+### 优先级
+
+- P0：把直接 `next start` 的 PM2 启动方式固化到生产 ecosystem，避免 `pnpm start` 再次触发安装；补充运行时 3000/9527/Nginx 监控。
+- P1：建立 Bing query -> 现有 URL 映射；优先补齐 PUBGM 登录故障、下载/安装、真实版本公告三类内容，并让文章级 keywords/title/description 与正文一致。
+- P1：修复 3 篇 PUBGM 旧文章的事实型摘要（不是机械填充长度），更新 sitemap `lastmod` 后走 IndexNow。
+- P2：通过 Admin MCP 只读核对四站 `data_source.topic_id` 与话题状态；若无发帖工具，不自动生成营销软文。

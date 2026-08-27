@@ -260,3 +260,25 @@
 - 代码改动已实现但尚未提交/部署；MCP 配置为 preview；Bing/IndexNow 未产生本轮写入。
 - 生产空间低于 5GB，本轮停止在部署前，不清理缓存；若要部署需先取得针对 `/root/home/apks-sites/.next/cache` 的单独授权。
 - MCP execute 后才执行生产部署和实际变更 URL 的 IndexNow，并继续观察 7-14 天抓取、查询、展现、点击与 5xx。
+
+## 15. 2026-08-27 生产 PM2 启动故障恢复
+
+### 故障证据
+
+- 四站公网首页返回 `502`；本机 `127.0.0.1:3000` 连接被拒绝。
+- `pubgm-app` 虽显示 online，但约 5 分钟内重启 `18` 次，进程树实际卡在 `pnpm.mjs install`，Next.js 未监听 3000。
+- 生产根盘可用空间由约 `2.8GB` 降至 `2.4GB`，继续安装存在耗尽风险。
+- 停止前日志包含大量 npm registry 超时，以及 `[site-config] unmapped host: 154.36.164.55`；后者属于 IP 主机探测/请求异常，非本次 3000 未启动的直接原因。
+
+### 恢复动作（已获用户确认）
+
+- 停止并删除异常的 PM2 `pubgm-app` 实例，终止其依赖安装链路；未清理项目缓存、日志或其他 PM2 项目。
+- 使用已有 `.next` 产物和缓存中的 `swc-linux-x64-gnu-15.5.7.tgz` 补齐 Next SWC 运行包，删除未完成的 musl 临时下载文件。
+- 以 `node_modules/next/dist/bin/next start -p 3000` 直接托管为 PM2 `pubgm-app`，并执行 `pm2 save`。
+
+### 恢复验证
+
+- PM2 `pubgm-app`：`online`，版本 `15.5.7`，重启次数 `0`；3000 正常监听。
+- Nginx `-t`：通过；9527 Interface 保持 online。
+- 四站首页：`pubgm`、`pokemonchampions`、`browndust2`、`limbuscompany` 均 HTTP `200`，响应约 `2.4-2.9s`。
+- 当前生产运行方式已从 `pnpm start` 调整为直接 Next 启动，避免再次触发异常的安装链路。后续正式部署需在 PM2 ecosystem 中固化该启动命令，避免 `pm2 resurrect` 恢复旧配置。

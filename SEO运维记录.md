@@ -318,3 +318,21 @@
 - P1：建立 Bing query -> 现有 URL 映射；优先补齐 PUBGM 登录故障、下载/安装、真实版本公告三类内容，并让文章级 keywords/title/description 与正文一致。
 - P1：修复 3 篇 PUBGM 旧文章的事实型摘要（不是机械填充长度），更新 sitemap `lastmod` 后走 IndexNow。
 - P2：通过 Admin MCP 只读核对四站 `data_source.topic_id` 与话题状态；若无发帖工具，不自动生成营销软文。
+
+## 17. 2026-08-27 PM2 配置固化与 Bing 查询机会初筛
+
+### PM2 配置
+
+- 修正仓库 `ecosystem.config.js`：默认路径改为 `/root/home/apks-sites`，应用名为 `pubgm-app`，直接执行 `node_modules/next/dist/bin/next start -p 3000`，单实例 fork；路径可通过 `APKS_SITES_PATH` 覆盖。
+- 本地 `require('./ecosystem.config.js')` 与 `git diff --check` 通过。
+- 本轮只修改仓库配置，尚未用 ecosystem 在香港执行 reload；生产仍保持已验证的直接 Next 进程。
+
+### Bing 查询初筛
+
+- 根属性 API 查询数据范围：最早 `2025-08-15`，最新 `2026-08-21`；不是实时排名快照。
+- 聚合后高信号主题包括：`pubg mobile`、`pubg`、`pubg官网`、`pubg国际服下载`、`pubgm`、`pubg mobile官网下载`、`pubg地铁逃生`、`pubgm下载`。
+- 这些是历史展现/点击信号，不代表当前四站各页面已经收录；下一步必须补齐 query 与 landing page 维度映射，再选择单篇内容实验。
+
+### 巡检更正
+
+- 深度报告中 description 低于首页 `123` 字符基准的实际页面为：PUBGM 两篇旧文章（`112/101` 字符）和 Brown Dust 2 首页（`121` 字符）。此前记录将其概括为“三篇 PUBGM 旧文章”不准确；后续以 `logs/seo-deep-20260827.json` 为准。

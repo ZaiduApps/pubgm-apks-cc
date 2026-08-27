@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:ops": "node scripts/seo-ops-baseline.mjs",
+    "seo:bing-opportunities": "node scripts/bing-opportunity-report.mjs",
     "seo:indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {

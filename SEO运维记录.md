@@ -319,6 +319,29 @@
 - P1：修复 3 篇 PUBGM 旧文章的事实型摘要（不是机械填充长度），更新 sitemap `lastmod` 后走 IndexNow。
 - P2：通过 Admin MCP 只读核对四站 `data_source.topic_id` 与话题状态；若无发帖工具，不自动生成营销软文。
 
+## 18. 2026-08-27 Bing 页面级 query 映射
+
+### 实施
+
+- 新增只读脚本 `scripts/bing-opportunity-report.mjs`，命令 `pnpm seo:bing-opportunities`。
+- 脚本读取四站 sitemap（当前 `37` 个 URL），调用 Bing `GetPageStats`、`GetQueryStats` 和带 `page` 参数的 `GetPageQueryStats`，按 Bing 最新返回日期滚动 `28` 天聚合。
+- 输出当前 sitemap 页面、历史但不在当前 sitemap 的 URL、query 意图簇和页面级 query 明细；不执行 MCP 写入、内容发布或 IndexNow 提交。
+- 本轮生成 `logs/bing-opportunities-20260827.json`；`node --check`、`git diff --check` 通过；37/37 个页面级 API 请求成功。
+
+### 关键发现
+
+- API 数据窗口结束于 `2026-08-21`，不是本地运行日；近 28 天 query 聚合不能表述为实时排名。
+- 当前 sitemap 页面中，只有 Brown Dust 2 首页出现约 `50` 次展现、`4` 次点击；其余当前 URL 在该窗口暂无页面级展现记录。
+- 历史高信号 URL 为 `https://hub.apks.cc/PUBG%20MOBILE/com.tencent.ig`，约 `20,572` 次展现、`1,913` 次点击；该 URL 仍返回 `200`，但不属于四站当前 sitemap。
+- PUBGM 当前 sitemap 之外的历史文章 URL（例如 `pubgm-login-solution-sim-card`、`pubgm-metro-royale-accelerator-recommendation`）公网返回 `404`，不应直接据 Bing 历史数据做首页重定向；需逐 URL 判断是否有等价的新页面。
+- 近 28 天 query 主题以 `pubg`、`pubg官网`、`pubg mobile`、`pubg国际服下载`、`pubgm`、`pubg下载` 为主；登录故障簇只有 `1` 次展现，不能据此宣称已验证需求规模。
+
+### 判断与下一步
+
+- 当前最重要的 SEO 任务是把历史高信号实体/下载意图迁移到现有四站可索引页面，并通过真实内容和内部链接承接；这属于 URL/内容迁移实验，需要先做旧 URL 对等性清单，不能批量重定向。
+- 近期实验建议：选择一个有真实资料支撑的 PUBGM 下载或登录排查页面，保留现有 URL，完善 title/H1/正文问题答案/内部链接，完成部署后只提交该 URL 到 IndexNow，观察 `7-14` 天抓取与 query 变化。
+- 页面级 API 已可用，后续每周应保留该报告，比较“当前 sitemap 页面”和“历史 URL”两组，而不是只看根属性总量。
+
 ## 17. 2026-08-27 PM2 配置固化与 Bing 查询机会初筛
 
 ### PM2 配置

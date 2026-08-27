@@ -386,3 +386,12 @@
 ### 巡检更正
 
 - 深度报告中 description 低于首页 `123` 字符基准的实际页面为：PUBGM 两篇旧文章（`112/101` 字符）和 Brown Dust 2 首页（`121` 字符）。此前记录将其概括为“三篇 PUBGM 旧文章”不准确；后续以 `logs/seo-deep-20260827.json` 为准。
+
+## 21. 2026-08-27 SSR 配置请求超时保护
+
+- 生产 Nginx 错误日志显示 502 集中发生于 18:06-18:13 的 3000 未监听窗口；恢复后 Bingbot 首页请求为 `200`。
+- `pubgm.apks.cc` 初始 HTML 数据完整，但存在约 `18s` 的单次响应长尾；社区接口已有 2500ms 超时，站点配置请求此前没有超时上限。
+- `src/lib/site-config.ts` 新增 `SITE_CONFIG_TIMEOUT_MS`（默认 `2500ms`）AbortController；超时/异常时保持原有本地回退逻辑，显式禁用回退时仍按原策略抛错。
+- 未修改 Interface、Nginx、URL、robots、sitemap 或内容配置。
+- 本地 `tsc --noEmit -p tsconfig.typecheck.json`、`next build --no-lint`、`git diff --check` 通过。
+- 本轮未部署香港生产；需在磁盘空间和 PM2 状态确认后按发布流程部署。

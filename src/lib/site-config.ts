@@ -50,6 +50,11 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const USE_REMOTE_IN_DEV = process.env.SITE_CONFIG_USE_REMOTE_IN_DEV === 'true';
 const DEBUG_REMOTE = process.env.SITE_CONFIG_DEBUG === 'true';
 const DISABLE_LOCAL_FALLBACK = process.env.SITE_CONFIG_DISABLE_LOCAL_FALLBACK === 'true';
+// 配置接口属于增强数据，超时后使用本地快照，不能阻塞页面首屏和爬虫抓取。
+const REMOTE_CONFIG_TIMEOUT_MS = Math.max(
+  500,
+  Number(process.env.SITE_CONFIG_TIMEOUT_MS || 2500),
+);
 let hasLoggedRemoteRuntime = false;
 
 function shouldUseRemoteConfig() {
@@ -877,11 +882,17 @@ async function fetchRemoteSiteConfig(host: string, siteKey: string): Promise<Sit
   }
 
   const url = getRemoteRequestUrl(siteKey);
+  let timer: ReturnType<typeof setTimeout> | undefined;
 
   try {
+    const controller = new AbortController();
+    timer = setTimeout(() => controller.abort(), REMOTE_CONFIG_TIMEOUT_MS);
     const response = await fetch(url, {
       next: { revalidate: 60 },
+      signal: controller.signal,
     });
+    clearTimeout(timer);
+    timer = undefined;
     if (!response.ok) {
       if (DEBUG_REMOTE) {
         console.warn(
@@ -923,6 +934,7 @@ async function fetchRemoteSiteConfig(host: string, siteKey: string): Promise<Sit
     }
     return normalizeConfig(transformedPayload);
   } catch (error) {
+    if (timer) clearTimeout(timer);
     if (DEBUG_REMOTE) {
       console.warn(
         '[site-config] remote request exception:',

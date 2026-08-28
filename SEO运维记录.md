@@ -395,3 +395,24 @@
 - 未修改 Interface、Nginx、URL、robots、sitemap 或内容配置。
 - 本地 `tsc --noEmit -p tsconfig.typecheck.json`、`next build --no-lint`、`git diff --check` 通过。
 - 本轮未部署香港生产；需在磁盘空间和 PM2 状态确认后按发布流程部署。
+
+## 22. 2026-08-28 香港生产部署 `602b04c`
+
+### 部署
+
+- 部署前香港根盘可用约 `8.1GB`（80%），满足安全线；生产原版本为 `ef1f989`。
+- `/root/home/apks-sites` 快进到 `602b04c`，未执行 `pnpm install`；使用现有依赖运行 `node node_modules/next/dist/bin/next build --no-lint`，构建成功。
+- 仅重启并保存 PM2 `pubgm-app`；未触碰 Interface/9527、Mongo、Nginx 配置或其他 PM2 项目。
+
+### 生产验证
+
+- PM2 `pubgm-app`：`online`，直接 Next `start -p 3000`，无不稳定重启；3000、9527 正常监听。
+- Nginx `-t` 通过；根盘仍约 `8.1GB` 可用。
+- 四站首页公网均 `200`：PUBGM 约 `0.90s`、Pokémon `0.36s`、Brown Dust 2 `0.26s`、Limbus `0.28s`。
+- PUBGM `robots.txt`：`Allow: /`，明确允许 Bingbot，Sitemap 指向 `https://pubgm.apks.cc/sitemap.xml`。
+- PUBGM sitemap：`16` 个 URL，全部 HTTPS；代表文章 `/articles/6a7f3cbd837db46b93680eb5` 为 `200`，初始 head 有 description、self-canonical、单 H1、JSON-LD。
+- Bing 基线 API：根属性已验证，rank/traffic `383` 行、query `2076` 行，配额 daily `996`、monthly `3996`；本轮未提交 IndexNow。
+
+### 状态边界
+
+- 已实现、已部署并可观测；Bing 是否重新抓取、收录、排名和流量变化仍需至少 `7-14` 天观察，不能由本次部署或 API 返回推断。

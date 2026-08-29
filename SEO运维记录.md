@@ -416,3 +416,21 @@
 ### 状态边界
 
 - 已实现、已部署并可观测；Bing 是否重新抓取、收录、排名和流量变化仍需至少 `7-14` 天观察，不能由本次部署或 API 返回推断。
+
+## 23. 2026-08-30 Bing description 建议复核
+
+### 审计范围与证据
+
+- 针对 Bing Webmaster 后台“将 description 添加到页面 head”建议，使用 Bingbot 兼容 UA、香港源站直连、Chrome/CDP 渲染和 Bing Webmaster API 复核 `https://pubgm.apks.cc/`。
+- 公网与 `127.0.0.1:3000 + Host: pubgm.apks.cc` 均返回 `200`；两侧初始 HTML 的 `<head>` 内都只有一个 `<meta name="description">`，文案一致，并同时具备 title、canonical 和单 H1。
+- Chrome/CDP 渲染后仍只有一个 description、一个 canonical 和单 H1；正文约 `7102` 个可见字符，检测到 `WebSite`、`SoftwareApplication`、`FAQPage`、`ItemList` JSON-LD，未加载 `http:` 混合内容资源。
+- 深度巡检 PUBGM sitemap 当前 `16/16` 个 URL：非 200、缺失 description、description 位于 head 外、缺失 title/canonical、H1 数量异常、`noindex` 均为 `0`。
+- 首页 description 当前为 `123` 个字符；两篇旧文章为 `112/101` 个字符。长度本身不是通用排名门槛，本轮只确认它们不属于“缺失 description”。
+
+### Bing 侧证据与结论
+
+- Bing `GetUrlInfo` 显示首页最近抓取时间为 `2026-08-29T01:54:16Z`，记录文档大小约 `312895` 字节，与当前公网响应体量接近；`GetCrawlIssues` 当前返回 `0` 条。
+- `GetPageStats` 中 PUBGM 首页数据最新只到 `2026-07-17`，明显落后于最近抓取时间；Bing 各报告模块的更新时间不同，不能用旧流量统计日期反推当前抓取页面缺少 metadata。
+- Bing Webmaster 公共 API 的 WSDL 不提供 Recommendations 明细接口，无法从 API 取得该建议对应的具体扫描批次和 URL；后台提示可能来自旧扫描或故障窗口，属于合理推断，不表述为已确认事实。
+- 当前代码与生产提交均由 `src/app/layout.tsx` 的 `generateMetadata()` 服务端输出 `config.seo.description`，没有证据支持再次添加 description 标签；重复添加反而会制造冲突信号。
+- 本轮不改代码、不改后台 SEO 配置、不提交 IndexNow。待 Bing 后台重新扫描后复核该建议；若仍存在，必须先导出后台示例 URL 和扫描时间，再按具体页面定位。

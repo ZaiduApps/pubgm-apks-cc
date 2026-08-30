@@ -434,3 +434,10 @@
 - Bing Webmaster 公共 API 的 WSDL 不提供 Recommendations 明细接口，无法从 API 取得该建议对应的具体扫描批次和 URL；后台提示可能来自旧扫描或故障窗口，属于合理推断，不表述为已确认事实。
 - 当前代码与生产提交均由 `src/app/layout.tsx` 的 `generateMetadata()` 服务端输出 `config.seo.description`，没有证据支持再次添加 description 标签；重复添加反而会制造冲突信号。
 - 本轮不改代码、不改后台 SEO 配置、不提交 IndexNow。待 Bing 后台重新扫描后复核该建议；若仍存在，必须先导出后台示例 URL 和扫描时间，再按具体页面定位。
+
+### 四站扩展复核
+
+- 使用 `SEO_DEEP=1` 对四站 sitemap 共 `37` 个 URL 重跑巡检：PUBGM `16`、Pokémon `7`、Brown Dust 2 `8`、Limbus Company `6`，全部 HTTP `200`。
+- 四站均为 `0` 个缺失 description、`0` 个缺失 title/canonical、`0` 个 canonical 不匹配、`0` 个 H1 异常、`0` 个 `noindex`；description 均位于初始 `<head>`。
+- 仅 PUBGM 两篇旧文章 description 仍低于 `120` 字符（`101/112`）。这属于摘要覆盖和内容质量优化候选，不是“缺少 description”技术错误；未在无正文事实支撑时机械扩写。
+- 证据输出：`logs/seo-deep-20260830.json`。本轮仍不改代码、不改 MCP 配置，后续优先在 Bing 后台重新扫描后对照具体示例 URL。

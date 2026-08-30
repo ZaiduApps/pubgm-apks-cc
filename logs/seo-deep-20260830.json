@@ -1,0 +1,1004 @@
+{
+  "generatedAt": "2026-08-30T03:17:37.689Z",
+  "userAgent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+  "deepInspection": true,
+  "sites": [
+    {
+      "key": "pubgm",
+      "host": "pubgm.apks.cc",
+      "home": {
+        "status": 200,
+        "responseHeaders": {
+          "cache-control": "public, max-age=60, stale-while-revalidate=300",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding"
+        },
+        "title": "PUBG MOBILE - 地铁逃生手游官网 | PUBG Mobile国际服下载与更新攻略",
+        "description": "PUBG Mobile（地铁逃生）中文入口，提供国际服 APK 下载、安卓与 iOS 官方和商店入口、版本更新公告、测试服资讯、登录闪退与安装故障排查、地铁逃生玩法攻略及常见问题；下载前可核对包名、版本和安装渠道，更新后按指南处理资源与登录异常。",
+        "canonical": "https://pubgm.apks.cc",
+        "metadataPlacement": {
+          "titleInHead": true,
+          "descriptionInHead": true,
+          "canonicalInHead": true
+        },
+        "h1": [
+          "PUBG Mobile 国际服 / 地铁逃生 4.6 官网入口"
+        ],
+        "jsonLdTypes": [
+          "WebSite",
+          "SoftwareApplication",
+          "FAQPage",
+          "ItemList"
+        ],
+        "bodyChars": 163609,
+        "links": 44,
+        "images": 18,
+        "missingAlt": 0
+      },
+      "robots": {
+        "status": 200,
+        "hasSitemap": true
+      },
+      "sitemap": {
+        "status": 200,
+        "locCount": 16,
+        "invalidLocCount": 0,
+        "latestLastmod": "2026-08-25T00:00:00.000Z"
+      },
+      "indexNowKey": {
+        "enabled": false,
+        "reason": "INDEXNOW_KEY is not set"
+      },
+      "config": null,
+      "deep": {
+        "selected": 16,
+        "pages": [
+          {
+            "url": "https://pubgm.apks.cc",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 629,
+            "title": "PUBG MOBILE - 地铁逃生手游官网 | PUBG Mobile国际服下载与更新攻略",
+            "descriptionLength": 123,
+            "canonical": "https://pubgm.apks.cc",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "WebSite",
+              "SoftwareApplication",
+              "FAQPage",
+              "ItemList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a8d147c85b25825e19f515f",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 914,
+            "title": "【手游资讯】PUBG MOBILE LIGHT即将登场？！ - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a8d147c85b25825e19f515f",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a7f3cbd837db46b93680eb5",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 840,
+            "title": "【手游资讯】4.6版本测试服3上线 - PUBG MOBILE",
+            "descriptionLength": 157,
+            "canonical": "https://pubgm.apks.cc/articles/6a7f3cbd837db46b93680eb5",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a75e61bfbb913268c2df761",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 2016,
+            "title": "【手游资讯】4.6版本测试服2登场 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a75e61bfbb913268c2df761",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a69d05a3b651179c5b3d58a",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1525,
+            "title": "【手游资讯】4.5版本蜘蛛侠：英雄重生主题玩法公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a69d05a3b651179c5b3d58a",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a58acdd3b651179c5643524",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1756,
+            "title": "【手游资讯】​ 4.5版本官方认证和称号发放名单公告 - PUBG MOBILE",
+            "descriptionLength": 161,
+            "canonical": "https://pubgm.apks.cc/articles/6a58acdd3b651179c5643524",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a4b0d5642f43ec4abd2b5f9",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1665,
+            "title": "【手游资讯】4.5版本更新公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a4b0d5642f43ec4abd2b5f9",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221ba64361d87eeeacf42",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1205,
+            "title": "【手游资讯】4.4版本测试服2更新公告 - PUBG MOBILE",
+            "descriptionLength": 157,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221ba64361d87eeeacf42",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221b764361d87eeeacf31",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1167,
+            "title": "【手游资讯】4.4版本测试服3更新公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221b764361d87eeeacf31",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221b564361d87eeeacf20",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1233,
+            "title": "【手游资讯】4.4版本测试服4更新公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221b564361d87eeeacf20",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221b264361d87eeeacf0f",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 2051,
+            "title": "【手游资讯】4.4版本官方认证和称号发放名单公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221b264361d87eeeacf0f",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221af64361d87eeeacefe",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1420,
+            "title": "【手游资讯】1.3百变节奏 | 主题系列活动 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221af64361d87eeeacefe",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/6a2221a764361d87eeeaceec",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1729,
+            "title": "【手游资讯】PUBG MOBILE 1.3不停服更新公告 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/6a2221a764361d87eeeaceec",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/pubgm-1761061870930",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1541,
+            "title": "PUBG MOBILE × 变形金刚史诗级联乘震撼登场 - PUBG MOBILE",
+            "descriptionLength": 158,
+            "canonical": "https://pubgm.apks.cc/articles/pubgm-1761061870930",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/pubgm-1761061908342",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 1827,
+            "title": "V4.0更新公告 - PUBG MOBILE",
+            "descriptionLength": 112,
+            "canonical": "https://pubgm.apks.cc/articles/pubgm-1761061908342",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pubgm.apks.cc/articles/pubgm-1761061901751",
+            "host": "pubgm.apks.cc",
+            "status": 200,
+            "durationMs": 2053,
+            "title": "PUBG MOBILE「幽灵奇妙夜」版本重磅更新 - PUBG MOBILE",
+            "descriptionLength": 101,
+            "canonical": "https://pubgm.apks.cc/articles/pubgm-1761061901751",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "pokemonchampions",
+      "host": "pokemonchampions.apks.cc",
+      "home": {
+        "status": 200,
+        "responseHeaders": {
+          "cache-control": "public, max-age=60, stale-while-revalidate=300",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding"
+        },
+        "title": "Pokémon Champions - 宝可梦冠军下载 | 安卓APK、Switch/iOS对战与赛季更新",
+        "description": "宝可梦冠军 Pokémon Champions 中文入口，提供安卓 APK 下载、Nintendo Switch、iOS 与 Android 对战资讯，整理级别对战赛季、对战证、月度挑战、维护通知、更新数据和新手常见问题；玩家可按平台查看活动时间、版本变化与对战内容，减少错过赛季公告。",
+        "canonical": "https://pokemonchampions.apks.cc",
+        "metadataPlacement": {
+          "titleInHead": true,
+          "descriptionInHead": true,
+          "canonicalInHead": true
+        },
+        "h1": [
+          "Pokémon Champions 宝可梦冠军下载与赛季更新"
+        ],
+        "jsonLdTypes": [
+          "WebSite",
+          "SoftwareApplication",
+          "FAQPage",
+          "ItemList"
+        ],
+        "bodyChars": 126538,
+        "links": 40,
+        "images": 18,
+        "missingAlt": 0
+      },
+      "robots": {
+        "status": 200,
+        "hasSitemap": true
+      },
+      "sitemap": {
+        "status": 200,
+        "locCount": 7,
+        "invalidLocCount": 0,
+        "latestLastmod": "2026-08-24T00:00:00.000Z"
+      },
+      "indexNowKey": {
+        "enabled": false,
+        "reason": "INDEXNOW_KEY is not set"
+      },
+      "config": null,
+      "deep": {
+        "selected": 7,
+        "pages": [
+          {
+            "url": "https://pokemonchampions.apks.cc",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 566,
+            "title": "Pokémon Champions - 宝可梦冠军下载 | 安卓APK、Switch/iOS对战与赛季更新",
+            "descriptionLength": 143,
+            "canonical": "https://pokemonchampions.apks.cc",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "WebSite",
+              "SoftwareApplication",
+              "FAQPage",
+              "ItemList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a8ba74c837db46b93f68814",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 653,
+            "title": "【手游资讯】关于“WCS2026纪念精选” - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a8ba74c837db46b93f68814",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a72d31996f9d4d205bb285c",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 676,
+            "title": "【手游资讯】“级别对战赛季M-5”举办中！ - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a72d31996f9d4d205bb285c",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a72d31596f9d4d205bb282c",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 1743,
+            "title": "【手游资讯】关于“对战证 赛季M-5” - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a72d31596f9d4d205bb282c",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a72d31096f9d4d205bb2814",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 1956,
+            "title": "【手游资讯】“月度挑战系列赛 2026.08”举办！ - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a72d31096f9d4d205bb2814",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a72d30b96f9d4d205bb2800",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 2047,
+            "title": "【手游资讯】8月5日《Pokémon Champions》更新数据发布通知 - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a72d30b96f9d4d205bb2800",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://pokemonchampions.apks.cc/articles/6a70396c2cdbc80a6956f0a4",
+            "host": "pokemonchampions.apks.cc",
+            "status": 200,
+            "durationMs": 2009,
+            "title": "【手游资讯】维护通知 - Pokémon Champions",
+            "descriptionLength": 158,
+            "canonical": "https://pokemonchampions.apks.cc/articles/6a70396c2cdbc80a6956f0a4",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "browndust2",
+      "host": "browndust2.apks.cc",
+      "home": {
+        "status": 200,
+        "responseHeaders": {
+          "cache-control": "public, max-age=60, stale-while-revalidate=300",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding"
+        },
+        "title": "BrownDust2 - Full Burst RPG - APK下载 | 安卓最新版、活动更新与攻略",
+        "description": "棕色尘埃2 Brown Dust 2 中文入口，提供安卓 APK 下载、最新版安装说明、资源更新与维护公告、角色和活动资讯、攻略内容及常见问题；下载前可核对游戏版本和安装渠道，更新期间可查看维护状态、活动安排以及安装或资源校验失败的处理建议。",
+        "canonical": "https://browndust2.apks.cc",
+        "metadataPlacement": {
+          "titleInHead": true,
+          "descriptionInHead": true,
+          "canonicalInHead": true
+        },
+        "h1": [
+          "棕色尘埃2 APK 安卓下载与活动更新"
+        ],
+        "jsonLdTypes": [
+          "WebSite",
+          "SoftwareApplication",
+          "FAQPage",
+          "ItemList"
+        ],
+        "bodyChars": 93281,
+        "links": 23,
+        "images": 10,
+        "missingAlt": 0
+      },
+      "robots": {
+        "status": 200,
+        "hasSitemap": true
+      },
+      "sitemap": {
+        "status": 200,
+        "locCount": 8,
+        "invalidLocCount": 0,
+        "latestLastmod": "2026-08-29T00:00:00.000Z"
+      },
+      "indexNowKey": {
+        "enabled": false,
+        "reason": "INDEXNOW_KEY is not set"
+      },
+      "config": null,
+      "deep": {
+        "selected": 8,
+        "pages": [
+          {
+            "url": "https://browndust2.apks.cc",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 411,
+            "title": "BrownDust2 - Full Burst RPG - APK下载 | 安卓最新版、活动更新与攻略",
+            "descriptionLength": 121,
+            "canonical": "https://browndust2.apks.cc",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "WebSite",
+              "SoftwareApplication",
+              "FAQPage",
+              "ItemList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a925ccad0c4efdf217be14e",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 953,
+            "title": "【手游资讯】📕棕色尘埃2 | 四格漫画－【还是老样子！！】 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a925ccad0c4efdf217be14e",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a915fced0c4efdf21757f8c",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 644,
+            "title": "【手游资讯】📋 第52篇开发者笔记：关于近期议题的说明 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a915fced0c4efdf21757f8c",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a912767d0c4efdf21742d62",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 1136,
+            "title": "【手游资讯】🍽️ 最想品尝的料理是什么？ 活动得奖者公布 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a912767d0c4efdf21742d62",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a910b47d0c4efdf217382d7",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 1202,
+            "title": "【手游资讯】📢 《棕色尘埃2》隐私保护政策修订公告 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 157,
+            "canonical": "https://browndust2.apks.cc/articles/6a910b47d0c4efdf217382d7",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a904667d0c4efdf216f2b4f",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 1381,
+            "title": "【手游资讯】📢 请更新至新版本（2.33.15）后再进行游玩公告（AOS／PC／One Store） - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a904667d0c4efdf216f2b4f",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a902a47d0c4efdf216e8c2b",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 1495,
+            "title": "【手游资讯】📢 8 月 27 日（四）资源更新公告 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a902a47d0c4efdf216e8c2b",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://browndust2.apks.cc/articles/6a7c9974c8185058260cf2e9",
+            "host": "browndust2.apks.cc",
+            "status": 200,
+            "durationMs": 1087,
+            "title": "棕色尘埃2 更新与维护公告查看指南 - BrownDust2 - Full Burst RPG",
+            "descriptionLength": 158,
+            "canonical": "https://browndust2.apks.cc/articles/6a7c9974c8185058260cf2e9",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "limbuscompany",
+      "host": "limbuscompany.apks.cc",
+      "home": {
+        "status": 200,
+        "responseHeaders": {
+          "cache-control": "public, max-age=60, stale-while-revalidate=300",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding"
+        },
+        "title": "Limbus Company - 下载 | 安卓APK、国际服入坑、更新与汉化教程",
+        "description": "边狱巴士 Limbus Company 中文入口，提供国际服安卓 APK 下载、安装与版本更新说明、登录超时和网络问题排查、汉化与新手入坑教程、人格和 E.G.O 玩法资讯及常见问题；玩家可按更新状态检查资源、账号登录和设备空间，再规划前期队伍与培养路线。",
+        "canonical": "https://limbuscompany.apks.cc",
+        "metadataPlacement": {
+          "titleInHead": true,
+          "descriptionInHead": true,
+          "canonicalInHead": true
+        },
+        "h1": [
+          "边狱巴士 Limbus Company 下载与入坑指南"
+        ],
+        "jsonLdTypes": [
+          "WebSite",
+          "SoftwareApplication",
+          "FAQPage",
+          "ItemList"
+        ],
+        "bodyChars": 87084,
+        "links": 29,
+        "images": 12,
+        "missingAlt": 0
+      },
+      "robots": {
+        "status": 200,
+        "hasSitemap": true
+      },
+      "sitemap": {
+        "status": 200,
+        "locCount": 6,
+        "invalidLocCount": 0,
+        "latestLastmod": "2026-08-12T00:00:00.000Z"
+      },
+      "indexNowKey": {
+        "enabled": false,
+        "reason": "INDEXNOW_KEY is not set"
+      },
+      "config": null,
+      "deep": {
+        "selected": 6,
+        "pages": [
+          {
+            "url": "https://limbuscompany.apks.cc",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 505,
+            "title": "Limbus Company - 下载 | 安卓APK、国际服入坑、更新与汉化教程",
+            "descriptionLength": 128,
+            "canonical": "https://limbuscompany.apks.cc",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "WebSite",
+              "SoftwareApplication",
+              "FAQPage",
+              "ItemList"
+            ]
+          },
+          {
+            "url": "https://limbuscompany.apks.cc/articles/6a7c9131c8185058260cd6c8",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 941,
+            "title": "边狱巴士 Limbus Company 更新与维护公告查看指南 - Limbus Company",
+            "descriptionLength": 158,
+            "canonical": "https://limbuscompany.apks.cc/articles/6a7c9131c8185058260cd6c8",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://limbuscompany.apks.cc/articles/6a7c8e91c8185058260ccd38",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 683,
+            "title": "边狱巴士新手入坑指南：战斗、人格与资源规划 - Limbus Company",
+            "descriptionLength": 158,
+            "canonical": "https://limbuscompany.apks.cc/articles/6a7c8e91c8185058260ccd38",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd25",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 1450,
+            "title": "边狱巴士更新失败、登录异常与网络问题排查 - Limbus Company",
+            "descriptionLength": 158,
+            "canonical": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd25",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd16",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 1406,
+            "title": "边狱巴士 Limbus Company 安卓下载与安装指南 - Limbus Company",
+            "descriptionLength": 158,
+            "canonical": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd16",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          {
+            "url": "https://limbuscompany.apks.cc/articles/6a2a732b6c64ce21cc559d2a",
+            "host": "limbuscompany.apks.cc",
+            "status": 200,
+            "durationMs": 1249,
+            "title": "边狱公司 评价讨论 - Limbus Company",
+            "descriptionLength": 158,
+            "canonical": "https://limbuscompany.apks.cc/articles/6a2a732b6c64ce21cc559d2a",
+            "canonicalMatchesUrl": true,
+            "h1Count": 1,
+            "robots": [],
+            "metadataInHead": {
+              "titleInHead": true,
+              "descriptionInHead": true,
+              "canonicalInHead": true
+            },
+            "jsonLdTypes": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "bing": {
+    "enabled": false,
+    "reason": "BING_WEBMASTER_API_KEY is not set"
+  }
+}

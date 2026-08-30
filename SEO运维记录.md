@@ -441,3 +441,10 @@
 - 四站均为 `0` 个缺失 description、`0` 个缺失 title/canonical、`0` 个 canonical 不匹配、`0` 个 H1 异常、`0` 个 `noindex`；description 均位于初始 `<head>`。
 - 仅 PUBGM 两篇旧文章 description 仍低于 `120` 字符（`101/112`）。这属于摘要覆盖和内容质量优化候选，不是“缺少 description”技术错误；未在无正文事实支撑时机械扩写。
 - 证据输出：`logs/seo-deep-20260830.json`。本轮仍不改代码、不改 MCP 配置，后续优先在 Bing 后台重新扫描后对照具体示例 URL。
+
+### 短摘要页面级复核
+
+- `V4.0更新公告 - PUBG MOBILE`（`pubgm-1761061908342`）description `112` 字符；Bing `GetUrlInfo` 最近抓取于 `2026-08-25T10:51:19Z`，文档大小约 `347838` 字节，页面查询行 `0`。
+- `PUBG MOBILE「幽灵奇妙夜」版本重磅更新`（`pubgm-1761061901751`）description `101` 字符；Bing 最近抓取于 `2026-08-23T07:50:50Z`，文档大小约 `223506` 字节，页面查询行 `0`。
+- 两页当前均为 `200`、self-canonical、单 H1、Article/BreadcrumbList JSON-LD；短摘要更可能反映历史后台摘要内容，而非抓取/渲染异常。
+- 后续若要改摘要，必须先从文章正文和后台事实提炼真实更新点，再走 MCP `preview -> 用户确认 -> execute`；不以任意长度阈值机械扩写。

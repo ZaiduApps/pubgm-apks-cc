@@ -448,3 +448,22 @@
 - `PUBG MOBILE「幽灵奇妙夜」版本重磅更新`（`pubgm-1761061901751`）description `101` 字符；Bing 最近抓取于 `2026-08-23T07:50:50Z`，文档大小约 `223506` 字节，页面查询行 `0`。
 - 两页当前均为 `200`、self-canonical、单 H1、Article/BreadcrumbList JSON-LD；短摘要更可能反映历史后台摘要内容，而非抓取/渲染异常。
 - 后续若要改摘要，必须先从文章正文和后台事实提炼真实更新点，再走 MCP `preview -> 用户确认 -> execute`；不以任意长度阈值机械扩写。
+
+## 24. 2026-08-30 PUBGM SEO 帖子发布与聚合上限问题
+
+### 发布结果
+
+- 按本轮关键词方案生成并发布 `10` 篇 PUBGM 社区帖子到话题 `69d33699b0f4f5a2116d6884`；每篇接口返回 HTTP `201`、`review_status=published`，使用独立 `Idempotency-Key`。
+- 文章覆盖官网/国际服下载、`com.tencent.ig` 包名、APK 安装、下载失败、无法登录/login error、画质助手风险和电脑版入口等意图；未写入未经验证的 `地铁逃生4.7版本`。
+- 拼写变体仅放入文章关键词字段，不放入 title、description、H1 或正文标题；后续需观察其真实 Bing 展现，必要时移除。
+
+### 发现的问题
+
+- 发布后话题计数由 `214` 增至 `224`，说明 10 篇均已落库。
+- 当前 PUBGM `landing.data_source.post_limit=6`。因此最新 6 篇已进入站点配置并可访问，前 4 篇暂未进入 `sections`，按帖子 ID 访问返回真实 `404`，不能提交 IndexNow。
+- 这是站点聚合上限配置问题，不是文章 metadata 或 SSR 问题。
+
+### 待执行配置 preview
+
+- Admin MCP `site.update_content` 已生成 preview：仅将 `landing.data_source.post_limit` 从 `6` 调整为 `10`，`article_limit=16`、`update_limit=6`、SEO、下载入口及其他 section 保持不变；风险 `medium`，确认有效期 `600000ms`。
+- 当前未 execute。需用户明确确认后执行；执行后清理/等待 Next 配置缓存，复核 10 篇详情页、首页聚合、sitemap、metadata 和单 H1，再对真实新增 canonical URL 提交 IndexNow。

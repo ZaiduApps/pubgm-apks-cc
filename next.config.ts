@@ -3,8 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   // 爬虫必须在初始 HTML head 中拿到 title、description 和 canonical，避免
   // Next.js 流式 metadata 追加到 body 后被 Bing 的首轮抓取遗漏。
-  htmlLimitedBots:
-    /bot|crawler|spider|bingpreview|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp/i,
+  // 所有 UA 均等待 metadata 完成，确保普通移动爬虫和审计工具在初始 head
+  // 中读取到 description、canonical 等 SEO 标签。
+  htmlLimitedBots: /.*/,
   serverExternalPackages: [
     'genkit',
     '@genkit-ai/googleai',
@@ -20,6 +21,12 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=60, stale-while-revalidate=300' },
+        ],
+      },
+      {
+        source: '/images/pubgm-hero-1773327676.webp',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
     ];

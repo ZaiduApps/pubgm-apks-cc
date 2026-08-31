@@ -13,8 +13,26 @@ export default {
         video: '16 / 9',
       },
       fontFamily: {
-        body: ['"PT Sans"', 'sans-serif'],
-        headline: ['"PT Sans"', 'sans-serif'],
+        body: [
+          'system-ui',
+          '-apple-system',
+          '"Segoe UI"',
+          'Roboto',
+          '"PingFang SC"',
+          '"Microsoft YaHei"',
+          'Arial',
+          'sans-serif',
+        ],
+        headline: [
+          'system-ui',
+          '-apple-system',
+          '"Segoe UI"',
+          'Roboto',
+          '"PingFang SC"',
+          '"Microsoft YaHei"',
+          'Arial',
+          'sans-serif',
+        ],
         code: ['monospace'],
       },
       colors: {

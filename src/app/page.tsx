@@ -245,9 +245,9 @@ export default async function Home() {
                             </CardDescription>
                             <p className="mt-2 line-clamp-2 flex-grow text-sm text-muted-foreground">{article.summary}</p>
                             <div className="mt-4 flex justify-end">
-                              <Button variant="link" size="sm" className="h-auto p-0 text-primary">
+                              <span className="inline-flex items-center text-sm font-medium text-primary">
                                 阅读更多 <ArrowRight className="ml-1 h-3 w-3" />
-                              </Button>
+                              </span>
                             </div>
                           </CardContent>
                         </Link>

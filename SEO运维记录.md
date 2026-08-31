@@ -489,3 +489,10 @@
 
 - 当前为本地已实现、已验证；hero 配置尚未写入后台，因此公网页面仍会继续引用原 PNG。
 - 本轮 metadata 文案和 canonical URL 未变化，不提交 IndexNow。配置 execute 后需重新验证首页 HTML、网络请求、LCP/CLS 和生产缓存，再决定是否部署观察。
+
+### 生产部署补充
+
+- `ef09f85`、`794db57`、`5f8c56f` 已推送 GitHub；香港 `/root/home/apks-sites` 快进到 `5f8c56f`，构建成功并重启 `pubgm-app`。
+- 部署后根盘可用约 `5.77GB`；3000/9527 监听正常，PM2 online，Nginx `-t` 通过。
+- 公网普通移动 UA 与 Bingbot 均 `200`；description/canonical 位于初始 head，单 H1，Google Fonts 请求为 `0`。Lighthouse SEO `100`、Accessibility `100`；LCP 本次 `952ms`、CLS `0`（实验室数据，不等同于真实用户 CWV）。
+- 后台 hero `site.update_content` preview 仍待明确 execute；execute 后只需复核配置缓存和 hero 请求，不需要再次改代码或提交 IndexNow。

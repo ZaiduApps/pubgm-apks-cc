@@ -467,3 +467,25 @@
 
 - Admin MCP `site.update_content` 已生成 preview：仅将 `landing.data_source.post_limit` 从 `6` 调整为 `10`，`article_limit=16`、`update_limit=6`、SEO、下载入口及其他 section 保持不变；风险 `medium`，确认有效期 `600000ms`。
 - 当前未 execute。需用户明确确认后执行；执行后清理/等待 Next 配置缓存，复核 10 篇详情页、首页聚合、sitemap、metadata 和单 H1，再对真实新增 canonical URL 提交 IndexNow。
+
+## 25. 2026-08-31 PUBGM 移动端与性能低风险优化
+
+### 证据与判断
+
+- Chrome/CDP 在 `390x844` 移动模拟下确认 `scrollWidth=390`、横向溢出元素为 `0`；源码和生成 CSS 均包含响应式断点，三方工具的“无媒体查询”和“固定宽度元素导致不适配”不成立。
+- Lighthouse 移动导航审计发现真实问题：文章卡片链接内嵌套 `84x20px` 的“阅读更多”按钮，共 `10` 个失败节点；已改为非交互文本，整张卡片保留唯一链接。
+- 普通移动 UA 原始 HTML 的 description 位于 `</head>` 后（索引约 `57172`，`</head>` 约 `1733`），Bingbot 已位于 head。为兼容未被默认 bot 正则识别的审计器和爬虫，`htmlLimitedBots` 调整为 `/.*/`，title/description/canonical 内容不变。
+- Google Fonts 实际产生 CSS 加 2 个字体请求；已移除外链并改用系统字体栈，基础 body 显式设置 `line-height: 1.5`。百度统计保留，未为分数移除业务数据采集。
+- 首屏 hero PNG 为 `1,012,172B`；本地按原始 1920 宽度生成 WebP `285,002B`。静态资源已加入 `public/images/pubgm-hero-1773327676.webp` 并配置一年 immutable 缓存。
+
+### 代码与验证
+
+- 修改 `next.config.ts`、`src/app/layout.tsx`、`src/app/page.tsx`、`src/app/globals.css`、`tailwind.config.ts`；未修改其他站点、Interface、Mongo、Nginx 或 PM2 配置。
+- `node_modules/.bin/eslint src next.config.ts tailwind.config.ts` 通过；`node_modules/.bin/tsc --noEmit -p tsconfig.typecheck.json` 通过；`next build` 成功。仓库级 `pnpm lint/typecheck` 被未跟踪的 `pnpm-workspace.yaml` 中 pnpm 构建脚本策略拦截，未执行 `approve-builds`。
+- 本地生产 SSR（`127.0.0.1:3100 + Host: pubgm.apks.cc`）普通 UA 与 Bingbot 均为 `200`，description/canonical 在 head，单 H1；WebP 响应 `200 image/webp`、`285002B`、`public, max-age=31536000, immutable`。
+- Admin MCP `site.update_content` hero preview 已生成：before 为原 PNG，after 为新 WebP，风险 `medium`，确认令牌有效；尚未 execute，待用户明确确认。
+
+### 状态边界
+
+- 当前为本地已实现、已验证；hero 配置尚未写入后台，因此公网页面仍会继续引用原 PNG。
+- 本轮 metadata 文案和 canonical URL 未变化，不提交 IndexNow。配置 execute 后需重新验证首页 HTML、网络请求、LCP/CLS 和生产缓存，再决定是否部署观察。

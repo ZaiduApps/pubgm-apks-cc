@@ -496,3 +496,11 @@
 - 部署后根盘可用约 `5.77GB`；3000/9527 监听正常，PM2 online，Nginx `-t` 通过。
 - 公网普通移动 UA 与 Bingbot 均 `200`；description/canonical 位于初始 head，单 H1，Google Fonts 请求为 `0`。Lighthouse SEO `100`、Accessibility `100`；LCP 本次 `952ms`、CLS `0`（实验室数据，不等同于真实用户 CWV）。
 - 后台 hero `site.update_content` preview 仍待明确 execute；execute 后只需复核配置缓存和 hero 请求，不需要再次改代码或提交 IndexNow。
+
+### Hero 配置执行结果（2026-09-01）
+
+- 用户已明确确认执行；Admin MCP `site.update_content` 使用 preview confirm token 执行成功，`updated_sections=[landing]`。
+- 配置复读结果：`landing.hero.backgroundImage=https://pubgm.apks.cc/images/pubgm-hero-1773327676.webp`。
+- 缓存窗口后公网 Bingbot 验证：首页 `200`，HTML 已引用 WebP，旧 PNG 不再出现；description/canonical 位于初始 head，单 H1。
+- WebP HEAD：`200 image/webp`、`285002B`、`public, max-age=31536000, immutable`。
+- 本次仅变更 hero 资源引用，不涉及 metadata/canonical，因此不提交 IndexNow；后续观察 CDN 命中、LCP 和 Bing 抓取即可。

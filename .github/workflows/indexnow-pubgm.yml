@@ -1,4 +1,4 @@
-name: IndexNow PUBGM URL Push
+name: IndexNow APKS Sites URL Push
 
 on:
   schedule:
@@ -20,10 +20,10 @@ jobs:
     timeout-minutes: 5
     env:
       INDEXNOW_KEY: 4ad31f85a4744d0eb0bb3e3db9076a2b
-      INDEXNOW_SITES: pubgm.apks.cc
+      INDEXNOW_SITES: pubgm.apks.cc,pokemonchampions.apks.cc,browndust2.apks.cc,limbuscompany.apks.cc
       INDEXNOW_SUBMIT: 'true'
       INDEXNOW_URLS: ${{ inputs.home_only == true && 'https://pubgm.apks.cc/' || '' }}
     steps:
       - uses: actions/checkout@v4
-      - name: Submit PUBGM URLs
+      - name: Submit APKS sites URLs
         run: node scripts/indexnow-submit.mjs --submit

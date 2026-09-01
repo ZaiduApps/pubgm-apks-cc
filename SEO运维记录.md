@@ -624,3 +624,8 @@
 - 公网 key 文件 `https://pubgm.apks.cc/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 返回 HTTP `200`，正文精确匹配；本地 dry-run 读取 PUBGM sitemap 为 `16` 条 URL。
 - GitHub Actions 手动运行 `33474376076`，选择仅提交首页；IndexNow 返回 HTTP `202`，`urlCount=1`。这表示 Bing 接收通知，不表示抓取、收录、排名或流量提升。
 - 每日 workflow 已设为 UTC 02:15（北京时间 10:15），当前仅 PUBGM；后续扩展其他站点前必须分别配置其 key 文件并完成单站验证。
+
+### 四站扩展验证（2026-09-01）
+
+- 新 key 文件在 `pubgm.apks.cc`、`pokemonchampions.apks.cc`、`browndust2.apks.cc`、`limbuscompany.apks.cc` 均返回 HTTP `200` 且正文匹配；四站 sitemap URL 数量为 `16/7/8/6`，本地 dry-run 共 `37` 条。
+- workflow 已扩展为四站批量提交；手动“仅首页”仍只用于 PUBGM 测试，定时任务将读取并提交四站各自 sitemap。其他站点未修改代码或配置。

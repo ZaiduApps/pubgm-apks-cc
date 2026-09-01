@@ -137,7 +137,7 @@ node scripts/indexnow-submit.mjs
 - 属性当前使用 `https://apks.cc/`，四个子域的 API 统计在根属性下归并。
 - 查询：`GetUserSites`、`GetCrawlStats`、`GetRankAndTrafficStats`、`GetQueryStats`、`GetUrlSubmissionQuota`。
 - IndexNow：只提交属于对应 Host 的 canonical URL；HTTP 200/202 代表接口接收，不代表已收录。
-- PUBGM 专用 IndexNow workflow：`.github/workflows/indexnow-pubgm.yml` 使用 `public/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 完成 key ownership 校验，每日 UTC 02:15（北京时间 10:15）提交 PUBGM sitemap；手动运行可只提交首页。新 key 按协议公开托管，不写入私密日志。
+- IndexNow workflow：`.github/workflows/indexnow-pubgm.yml` 使用 `public/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 完成四站 key ownership 校验，每日 UTC 02:15（北京时间 10:15）提交四站 sitemap；手动运行的“仅首页”选项保留为 PUBGM 单站测试。新 key 按协议公开托管，不写入私密日志。
 
 ### 百度主动推送
 

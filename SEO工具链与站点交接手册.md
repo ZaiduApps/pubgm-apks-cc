@@ -138,6 +138,9 @@ node scripts/indexnow-submit.mjs
 - 查询：`GetUserSites`、`GetCrawlStats`、`GetRankAndTrafficStats`、`GetQueryStats`、`GetUrlSubmissionQuota`。
 - IndexNow：只提交属于对应 Host 的 canonical URL；HTTP 200/202 代表接口接收，不代表已收录。
 - IndexNow workflow：`.github/workflows/indexnow-pubgm.yml` 使用 `public/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 完成四站 key ownership 校验，每日 UTC 02:15（北京时间 10:15）提交四站 sitemap；手动运行的“仅首页”选项保留为 PUBGM 单站测试。新 key 按协议公开托管，不写入私密日志。
+- 推送前资格检查：`scripts/indexnow-submit.mjs` 会逐条验证同域 HTTPS、HTTP `200`、`text/html`、无 `noindex`、未发生非规范重定向及 self-canonical；`robots.txt`、favicon、sitemap、`/_next/`、API、`/cdn-cgi/` 和常见静态资源扩展名直接跳过。运行 `pnpm seo:indexnow:test` 或 `node --test scripts/indexnow-policy.test.mjs` 验证策略。
+- Cloudflare Crawler Hints 与自有 workflow 是两条独立链路。Crawler Hints 以 `CF-Cache-Status: MISS` 推断资源变化，且是整个 zone 的全局设置，没有路径白名单/黑名单。若已使用本项目的受控推送，应在 Cloudflare `Caching -> Configuration -> Crawler Hints` 关闭该开关，避免字体、favicon、robots 等缓存资源被自动通知。
+- `X-Robots-Tag: noindex` 或 HTML robots noindex 用于阻止支持该指令的搜索引擎索引，不等同于阻止 URL 出现在 Cloudflare Crawler Hints 提交历史；不要把 Transform Rule 当成提交过滤器。
 
 ### 百度主动推送
 

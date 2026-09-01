@@ -725,3 +725,25 @@
 - JSON-LD 类型为 `WebSite`、`SoftwareApplication`、`FAQPage`、`ItemList`；横向溢出为 `0`；商业入口文本和 `rel="sponsored"` 均可见。
 - Chrome Lighthouse mobile：SEO `100`、Accessibility `100`、Agentic Browsing `100`；Best Practices `58` 的失败项为百度统计供应商的 deprecated API、第三方 Cookie 和 Issues 面板告警，不是 metadata 或抓取阻断。
 - 该结果是浏览器渲染证据，不代表 Bing 已收录或流量恢复；继续观察 Bing URL/query、抓取和展现数据。
+
+## 37. 2026-09-02 Cloudflare Crawler Hints 与 IndexNow 防污染
+
+### 来源归因与 Bing API 证据
+
+- 仓库 `.github/workflows/indexnow-pubgm.yml` 只处理四个子域 sitemap；`scripts/indexnow-submit.mjs` 的输入中没有根域 `apks.cc`，因此用户在 Bing 后台看到的根域 `robots.txt`、favicon 和 `/_next/static/media/*` 不是本仓库 workflow 生成。
+- Cloudflare 官方文档（复核日期 `2026-09-02`）说明 Crawler Hints 通过 `CF-Cache-Status: MISS` 判断资源可能变化并通知 IndexNow；该能力是整个 zone 的全局开关，不提供路径白名单或黑名单。由提交记录中的来源 `Cloudflare`、根域资源类型和官方触发机制，可高置信推断这些通知来自 `apks.cc` zone 的 Crawler Hints。
+- Bing Webmaster API 的根属性 `https://apks.cc/` 仍为 verified，查询时 URL 提交配额返回 `DailyQuota=992`、`MonthlyQuota=29992`。`GetUrlInfo` 显示：`robots.txt` 在 `2026-08-07` 被发现并抓取；两个 woff2 样本分别在 `2026-07-24`、`2026-07-28` 被发现并抓取；favicon、ttf 和用户消息中的拼接 URL返回空默认时间、`HttpStatus=0`、`DocumentSize=0`。后台当天的“提交时间”不能解释为 Bing 当日已抓取或收录。
+- `https://apks.cc/app/com.qcplay.snail.oversea.gz` 当前是返回 `200 text/html` 的真实应用详情页，不应仅因 slug 以 `.gz` 结尾而过滤。用户消息中的 `...gzhttps://apks.cc/robots.txt` 拼接形式在 Bing API 没有有效抓取数据，需以后台原始单条记录为准，不能把聊天粘贴格式当作真实 malformed 提交。
+
+### 自有推送修复
+
+- 提交 `1b91a31 fix(seo): filter IndexNow URL submissions` 新增 `scripts/indexnow-policy.mjs` 和 `scripts/indexnow-policy.test.mjs`，并在真实提交前逐页验证：同域 HTTPS、`200`、`text/html`、无 `noindex`、无非规范重定向、self-canonical。
+- 固定排除 `robots.txt`、favicon、sitemap、`/_next/`、`/api/`、`/cdn-cgi/` 和常见静态资源扩展名；保留按 HTTP 内容类型和 canonical 判断的真实 HTML 详情页，避免误杀 `.gz` 应用 slug。
+- 四站真实 dry-run 结果为 `16/7/8/6`，共 `37/37` 个 sitemap URL 合格；注入首页、robots、woff2 和跨域 favicon 的测试只保留首页，其余分别以 `system-resource`、`cross-host` 跳过。手动“仅 PUBGM 首页”模式会跳过其他三站，不再构造空提交。
+- 4 个 `node:test`、直接 TypeScript 检查和 Next 生产构建通过；`pnpm` 被本机 `ERR_PNPM_IGNORED_BUILDS`/并发锁拦截，直接 ESLint 又因现有 `eslint-plugin-react-hooks` 缺失无法启动，本轮未修改依赖批准策略。
+
+### Cloudflare 配置状态与边界
+
+- 本机 Cloudflare Token 验证为 active，能够读取 `apks.cc` zone；Cloudflare 当前公开 Zone Settings API 不暴露 Crawler Hints，尝试公开 cache/settings 路由分别返回“无路由/未定义设置”，未执行未知或非官方 API 写入。
+- Chrome 已打开 Cloudflare `Caching -> Configuration`，但停在 Turnstile 真人验证页。当前尚未关闭 Crawler Hints，也没有创建 Response Header Transform Rule；需人工完成验证/登录后关闭全局开关，再复读确认状态。
+- 本轮没有向 IndexNow 新提交 URL，没有修改生产 Nginx、PM2、Interface、Mongo 或根域应用。代码推送后只会加固本仓库四站 workflow；Cloudflare 历史提交记录不会因此消失，后续应观察是否停止产生新的静态资源通知。

@@ -1,0 +1,37 @@
+name: Baidu URL Push
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      home_only:
+        description: '仅提交 PUBGM 首页（首次测试使用）'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BAIDU_PUBGM_SITE: https://pubgm.apks.cc
+      BAIDU_PUBGM_TOKEN: ${{ secrets.BAIDU_PUBGM_TOKEN }}
+      BAIDU_SUBMIT: 'true'
+      BAIDU_HOME_ONLY: ${{ inputs.home_only || 'false' }}
+      BAIDU_OUTPUT: baidu-submit-result.json
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and submit URLs
+        run: node scripts/baidu-submit.mjs
+      - name: Upload sanitized result
+        if: always() && hashFiles('baidu-submit-result.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: baidu-submit-${{ github.run_id }}
+          path: baidu-submit-result.json
+          retention-days: 30

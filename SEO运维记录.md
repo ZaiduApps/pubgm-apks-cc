@@ -584,3 +584,18 @@
 - `post_limit=10` 已写入，但 `landing.data_source.section_configs` 中 `topic_posts.count=6` 仍覆盖首页分区展示数量；当前 Chrome 仍只显示最新 6 篇社区帖子，sitemap 仍为 `16` 个 URL。后续若要展示全部 10 篇，需要单独 preview 完整的 section 配置 patch，不能假定只改 `post_limit` 已生效。
 - 首页是本次唯一发生 metadata 变化的 canonical URL。已向 IndexNow 单条提交 `https://pubgm.apks.cc/`，接口返回 HTTP `200`；状态仅为“接口接收”，尚未证明 Bing 已重新抓取、处理、收录或提升展现。
 - 本次没有发布 4.7 文章，没有向 IndexNow 提交未发生变化的文章 URL。后续按 Bing 报告延迟观察抓取时间、页面级展现和查询变化。
+
+## 30. 2026-09-01 百度主动推送接入
+
+- 已新增 `scripts/baidu-submit.mjs`、`.github/workflows/baidu-submit.yml` 和 `pnpm seo:baidu`。当前只启用 PUBGM，其他三站不配置百度推送。
+- 每日规则：首页 + sitemap 按 `lastmod` 排序的最近 5 篇文章，最多 6 条；URL 必须是 `https://pubgm.apks.cc` canonical，脚本拒绝跨域、重复和非 HTTPS URL。
+- 默认 dry-run；真实提交由 `BAIDU_SUBMIT=true` 显式开启。GitHub Actions 使用 Secret 注入 token，仓库和日志不保存 token。
+- 调度：每日 UTC 02:00（北京时间 10:00），支持手动运行；首次手动运行应选择“仅首页”进行单 URL 测试，再观察 `success`、`remain`、`not_same_site`、`not_valid`。
+- 本次代码接入尚未代表百度接口已接受 URL；真实单 URL 测试和每日任务结果需在 workflow 运行后追加记录，接口接收不等于百度抓取或收录。
+
+### 2026-09-01 单首页接口测试
+
+- 本地 dry-run 已通过：sitemap HTTP `200`，选择首页 + 最近 5 篇文章，共 `6` 条，全部为 PUBGM HTTPS URL。
+- HTTPS 百度接口测试在当前网络环境被 TLS 证书主机名校验拦截（`ERR_TLS_CERT_ALTNAME_INVALID`），未关闭证书校验。
+- 按官方文档 HTTP 地址做单首页受控测试，百度返回 HTTP `400`，业务消息为 `site init fail`。该响应表示请求已到达百度，但站点/token 在百度侧未完成初始化或未被接受；未继续重试，未宣称提交成功。
+- 脚本现已在非 2xx 时写入脱敏结果文件，保留 HTTP 状态、有限长度业务消息和错误计数，不保存 token 或带 token 的 URL。待百度后台确认 `https://pubgm.apks.cc` 已验证且 token 有效后，再重新执行单首页测试。

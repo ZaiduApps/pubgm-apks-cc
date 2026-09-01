@@ -137,6 +137,15 @@ node scripts/indexnow-submit.mjs
 - 属性当前使用 `https://apks.cc/`，四个子域的 API 统计在根属性下归并。
 - 查询：`GetUserSites`、`GetCrawlStats`、`GetRankAndTrafficStats`、`GetQueryStats`、`GetUrlSubmissionQuota`。
 - IndexNow：只提交属于对应 Host 的 canonical URL；HTTP 200/202 代表接口接收，不代表已收录。
+
+### 百度主动推送
+
+- 当前仅启用 `pubgm.apks.cc`，不复用 token 到其他站点。推送脚本为 `scripts/baidu-submit.mjs`，GitHub Actions 为 `.github/workflows/baidu-submit.yml`。
+- URL 规则固定为首页 + sitemap 中按 `lastmod` 倒序的最近 5 篇 `/articles/`，最多 6 条；脚本强制校验 HTTPS、主机和 URL 去重。
+- 本地 dry-run：`pnpm seo:baidu`；真实提交必须同时设置 `BAIDU_SUBMIT=true` 和运行时 `BAIDU_PUBGM_TOKEN`，默认不会提交。
+- GitHub Secrets 仅配置 `BAIDU_PUBGM_TOKEN`；站点固定为 `https://pubgm.apks.cc`。每日北京时间 10:00（UTC 02:00）运行，也支持手动 workflow_dispatch；首次手动测试使用“仅首页”选项。
+- 百度响应只保留 HTTP 状态、`success`、`remain`、`not_same_site` 数量和 `not_valid` 数量，不记录 token 或完整请求地址。HTTP 200 仅表示接口接收，不代表收录、排名或流量提升。
+- 若百度返回非 2xx，结果文件仍会保存状态码、有限长度的业务 `message` 和错误计数，便于 Actions 留证；不关闭 TLS 校验，也不自动从 HTTPS 降级到 HTTP。当前文档地址的 HTTP 兼容性只能通过受控测试确认。
 - 记录 URL、提交时间、响应状态和后续抓取/索引证据，不能把提交动作写成排名恢复。
 
 ### Admin MCP

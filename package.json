@@ -14,7 +14,8 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:ops": "node scripts/seo-ops-baseline.mjs",
     "seo:bing-opportunities": "node scripts/bing-opportunity-report.mjs",
-    "seo:indexnow": "node scripts/indexnow-submit.mjs"
+    "seo:indexnow": "node scripts/indexnow-submit.mjs",
+    "seo:baidu": "node scripts/baidu-submit.mjs"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",

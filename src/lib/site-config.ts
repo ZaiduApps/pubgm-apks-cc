@@ -1100,7 +1100,13 @@ export function buildArticleJsonLd(
   const articleBody = truncateSeoText(article.content, 5000);
   const comments = options.comments || [];
   const commentCount = Math.max(Number(options.commentsTotal || 0), Number(article.commentCount || 0), comments.length);
-  const topicName = options.topic?.name || article.topicName || config.name;
+  const isPubgmSite = (() => {
+    try {
+      return new URL(siteUrl).hostname.toLowerCase() === 'pubgm.apks.cc';
+    } catch {
+      return false;
+    }
+  })();
   const author = {
     '@type': article.author ? 'Person' : 'Organization',
     name: article.author || config.name,
@@ -1116,13 +1122,13 @@ export function buildArticleJsonLd(
     dateModified: article.updatedAt || article.date,
     datePublished: article.date,
     inLanguage: 'zh-CN',
-    keywords: Array.from(
-      new Set([...(config.seo.keywords || []), ...(article.keywords || []), topicName]),
-    ).filter(Boolean),
+    // 文章结构化数据只表达文章自身的关键词，避免把首页词注入无关文章。
+    keywords: Array.from(new Set(article.keywords || [])).filter(Boolean),
     mainEntityOfPage: canonicalUrl,
     publisher: {
       '@type': 'Organization',
-      name: config.name,
+      name: isPubgmSite ? 'APKSCC 编辑部' : config.name,
+      url: siteUrl,
       logo: {
         '@type': 'ImageObject',
         url: config.header.logo.url,

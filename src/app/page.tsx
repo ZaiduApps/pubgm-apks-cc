@@ -19,7 +19,6 @@ export default async function Home() {
   const topicId = String(config.data_source?.topic_id || '').trim();
   const topic = await getCommunityTopic(topicId);
   const communityInteractionUrl = buildMainSiteTopicUrl(topic, topicId);
-  const keywords = config.seo.keywords;
   const faqItems = config.enrichment.faqs.filter((item) => item.question && item.answer);
   const hasSeoGuide = faqItems.length > 0;
 
@@ -276,7 +275,6 @@ export default async function Home() {
         </section>
       )}
 
-      <div className="sr-only">{keywords.join(', ')}</div>
     </div>
   );
 }

@@ -629,3 +629,9 @@
 
 - 新 key 文件在 `pubgm.apks.cc`、`pokemonchampions.apks.cc`、`browndust2.apks.cc`、`limbuscompany.apks.cc` 均返回 HTTP `200` 且正文匹配；四站 sitemap URL 数量为 `16/7/8/6`，本地 dry-run 共 `37` 条。
 - workflow 已扩展为四站批量提交；手动“仅首页”仍只用于 PUBGM 测试，定时任务将读取并提交四站各自 sitemap。其他站点未修改代码或配置。
+
+### 四站首次批量提交结果
+
+- GitHub Actions workflow `33477207880` 成功完成四站提交：PUBGM `16` 条返回 HTTP `200`，Pokémon `7` 条返回 HTTP `202`，Brown Dust 2 `8` 条返回 HTTP `202`，Limbus `6` 条返回 HTTP `202`，合计 `37` 条。
+- 四站提交前均已验证新 key 文件 HTTP `200`、正文匹配和 sitemap 可读；当前状态为“IndexNow 接收”，不代表 Bing 已抓取、收录或排名变化。
+- 后续每日 UTC 02:15（北京时间 10:15）将按四站 sitemap 批量通知；其他站点扩展无需再改代码，只需观察各站 Bing 抓取和页面级数据。

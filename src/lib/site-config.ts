@@ -637,7 +637,119 @@ function normalizeEnrichment(
   };
 }
 
-function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): SiteConfigShape {
+function appendRelToken(rel: string, token: string) {
+  const values = new Set(String(rel || '').split(/\s+/).filter(Boolean));
+  values.add(token);
+  return Array.from(values).join(' ');
+}
+
+function getUrlHost(value: unknown) {
+  try {
+    return new URL(String(value || '')).hostname.toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+function isPubgmCommercialUrl(value: unknown) {
+  const host = getUrlHost(value);
+  return host === 'go.jujujuhaowan.com' || host === 'mobile.jujujuhaowan.com';
+}
+
+function isApksAppUrl(value: unknown) {
+  try {
+    const url = new URL(String(value || ''));
+    return url.hostname.toLowerCase() === 'apks.cc' && url.pathname.startsWith('/app/');
+  } catch {
+    return false;
+  }
+}
+
+function normalizePubgmDownloadItem<T extends { url?: string; label?: string; description?: string; badge?: string; kind?: string; rel?: string }>(item: T): T {
+  if (isPubgmCommercialUrl(item.url)) {
+    return {
+      ...item,
+      label: '第三方服务入口',
+      description: '第三方商业服务入口，非 Google Play 官方商店。',
+      badge: '第三方服务',
+      kind: 'other',
+      rel: appendRelToken(item.rel || 'noopener noreferrer', 'sponsored'),
+    };
+  }
+
+  if (isApksAppUrl(item.url)) {
+    return {
+      ...item,
+      label: 'APKSCC 应用详情',
+      description: '查看本站收录的版本、包名和安装信息，非发行商官网。',
+      badge: '站内详情',
+      kind: 'other',
+    };
+  }
+
+  if (getUrlHost(item.url) === 'www.123pan.com') {
+    return {
+      ...item,
+      label: '网盘安装包',
+      description: '通过第三方网盘获取安装包，请先核对版本、文件完整性和签名。',
+      badge: '第三方下载',
+      kind: 'cloud',
+    };
+  }
+
+  return item;
+}
+
+function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShape {
+  const downloads = config.downloads;
+  return {
+    ...config,
+    downloads: {
+      ...downloads,
+      googlePlay: isPubgmCommercialUrl(downloads.googlePlay?.url)
+        ? {
+            ...downloads.googlePlay,
+            srText: '第三方服务入口',
+          }
+        : downloads.googlePlay,
+      hero_buttons: downloads.hero_buttons.map((button) => {
+        const normalizedButton = normalizePubgmDownloadItem(button);
+        if (!button.modal) return normalizedButton;
+        return {
+          ...normalizedButton,
+          modal: {
+            ...button.modal,
+            items: button.modal.items.map((item) => normalizePubgmDownloadItem(item)),
+          },
+        };
+      }) as typeof downloads.hero_buttons,
+      sections: downloads.sections.map((section) => ({
+        ...section,
+        items: section.items.map((item) => normalizePubgmDownloadItem(item)),
+      })),
+      apk: {
+        ...downloads.apk,
+        dialog: {
+          ...downloads.apk.dialog,
+          description: '请选择适合你的下载方式，并核对来源、版本和文件完整性。',
+        },
+      },
+    },
+    advertisement: {
+      ...config.advertisement,
+      header: isPubgmCommercialUrl(config.advertisement.header.url)
+        ? {
+            ...config.advertisement.header,
+            text: '第三方充值优惠',
+            secondaryText: '',
+            rel: appendRelToken(config.advertisement.header.rel, 'sponsored'),
+          }
+        : config.advertisement.header,
+    },
+  };
+}
+
+function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined, siteKey = ''): SiteConfigShape {
   const sections = normalizeSections(input?.sections);
   const seoKeywords = normalizeKeywords(input?.seo?.keywords);
   const downloadSections = normalizeDownloadSections(input?.downloads?.sections);
@@ -646,7 +758,7 @@ function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): Si
   const enrichment = normalizeEnrichment(input?.enrichment, sections, downloadSections, name);
   const dataSource = input?.data_source || siteConfig.data_source;
 
-  return {
+  const config: SiteConfigShape = {
     ...siteConfig,
     ...input,
     name,
@@ -747,6 +859,8 @@ function normalizeConfig(input: Partial<SiteConfigShape> | null | undefined): Si
     enrichment,
     sections,
   };
+
+  return siteKey === 'pubgm' ? normalizePubgmCommercialConfig(config) : config;
 }
 
 function transformAdminPayload(input: AdminLandingPayload): Partial<SiteConfigShape> {
@@ -868,7 +982,7 @@ const getSiteConfigByIdentity = cache(async (host: string, siteKey: string): Pro
   if (shouldUseRemoteConfig() && !remote && DEBUG_REMOTE) {
     console.warn('[site-config] remote config unavailable, falling back to local config');
   }
-  return remote || normalizeConfig(siteConfig);
+  return remote || normalizeConfig(siteConfig, siteKey);
 });
 
 async function fetchRemoteSiteConfig(host: string, siteKey: string): Promise<SiteConfigShape | null> {
@@ -932,7 +1046,7 @@ async function fetchRemoteSiteConfig(host: string, siteKey: string): Promise<Sit
     if (DEBUG_REMOTE) {
       console.info('[site-config] remote payload applied for key:', siteKey);
     }
-    return normalizeConfig(transformedPayload);
+    return normalizeConfig(transformedPayload, siteKey);
   } catch (error) {
     if (timer) clearTimeout(timer);
     if (DEBUG_REMOTE) {

@@ -700,3 +700,21 @@
 
 - 状态：本地已实现并验证，尚未部署香港生产；未提交 IndexNow（仅链接关系属性变化）。
 - 公网 Lighthouse 当前 SEO 得分为 `100`；Best Practices 的第三方 Cookie/弃用 API 告警来自百度统计脚本，暂不因该供应商问题移除现有统计。
+
+## 35. 2026-09-01 PUBGM 入口语义修复部署验收
+
+### 部署
+
+- GitHub `main` 已推送至 `22026cc`，香港 `/root/home/apks-sites` 使用 `git pull --ff-only` 更新并完成 `next build --no-lint`。
+- `pubgm-app` 已 reload 且状态 `online`；生产根盘余量约 `5.6GB`。3000/9527 监听正常，Nginx `-t` 通过。
+
+### 公网验证
+
+- `https://pubgm.apks.cc/` 在普通、移动和 Bingbot UA 下均返回 `200`；title、description、`<meta name="keywords">`、self-canonical 均位于初始 head，H1 数量为 `1`。
+- 首页头部已显示“第三方服务入口”，不再显示将商业目标误称为“游戏下载”；4 个 `go.jujujuhaowan.com` 商业目标链接均带 `rel="... sponsored"`。
+- 代表文章、sitemap（16 条本域 HTTPS URL）、robots 和 IndexNow key 文件均可访问；本轮 metadata/canonical 未变化，不新增 IndexNow 提交。
+
+### 异常边界
+
+- PM2 错误日志尾部仍可见来自异常 Host/IP（如 `154.21.201.81`）的 `unmapped host` 以及旧客户端 Server Action 请求；这些请求不使用 `pubgm.apks.cc` 主机，当前不作为 Bing 页面故障处理，也不放开 IP 访问。
+- 状态：代码已部署并可观测；Bing 是否重新抓取、处理、收录或带来流量变化仍需按 `7-14` 天窗口单独观察。

@@ -15,6 +15,7 @@
     "seo:ops": "node scripts/seo-ops-baseline.mjs",
     "seo:bing-opportunities": "node scripts/bing-opportunity-report.mjs",
     "seo:indexnow": "node scripts/indexnow-submit.mjs",
+    "seo:indexnow:test": "node --test scripts/indexnow-policy.test.mjs",
     "seo:baidu": "node scripts/baidu-submit.mjs"
   },
   "dependencies": {

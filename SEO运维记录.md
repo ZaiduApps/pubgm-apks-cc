@@ -543,3 +543,23 @@
 - 版本策略：可提前布局 `PUBG Mobile 4.7`、`地铁逃生4.7版本`、`4.7更新内容`、`4.7下载安装` 等词。发布记录需标记 `source_level=internal-confirmed` 和确认日期，公开来源出现后补充链接。
 - 保留工程与平台底线：不伪造官方授权、商店归属、安全承诺、校验值或固定排名；不使用隐藏文字；不批量生成纯关键词门页、完全重复文章或无正文 URL。IndexNow 只提交真实可访问页面。
 - 当前尚未新增 4.7 文章或修改 MCP 配置；下一次内容扩展可按“版本总览、下载/安装、登录/更新故障、玩法/活动”四个意图簇生成，经用户确认后发布。
+
+## 28. 2026-09-01 PUBGM 4.7 扩展前复核与配置预览
+
+### Bing 与公网证据
+
+- 重新运行 `scripts/bing-opportunity-report.mjs` 的 14 天只读报告，输出为 `logs/bing-opportunities-20260901-continue.json`。Bing 最新数据日期仍为 `2026-08-28`，四站 sitemap URL 查询 `37/37` 成功；PUBGM 当前 sitemap 共 `16` 个 URL。
+- PUBGM sitemap 内首页和 `15` 个文章 URL 在本窗口的页面级查询仍为 `0` 展现、`0` 点击；品牌查询 `pubgm.apks.cc` 为 `53` 展现、`16` 点击。该结果说明品牌查询已有信号，但不能证明新文章已经获得页面级展现。
+- Bingbot UA 实测 PUBGM 首页、sitemap、robots、代表文章和旧 hub 页面均返回 `200`。本轮没有发现抓取访问阻断，旧 hub 信号迁移仍是独立问题。
+- Chrome/CDP 复核首页：title、description、canonical、单 H1 和 JSON-LD 均存在，无横向溢出；但 description 已写“9月9日相约地铁新4.7赛季”，H1 仍为“地铁逃生 4.6 官网入口”，存在版本表达不一致。
+
+### Admin MCP preview
+
+- 重新读取 `pubgm` 配置，确认 `landing.data_source.post_limit=6`、`article_limit=16`，hero title 仍为 4.6；当前站点状态 active，hero WebP 配置保持不变。
+- 已生成一次 `site.update_content` preview，风险级别 `medium`，未 execute。patch 仅包含：`post_limit 6 -> 10`；首页 SEO title 调整为 `PUBG Mobile 4.7下载 | 地铁逃生新赛季官网入口`；hero title 切换到 4.7；description/keywords 补充 4.7 下载、更新、登录故障和 `com.tencent.ig` 意图。
+- preview 确认令牌不写入仓库。执行前必须重新生成 preview，并由用户对上述 before/after 明确确认；execute 后复读配置，等待缓存生效，再验证首页 head/H1、10 篇社区帖子可见性、sitemap 和新增 URL 状态。
+
+### 发布边界
+
+- 本轮未发布 4.7 文章、未提交 IndexNow。当前仓库和运维凭证中没有 `/open/content/posts` 的发布密钥或可复用 payload schema，因此不猜测认证字段、不用试错写请求探测生产接口。
+- 后续先发布 1 篇 4.7 版本总览作为验证样本；只有 HTTP `201`、`review_status=published`、详情页 `200`、初始 head/单 H1/Article JSON-LD 和 sitemap 全部通过后，才继续其余 3 篇并提交真实 canonical URL。

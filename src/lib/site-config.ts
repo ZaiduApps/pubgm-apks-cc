@@ -1280,6 +1280,11 @@ export function buildArticleJsonLd(
     '@type': article.author ? 'Person' : 'Organization',
     name: article.author || config.name,
   };
+  const articleKeywords = isPubgmSite
+    ? Array.from(new Set(article.keywords || [])).filter(Boolean)
+    : Array.from(
+        new Set([...(config.seo.keywords || []), ...(article.keywords || []), article.topicName || config.name]),
+      ).filter(Boolean);
 
   const articleJsonLd: Record<string, any> = {
     '@context': 'https://schema.org',
@@ -1292,7 +1297,7 @@ export function buildArticleJsonLd(
     datePublished: article.date,
     inLanguage: 'zh-CN',
     // 文章结构化数据只表达文章自身的关键词，避免把首页词注入无关文章。
-    keywords: Array.from(new Set(article.keywords || [])).filter(Boolean),
+    keywords: articleKeywords,
     mainEntityOfPage: canonicalUrl,
     publisher: {
       '@type': 'Organization',

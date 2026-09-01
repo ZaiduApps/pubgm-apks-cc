@@ -563,3 +563,24 @@
 
 - 本轮未发布 4.7 文章、未提交 IndexNow。当前仓库和运维凭证中没有 `/open/content/posts` 的发布密钥或可复用 payload schema，因此不猜测认证字段、不用试错写请求探测生产接口。
 - 后续先发布 1 篇 4.7 版本总览作为验证样本；只有 HTTP `201`、`review_status=published`、详情页 `200`、初始 head/单 H1/Article JSON-LD 和 sitemap 全部通过后，才继续其余 3 篇并提交真实 canonical URL。
+
+## 29. 2026-09-01 PUBGM 4.7 首页预告配置执行
+
+### 配置执行
+
+- 用户明确确认执行，并要求保留“当前仍是 4.6”的事实，仅把 4.7 作为 9 月 9 日上线预告。重新生成 `site.update_content` preview 后使用相同 patch、confirm token 和唯一幂等键 execute，返回 `updated_sections=[landing]`。
+- 配置复读确认：`landing.data_source.post_limit=10`；SEO title 为 `PUBG Mobile 4.6下载 | 地铁逃生4.7新赛季9月9日上线`；hero title 为 `PUBG Mobile 4.6 国际服 / 地铁逃生 4.7 新赛季预告`。
+- description 明确写为“当前正式版本为 4.6”以及“地铁逃生 4.7 新赛季将于 9 月 9 日上线”，没有把 4.7 描述为当前已上线版本。hero WebP 地址保持不变。
+- 首次 preview 因本地 PowerShell 包装函数误用保留变量 `$args`，导致空 key 被 MCP 解释为 `main` 并拒绝；未产生写入。修正参数名后完整重走 preview -> execute -> 复读流程。
+
+### 公网验证
+
+- 普通移动 UA 与 Bingbot UA 首页均返回 `200`；更新后的 title、description、keywords 位于初始 `<head>`，self-canonical 正确，单 H1。
+- Chrome/CDP 强制刷新后，渲染 title、description、keywords、canonical 与后台配置一致；H1 为 4.6 当前版本加 4.7 新赛季预告，JSON-LD 包含 `WebSite`、`SoftwareApplication`、`FAQPage`、`ItemList`，横向溢出为 `0`。
+- 配置刚写入时普通 UA 曾命中 60 秒应用缓存旧内容，随后重新请求已返回新配置；Bingbot 请求直接命中新配置。该短暂差异属于缓存窗口，不是 UA 定向内容。
+
+### 聚合与提交状态
+
+- `post_limit=10` 已写入，但 `landing.data_source.section_configs` 中 `topic_posts.count=6` 仍覆盖首页分区展示数量；当前 Chrome 仍只显示最新 6 篇社区帖子，sitemap 仍为 `16` 个 URL。后续若要展示全部 10 篇，需要单独 preview 完整的 section 配置 patch，不能假定只改 `post_limit` 已生效。
+- 首页是本次唯一发生 metadata 变化的 canonical URL。已向 IndexNow 单条提交 `https://pubgm.apks.cc/`，接口返回 HTTP `200`；状态仅为“接口接收”，尚未证明 Bing 已重新抓取、处理、收录或提升展现。
+- 本次没有发布 4.7 文章，没有向 IndexNow 提交未发生变化的文章 URL。后续按 Bing 报告延迟观察抓取时间、页面级展现和查询变化。

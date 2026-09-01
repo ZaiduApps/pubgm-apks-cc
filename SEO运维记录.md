@@ -635,3 +635,30 @@
 - GitHub Actions workflow `33477207880` 成功完成四站提交：PUBGM `16` 条返回 HTTP `200`，Pokémon `7` 条返回 HTTP `202`，Brown Dust 2 `8` 条返回 HTTP `202`，Limbus `6` 条返回 HTTP `202`，合计 `37` 条。
 - 四站提交前均已验证新 key 文件 HTTP `200`、正文匹配和 sitemap 可读；当前状态为“IndexNow 接收”，不代表 Bing 已抓取、收录或排名变化。
 - 后续每日 UTC 02:15（北京时间 10:15）将按四站 sitemap 批量通知；其他站点扩展无需再改代码，只需观察各站 Bing 抓取和页面级数据。
+
+## 32. 2026-09-01 PUBGM Bing Things to Avoid 合规整改（本地已验证）
+
+### 范围与依据
+
+- 本轮仅针对 `pubgm.apks.cc` 代码路径，保留 `<meta name="keywords">`，不涉及 `hub.apks.cc`、其他站点、Interface、Mongo、Nginx、PM2、MCP 配置或生产部署。
+- 对照 Bing Webmaster Guidelines 的 “Abuse and Examples of Things to Avoid” 逐项检查：cloaking、链接操纵、重复内容、无增量转载、关键词堆砌、无审核批量内容、低价值联盟跳转、恶意行为、误导性结构化数据和 AI 操纵内容。
+
+### 已实施变更
+
+- `9668641 fix(seo): scope pubgm article keywords`：删除首页将整串关键词作为 `sr-only` 文本输出的区块；保留 Next.js 生成的首页和文章 `<meta name="keywords">`；Article JSON-LD `keywords` 仅使用文章自身关键词。
+- `77c740c fix(seo): label pubgm commercial download links`：按真实目标域名标记第三方商业服务、第三方网盘和 APKSCC 应用详情；商业入口增加 `sponsored` 属性，不再把推广域名表达为 Google Play 或官方下载。
+- `7ba55ec fix(seo): clarify pubgm site identity`：PUBGM WebSite JSON-LD 使用 `PUBGM APKSCC`，文章 publisher 使用 `APKSCC 编辑部`，页脚补充独立站和版权边界声明。
+- `c755cea fix(seo): label legacy pubgm download fallbacks`：旧版 APK 弹窗兜底入口按目标域名使用真实标签，避免远程配置缺失时回退为“官网下载”。
+- `b71be68 fix(seo): sanitize pubgm content links`：仅清洗 `discord.gg/<邀请码>` 后误粘中文正文的异常链接，保留有效邀请码并断开错误 URL。
+
+### 本地验证
+
+- `node node_modules/next/dist/bin/next build --no-lint` 通过；直接 `tsc --noEmit -p tsconfig.typecheck.json` 和目标文件 ESLint 通过；`git diff --check` 通过。
+- 本地生产服务以 `x-forwarded-host=pubgm.apks.cc`、Bingbot UA 验证：首页和文章页均 `200`；`keywords`、`description`、canonical 均位于初始 `<head>`；首页隐藏关键词区块不存在；文章 JSON-LD 不再包含首页 4.7/登录等全局词，publisher 为 `APKSCC 编辑部`；页脚独立站声明存在；异常 Discord 链接输出为 `https://discord.gg/BDuH8utDBg`。
+- `pnpm typecheck`/`pnpm exec eslint` 在本机被 pnpm 的 `ERR_PNPM_IGNORED_BUILDS` 安装策略拦截；使用现有 `node_modules/.bin` 直接执行等价检查通过。该环境问题未修改依赖策略。
+
+### 待处理与边界
+
+- 当前线上仍需单独部署后再复核；本轮没有 reload PM2、修改生产或提交 IndexNow。
+- PUBGM 当前可见文章中仍有若干短内容和公告转载形态；需从内容后台补充来源、编辑增量、适用平台、版本事实和实测步骤。没有真实运营主体和政策正文前，不自动生成 `/about`、`/privacy`、`/terms` 等页面。
+- 结构化数据仅修正身份和关键词范围，不把 Schema 输出当成索引或排名保证。Bing 当前页面级查询仍需在部署后重新观察至少 `7-14` 天。

@@ -665,6 +665,14 @@ function isApksAppUrl(value: unknown) {
   }
 }
 
+function isPubgmSiteUrl(value: unknown) {
+  try {
+    return new URL(String(value || '')).hostname.toLowerCase() === 'pubgm.apks.cc';
+  } catch {
+    return false;
+  }
+}
+
 function normalizePubgmDownloadItem<T extends { url?: string; label?: string; description?: string; badge?: string; kind?: string; rel?: string }>(item: T): T {
   if (isPubgmCommercialUrl(item.url)) {
     return {
@@ -745,6 +753,11 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
             rel: appendRelToken(config.advertisement.header.rel, 'sponsored'),
           }
         : config.advertisement.header,
+    },
+    footer: {
+      ...config.footer,
+      description: `${config.footer.description} 本站为独立游戏资讯与下载导航站，并非 Tencent、Level Infinite 或 PUBG MOBILE 官方网站。`,
+      copyright: '© {year} APKSCC 编辑部。PUBG MOBILE 名称、商标和素材归相应权利方所有。',
     },
   };
 }
@@ -1146,6 +1159,7 @@ export function getArticleTopicId(config: SiteConfigShape, article?: SiteArticle
 
 export function buildHomeJsonLd(config: SiteConfigShape, requestHost = '') {
   const siteUrl = getPublicSiteUrl(requestHost);
+  const websiteName = isPubgmSiteUrl(siteUrl) ? 'PUBGM APKSCC' : config.name;
   const downloadItems = getEnabledDownloadItems(config.downloads.sections);
   const heroDownloadItems =
     downloadItems.length > 0
@@ -1155,7 +1169,7 @@ export function buildHomeJsonLd(config: SiteConfigShape, requestHost = '') {
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: config.name,
+      name: websiteName,
       url: siteUrl,
       description: config.seo.description,
     },

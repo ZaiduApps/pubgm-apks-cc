@@ -710,6 +710,26 @@ function normalizePubgmDownloadItem<T extends { url?: string; label?: string; de
 
 function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShape {
   const downloads = config.downloads;
+  const normalizedHeroButtons = downloads.hero_buttons.map((button) => {
+    const normalizedButton = normalizePubgmDownloadItem(button);
+    if (!button.modal) return normalizedButton;
+    return {
+      ...normalizedButton,
+      modal: {
+        ...button.modal,
+        items: button.modal.items.map((item) => normalizePubgmDownloadItem(item)),
+      },
+    };
+  }) as typeof downloads.hero_buttons;
+  const selectedHeaderButton =
+    normalizedHeroButtons.find(
+      (button) => button.id === config.advertisement.headerDownload?.heroButtonId,
+    ) ||
+    normalizedHeroButtons.find((button) => button.primary) ||
+    normalizedHeroButtons[0];
+  const headerDownloadUsesCommercialTarget =
+    isPubgmCommercialUrl(selectedHeaderButton?.url) ||
+    (selectedHeaderButton?.modal?.items || []).some((item) => isPubgmCommercialUrl(item.url));
   const normalizedSections = downloads.sections.map((section) => ({
     ...section,
     title: section.id === 'official' ? '发行商与商店下载' : section.title,
@@ -752,17 +772,7 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
             srText: '第三方服务入口',
           }
         : downloads.googlePlay,
-      hero_buttons: downloads.hero_buttons.map((button) => {
-        const normalizedButton = normalizePubgmDownloadItem(button);
-        if (!button.modal) return normalizedButton;
-        return {
-          ...normalizedButton,
-          modal: {
-            ...button.modal,
-            items: button.modal.items.map((item) => normalizePubgmDownloadItem(item)),
-          },
-        };
-      }) as typeof downloads.hero_buttons,
+      hero_buttons: normalizedHeroButtons,
       sections: normalizedSections,
       apk: {
         ...downloads.apk,
@@ -780,8 +790,14 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
             text: '第三方充值优惠',
             secondaryText: '',
             rel: appendRelToken(config.advertisement.header.rel, 'sponsored'),
-          }
+        }
         : config.advertisement.header,
+      headerDownload: headerDownloadUsesCommercialTarget
+        ? {
+            ...config.advertisement.headerDownload,
+            text: '第三方服务入口',
+          }
+        : config.advertisement.headerDownload,
     },
     footer: {
       ...config.footer,

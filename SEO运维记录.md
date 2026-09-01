@@ -662,3 +662,23 @@
 - 当前线上仍需单独部署后再复核；本轮没有 reload PM2、修改生产或提交 IndexNow。
 - PUBGM 当前可见文章中仍有若干短内容和公告转载形态；需从内容后台补充来源、编辑增量、适用平台、版本事实和实测步骤。没有真实运营主体和政策正文前，不自动生成 `/about`、`/privacy`、`/terms` 等页面。
 - 结构化数据仅修正身份和关键词范围，不把 Schema 输出当成索引或排名保证。Bing 当前页面级查询仍需在部署后重新观察至少 `7-14` 天。
+
+## 33. 2026-09-01 PUBGM 商业入口标签语义修正（本地已验证）
+
+### 变更
+
+- `src/lib/site-config.ts` 在 PUBGM 配置归一化阶段根据头部实际选中的 hero 按钮及其 modal 目标判断商业服务入口。
+- 当头部下载按钮最终指向 `go.jujujuhaowan.com` 或 `mobile.jujujuhaowan.com` 时，显示文案统一为“第三方服务入口”；其他站点和非商业目标保持原配置。
+- 保留首页与文章页的 `<meta name="keywords">`，未修改 title、description、canonical 内容，也未改变下载目标地址。
+
+### 验证
+
+- `node node_modules/next/dist/bin/next build --no-lint`、直接 `tsc --noEmit -p tsconfig.typecheck.json`、目标文件 ESLint、`git diff --check` 均通过。
+- 本地 Next 生产进程（`127.0.0.1:3100`，Host `pubgm.apks.cc`）首页普通/Bingbot/移动请求均为 `200`；初始 head 含 title、description、keywords、self-canonical，H1 数量为 `1`。
+- 首页头部输出“第三方服务入口”，不再输出头部“游戏下载”链接；下载卡片仍保留实际目标与第三方说明。
+- 代表文章 `/articles/6a8d147c85b25825e19f515f` 在普通、移动和 Bingbot UA 下均为 `200`，初始 head 含 description、keywords、self-canonical，H1 为 `1`，Article JSON-LD 存在。
+
+### 状态与边界
+
+- 状态：本地已实现并验证；尚未部署香港生产，未提交 IndexNow（metadata 与 canonical 未变化）。
+- 生产部署后需重新验证公网普通/移动/Bingbot UA、头部标签及四阶段状态：已部署可观测 -> Bing 已处理 -> 收录/流量结果观察。

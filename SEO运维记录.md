@@ -610,3 +610,10 @@
 - GitHub Secret 注入、sitemap 获取和 URL 筛选均成功；workflow 仅提交首页 `1` 条。
 - 百度官方 HTTP 端点返回 HTTP `400`，业务消息 `site init fail`；脱敏 artifact 已下载核对，`success=0`、`remain=null`、`not_same_site=0`、`not_valid=0`。
 - 该结果不能证明 token 内容错误，最可能是百度资源平台尚未完成 `https://pubgm.apks.cc` 站点验证、推送权限未启用或 token 与 site 不匹配。每日 schedule 暂不视为可用链路，待百度后台确认后再重测；不要以当前失败任务推断页面未收录。
+
+## 31. 2026-09-01 PUBGM IndexNow 新 key 与专用推送
+
+- 新增公开 key 文件 `public/4ad31f85a4744d0eb0bb3e3db9076a2b.txt`，内容与 IndexNow 后台生成的 key 一致；部署后需验证 `https://pubgm.apks.cc/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 返回 HTTP `200` 且正文精确匹配。
+- 新增 `.github/workflows/indexnow-pubgm.yml`，仅配置 `pubgm.apks.cc`；每日 UTC 02:15（北京时间 10:15）读取 sitemap 并批量提交，手动运行支持只提交首页。其他三站暂不触发。
+- 首次本地 dry-run 应设置 `INDEXNOW_KEY` 为新 key、`INDEXNOW_SITES=pubgm.apks.cc`；真实测试建议先手动选择“仅首页”，再检查 IndexNow HTTP `200/202`。接口接收不等于 Bing 抓取、收录或流量恢复。
+- 本轮尚未提交新 key 的 IndexNow 请求；待代码部署到生产并确认 key 文件公网可读后再执行首次提交。

@@ -1,0 +1,29 @@
+name: IndexNow PUBGM URL Push
+
+on:
+  schedule:
+    - cron: '15 2 * * *'
+  workflow_dispatch:
+    inputs:
+      home_only:
+        description: '仅提交 PUBGM 首页（首次测试使用）'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      INDEXNOW_KEY: 4ad31f85a4744d0eb0bb3e3db9076a2b
+      INDEXNOW_SITES: pubgm.apks.cc
+      INDEXNOW_SUBMIT: 'true'
+      INDEXNOW_URLS: ${{ inputs.home_only == true && 'https://pubgm.apks.cc/' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Submit PUBGM URLs
+        run: node scripts/indexnow-submit.mjs --submit

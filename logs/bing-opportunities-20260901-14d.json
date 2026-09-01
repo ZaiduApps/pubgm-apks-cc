@@ -1,0 +1,1235 @@
+{
+  "generatedAt": "2026-09-01T00:21:58.232Z",
+  "provider": "Bing Webmaster API",
+  "property": "https://apks.cc/",
+  "window": {
+    "providerLatestDate": "2026-08-28T07:00:00.000Z",
+    "start": "2026-08-15T00:00:00.000Z",
+    "end": "2026-08-28T23:59:59.999Z",
+    "days": 14
+  },
+  "coverage": {
+    "sitemapSites": [
+      {
+        "key": "pubgm",
+        "host": "pubgm.apks.cc",
+        "urls": 16
+      },
+      {
+        "key": "pokemonchampions",
+        "host": "pokemonchampions.apks.cc",
+        "urls": 7
+      },
+      {
+        "key": "browndust2",
+        "host": "browndust2.apks.cc",
+        "urls": 8
+      },
+      {
+        "key": "limbuscompany",
+        "host": "limbuscompany.apks.cc",
+        "urls": 6
+      }
+    ],
+    "currentUrls": 37,
+    "pageStatsRows": 677,
+    "queryStatsRows": 2151,
+    "pageQueryRequested": 37,
+    "pageQuerySucceeded": 37,
+    "pageQueryFailed": 0
+  },
+  "clusterSummary": [
+    {
+      "cluster": "other",
+      "clicks": 56,
+      "impressions": 438,
+      "queries": 60
+    },
+    {
+      "cluster": "download-install",
+      "clicks": 98,
+      "impressions": 378,
+      "queries": 71
+    },
+    {
+      "cluster": "version-update",
+      "clicks": 9,
+      "impressions": 15,
+      "queries": 8
+    },
+    {
+      "cluster": "login-troubleshooting",
+      "clicks": 0,
+      "impressions": 1,
+      "queries": 1
+    }
+  ],
+  "topQueries": [
+    {
+      "query": "魂坠深境",
+      "clicks": 1,
+      "impressions": 156,
+      "ctr": 0.0064,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 9,
+      "cluster": "other"
+    },
+    {
+      "query": "pubgm.apks.cc",
+      "clicks": 16,
+      "impressions": 53,
+      "ctr": 0.3019,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4.57,
+      "cluster": "download-install"
+    },
+    {
+      "query": "site:apks.cc",
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 5,
+      "cluster": "download-install"
+    },
+    {
+      "query": "\"com.ea.game.simcitymobile_row \"",
+      "clicks": 6,
+      "impressions": 30,
+      "ctr": 0.2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2.7,
+      "cluster": "other"
+    },
+    {
+      "query": "tft下载",
+      "clicks": 5,
+      "impressions": 30,
+      "ctr": 0.1667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "cluster": "download-install"
+    },
+    {
+      "query": "魂坠深境下载",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 6.57,
+      "cluster": "download-install"
+    },
+    {
+      "query": "subway surfers下载",
+      "clicks": 9,
+      "impressions": 26,
+      "ctr": 0.3462,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5.65,
+      "cluster": "download-install"
+    },
+    {
+      "query": "塔塔冒险队国际服",
+      "clicks": 6,
+      "impressions": 25,
+      "ctr": 0.24,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "other"
+    },
+    {
+      "query": "客栈晴晖",
+      "clicks": 1,
+      "impressions": 25,
+      "ctr": 0.04,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "cluster": "other"
+    },
+    {
+      "query": "pub g越南服",
+      "clicks": 11,
+      "impressions": 19,
+      "ctr": 0.5789,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4.26,
+      "cluster": "other"
+    },
+    {
+      "query": "\"com.ubisoft.rainbowsixmobile.r6.fps.pvp.shooter \"",
+      "clicks": 2,
+      "impressions": 19,
+      "ctr": 0.1053,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5.58,
+      "cluster": "other"
+    },
+    {
+      "query": "猫咪大战争下载",
+      "clicks": 2,
+      "impressions": 18,
+      "ctr": 0.1111,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8.89,
+      "cluster": "download-install"
+    },
+    {
+      "query": "棕色尘埃2下载安卓",
+      "clicks": 2,
+      "impressions": 17,
+      "ctr": 0.1176,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 9,
+      "cluster": "download-install"
+    },
+    {
+      "query": "\"com.riotgames.mobile.leagueconnect \"",
+      "clicks": 1,
+      "impressions": 16,
+      "ctr": 0.0625,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "other"
+    },
+    {
+      "query": "tft国际服",
+      "clicks": 6,
+      "impressions": 15,
+      "ctr": 0.4,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7.4,
+      "cluster": "other"
+    },
+    {
+      "query": "狂野飙车传奇集结下载",
+      "clicks": 4,
+      "impressions": 12,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 9,
+      "cluster": "download-install"
+    },
+    {
+      "query": "部落冲突国际服",
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 9,
+      "cluster": "other"
+    },
+    {
+      "query": "赛马娘日服下载",
+      "clicks": 4,
+      "impressions": 10,
+      "ctr": 0.4,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "cluster": "download-install"
+    },
+    {
+      "query": "skport下载",
+      "clicks": 3,
+      "impressions": 9,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "海伦娜客栈晴晖",
+      "clicks": 1,
+      "impressions": 9,
+      "ctr": 0.1111,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8,
+      "cluster": "other"
+    },
+    {
+      "query": "pubg.apks.cc",
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 5,
+      "cluster": "download-install"
+    },
+    {
+      "query": "客栈晴晖 海伦娜",
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 7,
+      "cluster": "other"
+    },
+    {
+      "query": "skport",
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 0.1667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8,
+      "cluster": "other"
+    },
+    {
+      "query": "\"com.yostarjp.arknights \"",
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 0.1667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "cluster": "other"
+    },
+    {
+      "query": "arkham cards apk",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 8,
+      "cluster": "download-install"
+    },
+    {
+      "query": "minecraft 1.26.44.3apk",
+      "clicks": 2,
+      "impressions": 5,
+      "ctr": 0.4,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 9,
+      "cluster": "download-install"
+    },
+    {
+      "query": "天守传人克蕾西亚",
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 0.2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "cluster": "other"
+    },
+    {
+      "query": "像素深渊下载",
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 0.2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6.6,
+      "cluster": "download-install"
+    },
+    {
+      "query": "无尽的拉格朗日国际服 apk",
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 0.2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "download-install"
+    },
+    {
+      "query": "idle party dungeon 下载",
+      "clicks": 3,
+      "impressions": 4,
+      "ctr": 0.75,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "おそ松さん 六喜六忧",
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 0.5,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "cluster": "other"
+    },
+    {
+      "query": "backrooms multiplayer: liminalv1.7.7下载",
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 0.5,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "\"com.ea.gp.fifamobilebeta \"",
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 0.5,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 1,
+      "cluster": "other"
+    },
+    {
+      "query": "xcom2 安卓v1.5.5下载",
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 0.5,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 1,
+      "cluster": "download-install"
+    },
+    {
+      "query": "棕色尘埃2天守传人克蕾西亚mod",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "other"
+    },
+    {
+      "query": "我的汤姆猫2国际服2026",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "other"
+    },
+    {
+      "query": "离线单机手机游戏 apk",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "cluster": "download-install"
+    },
+    {
+      "query": "棕色尘埃2 2.32.10",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "cluster": "version-update"
+    },
+    {
+      "query": "apkscc",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "棕色尘埃阿奇拉pv",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "other"
+    },
+    {
+      "query": "赛马娘日服",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 8,
+      "cluster": "other"
+    },
+    {
+      "query": "棕色尘埃2官网安卓下载",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 4,
+      "cluster": "download-install"
+    },
+    {
+      "query": "会说话的汤姆猫最新版国际服",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 7,
+      "cluster": "other"
+    },
+    {
+      "query": "恋姫†大戦手游",
+      "clicks": 3,
+      "impressions": 3,
+      "ctr": 1,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "cluster": "other"
+    },
+    {
+      "query": "browndust2 apk",
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "cluster": "download-install"
+    },
+    {
+      "query": "pubgm apks cc",
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "broken ranks安卓下载",
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 1,
+      "cluster": "download-install"
+    },
+    {
+      "query": "赛马娘日服apk",
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "cluster": "download-install"
+    },
+    {
+      "query": "勇者斗恶龙破限乱斗安装包下载",
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "cluster": "download-install"
+    },
+    {
+      "query": "魂坠深渊国际服1.0.6",
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 9,
+      "cluster": "version-update"
+    }
+  ],
+  "currentPageStats": [
+    {
+      "clicks": 4,
+      "impressions": 50,
+      "ctr": 0.08,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8,
+      "page": "https://browndust2.apks.cc/"
+    }
+  ],
+  "currentPageQueries": [
+    {
+      "page": "https://pubgm.apks.cc/",
+      "status": "ok",
+      "rowCount": 1622,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a8d147c85b25825e19f515f",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a7f3cbd837db46b93680eb5",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a75e61bfbb913268c2df761",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a69d05a3b651179c5b3d58a",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a58acdd3b651179c5643524",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a4b0d5642f43ec4abd2b5f9",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638864",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638855",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638844",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638835",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638824",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638813",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/pubgm-1761061870930",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/pubgm-1761061908342",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pubgm.apks.cc/articles/pubgm-1761061901751",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a94fde9e00242c319d8ed0f",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a8ba74c837db46b93f68814",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a72d31996f9d4d205bb285c",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a72d31596f9d4d205bb282c",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a72d31096f9d4d205bb2814",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://pokemonchampions.apks.cc/articles/6a72d30b96f9d4d205bb2800",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a951be7e00242c319d9607c",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a94e3ace00242c319d890b7",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a94c78ae00242c319d83a95",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a94c78de00242c319d83aa8",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a925ccad0c4efdf217be14e",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a915fced0c4efdf21757f8c",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://browndust2.apks.cc/articles/6a7c9974c8185058260cf2e9",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/articles/6a7c9131c8185058260cd6c8",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/articles/6a7c8e91c8185058260ccd38",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd25",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/articles/6a7c8e90c8185058260ccd16",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    },
+    {
+      "page": "https://limbuscompany.apks.cc/articles/6a2a732b6c64ce21cc559d2a",
+      "status": "ok",
+      "rowCount": 0,
+      "clicks": 0,
+      "impressions": 0,
+      "topQueries": []
+    }
+  ],
+  "historicalUrlsNotInCurrentSitemaps": [
+    {
+      "clicks": 6,
+      "impressions": 243,
+      "ctr": 0.0247,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8.33,
+      "page": "https://apks.cc/app/com.chillyroom.containerofsoul.gp"
+    },
+    {
+      "clicks": 32,
+      "impressions": 103,
+      "ctr": 0.3107,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "page": "https://apks.cc/app/com.vng.pubgmobile"
+    },
+    {
+      "clicks": 16,
+      "impressions": 78,
+      "ctr": 0.2051,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "page": "https://apks.cc/app/com.kiloo.subwaysurf"
+    },
+    {
+      "clicks": 9,
+      "impressions": 68,
+      "ctr": 0.1324,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.riotgames.league.teamfighttactics"
+    },
+    {
+      "clicks": 11,
+      "impressions": 56,
+      "ctr": 0.1964,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4.86,
+      "page": "https://apks.cc/app"
+    },
+    {
+      "clicks": 1,
+      "impressions": 54,
+      "ctr": 0.0185,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/community/post/6a7ada0aae7b25c4406ee8cf"
+    },
+    {
+      "clicks": 3,
+      "impressions": 39,
+      "ctr": 0.0769,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5.46,
+      "page": "https://apks.cc/app/com.ubisoft.rainbowsixmobile.r6.fps.pvp.shooter"
+    },
+    {
+      "clicks": 1,
+      "impressions": 38,
+      "ctr": 0.0263,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.tencent.rmos"
+    },
+    {
+      "clicks": 12,
+      "impressions": 33,
+      "ctr": 0.3636,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6.73,
+      "page": "https://apks.cc/app/com.gameloft.android.ANMP.GloftA9HM"
+    },
+    {
+      "clicks": 1,
+      "impressions": 33,
+      "ctr": 0.0303,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://browndust2.apks.cc/articles/6a7c2b87662fd42a5d0908f3"
+    },
+    {
+      "clicks": 7,
+      "impressions": 32,
+      "ctr": 0.2188,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 3,
+      "page": "https://apks.cc/app/com.ea.game.simcitymobile_row"
+    },
+    {
+      "clicks": 5,
+      "impressions": 32,
+      "ctr": 0.1563,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6.38,
+      "page": "https://hub.apks.cc/%E8%B5%9B%E9%A9%AC%E5%A8%98%E6%97%A5%E6%9C%8D/jp.co.cygames.umamusume"
+    },
+    {
+      "clicks": 5,
+      "impressions": 29,
+      "ctr": 0.1724,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.supercell.clashofclans"
+    },
+    {
+      "clicks": 2,
+      "impressions": 29,
+      "ctr": 0.069,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7.97,
+      "page": "https://apks.cc/app/jp.co.ponos.battlecatstw"
+    },
+    {
+      "clicks": 4,
+      "impressions": 28,
+      "ctr": 0.1429,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5.64,
+      "page": "https://apks.cc/app/com.farlightgames.pgame.gp"
+    },
+    {
+      "clicks": 2,
+      "impressions": 28,
+      "ctr": 0.0714,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5.71,
+      "page": "https://apks.cc/community/post/6a66f7673b651179c5a766a9"
+    },
+    {
+      "clicks": 3,
+      "impressions": 27,
+      "ctr": 0.1111,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.miHoYo.GenshinImpact"
+    },
+    {
+      "clicks": 3,
+      "impressions": 27,
+      "ctr": 0.1111,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7.22,
+      "page": "https://apks.cc/app/com.AlfaBravo.CombatMaster"
+    },
+    {
+      "clicks": 4,
+      "impressions": 26,
+      "ctr": 0.1538,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6.85,
+      "page": "https://apks.cc/app/com.neowizgames.game.browndust2"
+    },
+    {
+      "clicks": 8,
+      "impressions": 21,
+      "ctr": 0.381,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.mojang.minecraftpe"
+    },
+    {
+      "clicks": 11,
+      "impressions": 20,
+      "ctr": 0.55,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "page": "https://apks.cc/community/topic/game-com-tencent-ig"
+    },
+    {
+      "clicks": 1,
+      "impressions": 16,
+      "ctr": 0.0625,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 5,
+      "page": "https://apks.cc/app/com.riotgames.mobile.leagueconnect"
+    },
+    {
+      "clicks": 1,
+      "impressions": 15,
+      "ctr": 0.0667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6.87,
+      "page": "https://apks.cc/app/com.exnoa.abyss"
+    },
+    {
+      "clicks": 3,
+      "impressions": 13,
+      "ctr": 0.2308,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 3,
+      "page": "https://apks.cc/app/jp.co.bandainamcoonline.idolish7global"
+    },
+    {
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 8,
+      "page": "https://apks.cc/app/com.outfit7.mytalkingtomfree"
+    },
+    {
+      "clicks": 4,
+      "impressions": 12,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 3,
+      "page": "https://apks.cc/app/com.gryphline.skport"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.valvesoftware.android.steam.community"
+    },
+    {
+      "clicks": 1,
+      "impressions": 8,
+      "ctr": 0.125,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/jp.konami.suikoden.starleap"
+    },
+    {
+      "clicks": 1,
+      "impressions": 7,
+      "ctr": 0.1429,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.cyberjoy.galaxydefense"
+    },
+    {
+      "clicks": 1,
+      "impressions": 7,
+      "ctr": 0.1429,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "page": "https://apks.cc/community/post/6a8ea08bd0c4efdf21627819"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 5.57,
+      "page": "https://apks.cc/community/post/6a6881323b651179c5ae4c7a"
+    },
+    {
+      "clicks": 4,
+      "impressions": 6,
+      "ctr": 0.6667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "page": "https://apks.cc/app/com.square_enix.android_googleplay.dqsgw"
+    },
+    {
+      "clicks": 2,
+      "impressions": 6,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "page": "https://apks.cc/app/com.gholdings.osomatsusan"
+    },
+    {
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 0.1667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 3,
+      "page": "https://apks.cc/app/com.netease.lag.hmt"
+    },
+    {
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 0.1667,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.YoStarJP.Arknights"
+    },
+    {
+      "clicks": 3,
+      "impressions": 5,
+      "ctr": 0.6,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "page": "https://apks.cc/app/com.idlepartydungeon.game"
+    },
+    {
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 0.2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4.2,
+      "page": "https://browndust2.apks.cc/articles/6a7f06c7837db46b93672bc3"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 6.6,
+      "page": "https://apks.cc/rankings"
+    },
+    {
+      "clicks": 5,
+      "impressions": 4,
+      "ctr": 1.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.arkhamcards"
+    },
+    {
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://browndust2.apks.cc/articles/6a7ece87837db46b93664eb7"
+    },
+    {
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": 0.25,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://www.apks.cc/"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 3,
+      "page": "https://apks.cc/app/com.mojang.minecrafttrialpe"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.rockstargames.gtavc.de"
+    },
+    {
+      "clicks": 3,
+      "impressions": 3,
+      "ctr": 1,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 6,
+      "page": "https://apks.cc/app/com.dmm.games.koihimetaisen"
+    },
+    {
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": 0.3333,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 7,
+      "page": "https://apks.cc/app/com.dreamgames.royalmatch"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 5,
+      "page": "https://apks.cc/app/com.robtopx.geometryjump"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "avgClickPosition": null,
+      "avgImpressionPosition": 8,
+      "page": "https://apks.cc/community/post/6a8ec02fd0c4efdf216565ad"
+    },
+    {
+      "clicks": 4,
+      "impressions": 2,
+      "ctr": 2,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 4,
+      "page": "https://apks.cc/app/jp.pokemon.pokemonchampions"
+    },
+    {
+      "clicks": 2,
+      "impressions": 2,
+      "ctr": 1,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 8,
+      "page": "https://apks.cc/app/com.avalon.c1p.googleplay"
+    },
+    {
+      "clicks": 2,
+      "impressions": 2,
+      "ctr": 1,
+      "avgClickPosition": 0,
+      "avgImpressionPosition": 2,
+      "page": "https://apks.cc/app/com.redour.BackroomsMultiplayer"
+    }
+  ],
+  "interpretation": [
+    "Bing API rows are provider reports and do not prove indexing for every URL.",
+    "The rolling window ends on Bing latest returned date, not the local run date.",
+    "Historical URLs are reported separately and are not automatically redirect candidates.",
+    "IndexNow submission and content publication are outside this read-only report."
+  ]
+}

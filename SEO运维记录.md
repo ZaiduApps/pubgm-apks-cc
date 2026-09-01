@@ -504,3 +504,34 @@
 - 缓存窗口后公网 Bingbot 验证：首页 `200`，HTML 已引用 WebP，旧 PNG 不再出现；description/canonical 位于初始 head，单 H1。
 - WebP HEAD：`200 image/webp`、`285002B`、`public, max-age=31536000, immutable`。
 - 本次仅变更 hero 资源引用，不涉及 metadata/canonical，因此不提交 IndexNow；后续观察 CDN 命中、LCP 和 Bing 抓取即可。
+
+## 26. 2026-09-01 Bing 近期效果与竞品对照
+
+### Bing API 快照
+
+- 使用 `scripts/bing-opportunity-report.mjs` 运行 14 天和 28 天只读报告，Bing 当前返回最新日期为 `2026-08-28`；四站 sitemap 共 `37` 个 URL，页面级查询请求 `37/37` 成功。
+- 14 天窗口（`2026-08-15` 至 `2026-08-28`）根域汇总为 `163` 次点击、`832` 次展现；PUBGM 相关明确查询仅见 `pubgm.apks.cc` `53` 展现/`16` 点击、`pubg.apks.cc` `8` 展现，无 PUBGM 文章页面展现。
+- 28 天窗口（`2026-08-01` 至 `2026-08-28`）根域汇总为 `367` 次点击、`2342` 次展现；PUBGM 相关查询包括 `pubg` `448` 展现/`14` 点击、`pubg mobile` `413`/`16`、`pubgm` `113`/`10`、`pubgm.apks.cc` `92`/`47`，但当前 PUBGM sitemap URL 页面级聚合仍为 `0` 展现/`0` 点击。
+- 旧基线报告（覆盖 `2026-07-25` 至 `2026-08-21`）中，`pubg` 为 `7102` 展现/`283` 点击、`pubg官网` `5786`/`163`、`pubg mobile` `2323`/`860`；窗口重叠且根域混合四站，不能直接当作 PUBGM 子域同比，但可确认近期未恢复到旧报告量级。
+- 28 天报告的历史 URL 中，`https://hub.apks.cc/PUBG%20MOBILE/com.tencent.ig` 仍有 `1344` 展现/`46` 点击，旧 hub 文章页有 `41` 展现/`32` 点击；当前 PUBGM 子域 16 个 sitemap URL 均无页面级展现。这是“旧 hub 信号未迁移到新 canonical”的强证据，不能仅靠 IndexNow 解决。
+- `GetUrlInfo` 对首页此前返回最近抓取 `2026-08-29`、文档约 `312895B`；批量调用后再次请求触发 `ThrottleHost`，因此本轮不把限流状态解释为页面错误。
+
+### Bing 实时关键词检索
+
+- `pubg国际服下载` 前列主要为 PUBG MOBILE 官方站、TapTap、游戏狗、电脑之家、Google Play、3DM；`pubg mobile官网下载` 前列主要为官方站、Google Play、官方 PUBG 下载页、腾讯官网、游戏狗和 TapTap。
+- `com.tencent.ig` 前列结果集中在 APKPure、游戏狗和 Google Play，标题/摘要直接包含包名、APK、版本、系统要求、SHA/校验等实体字段。
+- `PUBGM 无法登录 login error` 前列以 Bilibili、百度贴吧、TapTap、CC 加速器等“错误文案 + 解决步骤”页面为主；页面意图是故障解决，不是泛下载页。
+- `地铁逃生4.7版本` 当前结果混入大量视频、论坛和“版本更新汇总”，未发现稳定的官方 4.7 事实来源；继续使用未经核验的 4.7 版本会增加事实风险。
+
+### 竞品可复用结构与限制
+
+- 官方站占据下载类前列的原因是实体明确、品牌一致、下载入口独立；Google Play/TapTap 具备平台、应用名和商店信任信号；APKPure/游戏狗补充包名、版本、系统要求、安装与 FAQ 文本。
+- 故障类竞品通常把“登录响应超时 / Login_Error / 网络加载错误”等原始错误词放在标题和首段，并提供按原因分组的处理步骤；这与当前已发布的 PUBGM 登录故障文章方向一致，但尚无 Bing 页面级展现证据。
+- APKPure 页面本轮被 Cloudflare 验证拦截，游戏狗页面请求超时；因此未将其未观测到的 JSON-LD、完整正文或技术架构当作事实，只使用 Bing SERP 可见标题/摘要。
+
+### 结论与下一步
+
+- 当前结论：代码和可抓取性优化已部署，但截至 Bing 最新 `2026-08-28` 数据，PUBGM 新子域尚未出现可证明的页面级收录/展现提升；品牌词有少量展现，不能称为流量恢复。
+- 首要排查项是旧 hub URL 与新 PUBGM 子域的 URL 迁移、canonical、sitemap 和内部链接信号是否一致，以及旧 hub 页面是否仍被 Bing 选为 canonical；不建议继续批量发帖或堆叠关键词。
+- 关键词内容优先级：`com.tencent.ig` 包名/安装实体页、`登录响应超时/Login_Error` 故障页、`pubg国际服下载` 平台入口页；每个意图只保留一个主承接页面，避免文章互相竞争。
+- 本轮只读查询，不提交 IndexNow、不修改 SEO 配置、不发布新文章。Bing API 接收、抓取、收录、展现和点击仍分别观测，建议在新子域稳定抓取后再用同一窗口重跑。

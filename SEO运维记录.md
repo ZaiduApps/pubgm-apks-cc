@@ -734,6 +734,7 @@
 - Cloudflare 官方文档（复核日期 `2026-09-02`）说明 Crawler Hints 通过 `CF-Cache-Status: MISS` 判断资源可能变化并通知 IndexNow；该能力是整个 zone 的全局开关，不提供路径白名单或黑名单。由提交记录中的来源 `Cloudflare`、根域资源类型和官方触发机制，可高置信推断这些通知来自 `apks.cc` zone 的 Crawler Hints。
 - Bing Webmaster API 的根属性 `https://apks.cc/` 仍为 verified，查询时 URL 提交配额返回 `DailyQuota=992`、`MonthlyQuota=29992`。`GetUrlInfo` 显示：`robots.txt` 在 `2026-08-07` 被发现并抓取；两个 woff2 样本分别在 `2026-07-24`、`2026-07-28` 被发现并抓取；favicon、ttf 和用户消息中的拼接 URL返回空默认时间、`HttpStatus=0`、`DocumentSize=0`。后台当天的“提交时间”不能解释为 Bing 当日已抓取或收录。
 - `https://apks.cc/app/com.qcplay.snail.oversea.gz` 当前是返回 `200 text/html` 的真实应用详情页，不应仅因 slug 以 `.gz` 结尾而过滤。用户消息中的 `...gzhttps://apks.cc/robots.txt` 拼接形式在 Bing API 没有有效抓取数据，需以后台原始单条记录为准，不能把聊天粘贴格式当作真实 malformed 提交。
+- 该拼接 URL 的公网复验为 `308 -> 404`；错误页初始 HTML 含 `meta name="robots" content="noindex"`，因此保持真实 404，不做首页重定向或 IndexNow 提交。
 
 ### 自有推送修复
 

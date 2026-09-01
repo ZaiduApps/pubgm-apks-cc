@@ -718,3 +718,10 @@
 
 - PM2 错误日志尾部仍可见来自异常 Host/IP（如 `154.21.201.81`）的 `unmapped host` 以及旧客户端 Server Action 请求；这些请求不使用 `pubgm.apks.cc` 主机，当前不作为 Bing 页面故障处理，也不放开 IP 访问。
 - 状态：代码已部署并可观测；Bing 是否重新抓取、处理、收录或带来流量变化仍需按 `7-14` 天窗口单独观察。
+
+## 36. 2026-09-01 PUBGM 部署后 Chrome/CDP 复核
+
+- 强制刷新 `https://pubgm.apks.cc/` 后，渲染 DOM 的 title、description、`<meta name="keywords">`、canonical 与后台预告配置一致；H1 为单个“PUBG Mobile 4.6 国际服 / 地铁逃生 4.7 新赛季预告”。
+- JSON-LD 类型为 `WebSite`、`SoftwareApplication`、`FAQPage`、`ItemList`；横向溢出为 `0`；商业入口文本和 `rel="sponsored"` 均可见。
+- Chrome Lighthouse mobile：SEO `100`、Accessibility `100`、Agentic Browsing `100`；Best Practices `58` 的失败项为百度统计供应商的 deprecated API、第三方 Cookie 和 Issues 面板告警，不是 metadata 或抓取阻断。
+- 该结果是浏览器渲染证据，不代表 Bing 已收录或流量恢复；继续观察 Bing URL/query、抓取和展现数据。

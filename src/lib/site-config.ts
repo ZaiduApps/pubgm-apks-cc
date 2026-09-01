@@ -710,6 +710,38 @@ function normalizePubgmDownloadItem<T extends { url?: string; label?: string; de
 
 function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShape {
   const downloads = config.downloads;
+  const normalizedSections = downloads.sections.map((section) => ({
+    ...section,
+    title: section.id === 'official' ? '发行商与商店下载' : section.title,
+    description: section.description
+      .replace(/官方入口/g, '发行商或商店入口')
+      .replace(/官方和商店/g, '发行商与商店'),
+    items: section.items.map((item) => normalizePubgmDownloadItem(item)),
+  }));
+  const normalizedGuideItems = config.enrichment.downloadGuide.items.map((item) => {
+    const normalized = normalizePubgmDownloadItem({
+      url: item.href,
+      label: item.title,
+      description: item.description,
+      badge: item.badge,
+      kind: item.kind,
+    });
+    return {
+      ...item,
+      title: normalized.label || item.title,
+      description: normalized.description || item.description,
+      badge: normalized.badge || item.badge,
+      kind: normalized.kind || item.kind,
+    };
+  });
+  const normalizedFaqs = config.enrichment.faqs.map((item) => ({
+    ...item,
+    answer: item.answer
+      .replace(/官方详情页/g, '应用详情页')
+      .replace(/官方、商店/g, '发行商或商店')
+      .replace(/官方或商店/g, '发行商或商店')
+      .replace(/官方入口/g, '发行商或商店入口'),
+  }));
   return {
     ...config,
     downloads: {
@@ -731,10 +763,7 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
           },
         };
       }) as typeof downloads.hero_buttons,
-      sections: downloads.sections.map((section) => ({
-        ...section,
-        items: section.items.map((item) => normalizePubgmDownloadItem(item)),
-      })),
+      sections: normalizedSections,
       apk: {
         ...downloads.apk,
         dialog: {
@@ -758,6 +787,18 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
       ...config.footer,
       description: `${config.footer.description} 本站为独立游戏资讯与下载导航站，并非 Tencent、Level Infinite 或 PUBG MOBILE 官方网站。`,
       copyright: '© {year} APKSCC 编辑部。PUBG MOBILE 名称、商标和素材归相应权利方所有。',
+    },
+    enrichment: {
+      ...config.enrichment,
+      downloadGuide: {
+        ...config.enrichment.downloadGuide,
+        description: config.enrichment.downloadGuide.description
+          .replace(/官方、商店或主推渠道/g, '发行商、商店或主推渠道')
+          .replace(/官方或商店或主推渠道/g, '发行商、商店或主推渠道')
+          .replace(/官方、商店/g, '发行商或商店'),
+        items: normalizedGuideItems,
+      },
+      faqs: normalizedFaqs,
     },
   };
 }

@@ -26,7 +26,11 @@ function normalizeComparableImageUrl(value?: string): string {
 }
 
 function normalizeMarkdownContent(content: string): string {
-  const normalized = content.replace(/\r\n?/g, '\n').replace(/^\uFEFF/, '');
+  // 内容源偶尔把中文正文粘到 Discord 邀请链接后；保留邀请码并断开错误的 URL。
+  const normalized = content
+    .replace(/\r\n?/g, '\n')
+    .replace(/^\uFEFF/, '')
+    .replace(/https:\/\/discord\.gg\/([A-Za-z0-9_-]+)[^\s)\]]*/g, 'https://discord.gg/$1 ');
   const lines = normalized.split('\n');
 
   let minIndent = Number.POSITIVE_INFINITY;

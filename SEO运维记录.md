@@ -617,3 +617,10 @@
 - 新增 `.github/workflows/indexnow-pubgm.yml`，仅配置 `pubgm.apks.cc`；每日 UTC 02:15（北京时间 10:15）读取 sitemap 并批量提交，手动运行支持只提交首页。其他三站暂不触发。
 - 首次本地 dry-run 应设置 `INDEXNOW_KEY` 为新 key、`INDEXNOW_SITES=pubgm.apks.cc`；真实测试建议先手动选择“仅首页”，再检查 IndexNow HTTP `200/202`。接口接收不等于 Bing 抓取、收录或流量恢复。
 - 本轮尚未提交新 key 的 IndexNow 请求；待代码部署到生产并确认 key 文件公网可读后再执行首次提交。
+
+### 部署与首次提交结果
+
+- 代码已推送并部署到香港 `/root/home/apks-sites`，生产版本 `94e6c6a`；因生产依赖目录不完整，先按锁文件恢复依赖后构建成功。`pubgm-app` reload 后 online，Nginx `-t` 通过，未修改其他 PM2 项目。
+- 公网 key 文件 `https://pubgm.apks.cc/4ad31f85a4744d0eb0bb3e3db9076a2b.txt` 返回 HTTP `200`，正文精确匹配；本地 dry-run 读取 PUBGM sitemap 为 `16` 条 URL。
+- GitHub Actions 手动运行 `33474376076`，选择仅提交首页；IndexNow 返回 HTTP `202`，`urlCount=1`。这表示 Bing 接收通知，不表示抓取、收录、排名或流量提升。
+- 每日 workflow 已设为 UTC 02:15（北京时间 10:15），当前仅 PUBGM；后续扩展其他站点前必须分别配置其 key 文件并完成单站验证。

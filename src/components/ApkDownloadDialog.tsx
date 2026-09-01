@@ -23,6 +23,47 @@ type DownloadDialogItem = {
   enabled?: boolean;
 };
 
+function getHost(value?: string) {
+  try {
+    return new URL(String(value || '')).hostname.toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+function legacyItem(id: string, url: string | undefined, fallbackLabel: string): DownloadDialogItem {
+  const host = getHost(url);
+  if (host === 'www.123pan.com') {
+    return {
+      id,
+      kind: 'cloud',
+      label: '网盘安装包',
+      description: '第三方网盘入口，请核对版本、文件完整性和签名。',
+      url,
+    };
+  }
+  if (host === 'apks.cc') {
+    return {
+      id,
+      kind: 'other',
+      label: 'APKSCC 应用详情',
+      description: '查看本站收录的版本、包名和安装信息，非发行商官网。',
+      url,
+    };
+  }
+  if (host === 'go.jujujuhaowan.com' || host === 'mobile.jujujuhaowan.com') {
+    return {
+      id,
+      kind: 'other',
+      label: '第三方服务入口',
+      description: '第三方商业服务入口，非官方应用商店。',
+      rel: 'noopener noreferrer sponsored',
+      url,
+    };
+  }
+  return { id, kind: 'other', label: fallbackLabel, url };
+}
+
 interface ApkDownloadDialogProps {
   dialog: {
     description?: string;
@@ -43,18 +84,8 @@ export function ApkDownloadDialog({
   preferredItemId = '',
 }: ApkDownloadDialogProps) {
   const legacyItems: DownloadDialogItem[] = [
-    {
-      id: 'apk-pan',
-      kind: 'cloud',
-      label: '网盘下载',
-      url: dialog.panUrl,
-    },
-    {
-      id: 'apk-official',
-      kind: 'official',
-      label: '官网下载',
-      url: dialog.officialUrl,
-    },
+    legacyItem('apk-pan', dialog.panUrl, '网盘安装包'),
+    legacyItem('apk-official', dialog.officialUrl, '官网下载'),
   ];
   const enabledItems = (dialog.items?.length ? dialog.items : legacyItems).filter(
     (item) => item.enabled !== false && item.url,

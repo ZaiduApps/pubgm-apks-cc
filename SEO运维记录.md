@@ -599,3 +599,8 @@
 - HTTPS 百度接口测试在当前网络环境被 TLS 证书主机名校验拦截（`ERR_TLS_CERT_ALTNAME_INVALID`），未关闭证书校验。
 - 按官方文档 HTTP 地址做单首页受控测试，百度返回 HTTP `400`，业务消息为 `site init fail`。本机凭证文件没有保存用户此次提供的百度 token，该次请求使用了现有本机另一类 key，因此不能据此判断用户提供的百度 token 是否有效；仅确认请求已到达百度并返回业务错误，未继续重试，未宣称提交成功。
 - 脚本现已在非 2xx 时写入脱敏结果文件，保留 HTTP 状态、有限长度业务消息和错误计数，不保存 token 或带 token 的 URL。待百度后台确认 `https://pubgm.apks.cc` 已验证且 token 有效后，再重新执行单首页测试。
+
+### GitHub Actions 首次测试（33473590889）
+
+- Secret 已成功注入（Actions 日志显示为掩码），但 workflow 使用脚本默认 HTTPS 端点时失败于 `ERR_TLS_CERT_ALTNAME_INVALID`，尚未产生百度业务响应。
+- 已将 workflow 的 `BAIDU_API_URL` 显式切换为官方文档给出的 HTTP 端点；脚本默认 HTTPS 和 TLS 校验逻辑保持不变。该调整会在下一次测试中验证真实业务响应，HTTP token 传输风险已记录。

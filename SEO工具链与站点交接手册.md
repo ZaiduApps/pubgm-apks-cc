@@ -145,7 +145,7 @@ node scripts/indexnow-submit.mjs
 - 本地 dry-run：`pnpm seo:baidu`；真实提交必须同时设置 `BAIDU_SUBMIT=true` 和运行时 `BAIDU_PUBGM_TOKEN`，默认不会提交。
 - GitHub Secrets 仅配置 `BAIDU_PUBGM_TOKEN`；站点固定为 `https://pubgm.apks.cc`。每日北京时间 10:00（UTC 02:00）运行，也支持手动 workflow_dispatch；首次手动测试使用“仅首页”选项。
 - 百度响应只保留 HTTP 状态、`success`、`remain`、`not_same_site` 数量和 `not_valid` 数量，不记录 token 或完整请求地址。HTTP 200 仅表示接口接收，不代表收录、排名或流量提升。
-- 若百度返回非 2xx，结果文件仍会保存状态码、有限长度的业务 `message` 和错误计数，便于 Actions 留证；不关闭 TLS 校验，也不自动从 HTTPS 降级到 HTTP。当前文档地址的 HTTP 兼容性只能通过受控测试确认。
+- 若百度返回非 2xx，结果文件仍会保存状态码、有限长度的业务 `message` 和错误计数，便于 Actions 留证；不关闭 TLS 校验。脚本默认使用 HTTPS，GitHub Actions 因百度官方文档端点的证书不匹配而显式使用文档中的 HTTP 端点，需接受 token 传输风险并持续观察百度是否提供有效 HTTPS 端点。
 - 记录 URL、提交时间、响应状态和后续抓取/索引证据，不能把提交动作写成排名恢复。
 
 ### Admin MCP

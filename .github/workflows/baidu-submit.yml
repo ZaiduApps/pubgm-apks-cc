@@ -21,6 +21,8 @@ jobs:
     env:
       BAIDU_PUBGM_SITE: https://pubgm.apks.cc
       BAIDU_PUBGM_TOKEN: ${{ secrets.BAIDU_PUBGM_TOKEN }}
+      # 百度官方主动推送文档给出的兼容端点为 HTTP；仅在 workflow 显式启用。
+      BAIDU_API_URL: http://data.zz.baidu.com/urls
       BAIDU_SUBMIT: 'true'
       BAIDU_HOME_ONLY: ${{ inputs.home_only || 'false' }}
       BAIDU_OUTPUT: baidu-submit-result.json

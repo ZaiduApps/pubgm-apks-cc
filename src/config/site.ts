@@ -86,6 +86,7 @@ export interface EnrichmentGuideItem {
   id: string;
   kind: string;
   platform: string;
+  rel: string;
   title: string;
 }
 

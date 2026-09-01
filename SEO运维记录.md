@@ -682,3 +682,21 @@
 
 - 状态：本地已实现并验证；尚未部署香港生产，未提交 IndexNow（metadata 与 canonical 未变化）。
 - 生产部署后需重新验证公网普通/移动/Bingbot UA、头部标签及四阶段状态：已部署可观测 -> Bing 已处理 -> 收录/流量结果观察。
+
+## 34. 2026-09-01 PUBGM 指南商业链接 rel 继承修正（本地已验证）
+
+### 变更
+
+- `EnrichmentGuideItem` 增加 `rel` 字段，配置归一化和备用下载指南均保留链接关系属性。
+- 下载指南卡片改为使用归一化后的 `rel`；PUBGM 商业目标继承 `sponsored`，其他目标默认保持 `noopener noreferrer`。
+
+### 验证
+
+- 直接 `tsc --noEmit -p tsconfig.typecheck.json`、`eslint src`、`git diff --check` 和 `next build --no-lint` 均通过。
+- 本地生产进程以 Host `pubgm.apks.cc`、Bingbot UA 请求首页为 `200`；title/description/keywords/canonical 位于初始 head，H1 数量为 `1`。
+- 首页 4 个商业目标链接均带 `rel` 中的 `sponsored`，未发现遗漏；下载目标、metadata 内容和 canonical 未变化。
+
+### 状态与边界
+
+- 状态：本地已实现并验证，尚未部署香港生产；未提交 IndexNow（仅链接关系属性变化）。
+- 公网 Lighthouse 当前 SEO 得分为 `100`；Best Practices 的第三方 Cookie/弃用 API 告警来自百度统计脚本，暂不因该供应商问题移除现有统计。

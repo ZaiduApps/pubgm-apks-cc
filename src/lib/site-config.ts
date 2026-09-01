@@ -532,6 +532,7 @@ function buildFallbackDownloadGuide(name: string, downloadSections: DownloadSect
       id: item.id,
       kind: item.kind,
       platform: item.platform,
+      rel: item.rel,
       title: item.label,
     }),
   );
@@ -614,6 +615,7 @@ function normalizeEnrichment(
           id: normalizeText(item.id, `guide-${index + 1}`),
           kind: normalizeDownloadKind(item.kind),
           platform: normalizeText(item.platform),
+          rel: normalizeText(item.rel, 'noopener noreferrer'),
           title: normalizeText(item.title || item.label, '下载渠道'),
         }))
         .filter((item: EnrichmentGuideItem) => item.href && item.title),
@@ -745,6 +747,7 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
       description: item.description,
       badge: item.badge,
       kind: item.kind,
+      rel: item.rel,
     });
     return {
       ...item,
@@ -752,6 +755,7 @@ function normalizePubgmCommercialConfig(config: SiteConfigShape): SiteConfigShap
       description: normalized.description || item.description,
       badge: normalized.badge || item.badge,
       kind: normalized.kind || item.kind,
+      rel: normalized.rel || item.rel,
     };
   });
   const normalizedFaqs = config.enrichment.faqs.map((item) => ({

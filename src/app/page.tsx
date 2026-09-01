@@ -73,7 +73,7 @@ export default async function Home() {
                   key={item.id || item.href}
                   href={item.href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={item.rel || 'noopener noreferrer'}
                   className="group rounded-lg border border-border/60 bg-card/70 p-5 transition-shadow hover:shadow-lg"
                 >
                   <div className="mb-2 flex items-center gap-2">

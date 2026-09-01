@@ -604,3 +604,9 @@
 
 - Secret 已成功注入（Actions 日志显示为掩码），但 workflow 使用脚本默认 HTTPS 端点时失败于 `ERR_TLS_CERT_ALTNAME_INVALID`，尚未产生百度业务响应。
 - 已将 workflow 的 `BAIDU_API_URL` 显式切换为官方文档给出的 HTTP 端点；脚本默认 HTTPS 和 TLS 校验逻辑保持不变。该调整会在下一次测试中验证真实业务响应，HTTP token 传输风险已记录。
+
+### GitHub Actions 单首页重测（33473703403）
+
+- GitHub Secret 注入、sitemap 获取和 URL 筛选均成功；workflow 仅提交首页 `1` 条。
+- 百度官方 HTTP 端点返回 HTTP `400`，业务消息 `site init fail`；脱敏 artifact 已下载核对，`success=0`、`remain=null`、`not_same_site=0`、`not_valid=0`。
+- 该结果不能证明 token 内容错误，最可能是百度资源平台尚未完成 `https://pubgm.apks.cc` 站点验证、推送权限未启用或 token 与 site 不匹配。每日 schedule 暂不视为可用链路，待百度后台确认后再重测；不要以当前失败任务推断页面未收录。

@@ -767,3 +767,26 @@
 
 - 当前问题仅影响 Bing `msvalidate.01` 验证；百度、Google、360、搜狗四个 meta 已生效。百度统计脚本属于运行时统计，不应拿它替代站点验证 meta。
 - 最小修复是把 `msvalidate.01` 加入受控验证 meta 白名单，保留现有“只解析验证 meta、不直出任意 HTML/脚本”的安全边界；修改后需执行本地构建、Bingbot 初始 head 检查、生产部署和 Bing 验证复测。本轮按审计边界未修改代码、未部署、未提交 IndexNow。
+
+## 39. 2026-09-02 PUBGM 后台 Head meta 全量解析修复部署
+
+### 变更
+
+- 用户确认专题后台配置负责 Head 内容，不应由前端固定验证名称白名单限制。
+- `src/components/CustomHeadTags.tsx` 移除验证 meta 名称白名单，改为解析并渲染后台 `customHeadHtml` 中的全部 `<meta>` 属性；属性值仍由 React 转义，重复标签按属性集合去重。
+- 百度统计 URL 继续使用现有 `afterInteractive` 受控脚本加载，不将后台脚本原样输出到 SSR head。
+- 代码提交 `ee810ae fix(seo): render all admin meta tags`，已推送 GitHub `main`。
+
+### 验证与部署
+
+- 本地直接 TypeScript 检查、Next 生产构建和 `git diff --check` 通过；目标文件 ESLint 受现有环境缺少 `eslint-plugin-react-hooks` 阻塞，未修改依赖批准策略。
+- 香港 `/root/home/apks-sites` 已 `git pull --ff-only` 至 `ee810ae`，生产 `pnpm build` 通过，仅 reload `pubgm-app`。
+- 部署后 PM2 `pubgm-app` 为 `online`；3000、9527 正常监听；Nginx `-t` 通过；根盘可用约 `5.2GB`。
+- `https://pubgm.apks.cc/` 普通、移动、Bingbot UA 均为 `200`，初始 `</head>` 前均包含 `msvalidate.01`、百度、Google、360、搜狗验证 meta，以及 description、keywords、canonical。
+- `https://pubgm.apks.cc/robots.txt`、`sitemap.xml` 为 `200`；sitemap 代表文章在 Bingbot UA 下为 `200`，初始 head 含 title、description、keywords、canonical，单 H1，Article JSON-LD 存在。
+
+### 状态与边界
+
+- Head 注入修复已部署并可观测；后台新增合法 `<meta>` 标签无需再次修改前端白名单。
+- 本轮 metadata 内容与 canonical URL 未改变，不新增 IndexNow 提交；接口接收不等于 Bing 已抓取、收录或流量恢复。
+- 生产继续保留现有域名、端口、PM2、Nginx、Interface、Mongo 边界，未重载其他应用。

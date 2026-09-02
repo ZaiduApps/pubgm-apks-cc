@@ -748,3 +748,22 @@
 - 本机 Cloudflare Token 验证为 active，能够读取 `apks.cc` zone；Cloudflare 当前公开 Zone Settings API 不暴露 Crawler Hints，尝试公开 cache/settings 路由分别返回“无路由/未定义设置”，未执行未知或非官方 API 写入。
 - Chrome 已打开 Cloudflare `Caching -> Configuration`，但停在 Turnstile 真人验证页。当前尚未关闭 Crawler Hints，也没有创建 Response Header Transform Rule；需人工完成验证/登录后关闭全局开关，再复读确认状态。
 - 本轮没有向 IndexNow 新提交 URL，没有修改生产 Nginx、PM2、Interface、Mongo 或根域应用。代码推送后只会加固本仓库四站 workflow；Cloudflare 历史提交记录不会因此消失，后续应观察是否停止产生新的静态资源通知。
+
+## 38. 2026-09-02 PUBGM 专题 Head 注入审计
+
+### 已确认事实
+
+- `http://127.0.0.1:9527/site/landing-config?key=pubgm` 返回 HTTP `200`、`code=0`；配置路径为 `data.analytics.customHeadHtml`，当前字符串长度 `738`，包含百度、Google、360、搜狗、Bing (`msvalidate.01`) 五个验证 meta 以及百度统计脚本。说明管理后台保存和 Interface 返回均正常。
+- 生产 `https://pubgm.apks.cc/` 在 Bingbot UA 下返回 HTTP `200`，`CF-Cache-Status: DYNAMIC`。初始 `</head>` 前实际存在：`baidu-site-verification=codeva-9XyV2k6cAS`、`google-site-verification=wheyJrkeJteNmtsowo1dyWiAtd18QqJR0VGilx25600`、`360-site-verification=999219046b1b9e0ef3a7f7c0f481fe20`、`sogou_site_verification=2rU7VTaXRK`；实际不存在 `msvalidate.01=98D40959166AE801B9FBD47F79E8D2BE`。
+- `msvalidate.01` 在响应 body 的 Next RSC 序列化配置中可见，但它是转义后的数据，不是浏览器可识别的 `<meta>`；不能用于 Bing 站点验证。用户看到“body 前没有正确认证标记”的提示与该差异一致。
+
+### 根因定位
+
+- `src/components/CustomHeadTags.tsx:8-13` 的 `VERIFICATION_META_NAMES` 白名单只包含 `360-site-verification`、`baidu-site-verification`、`google-site-verification`、`sogou_site_verification`，没有 `msvalidate.01`；`src/components/CustomHeadTags.tsx:42` 对其他 meta 静默跳过。因此 Bing meta 被明确过滤，属于前端解析白名单缺项，不是后台写入或缓存故障。
+- `src/app/layout.tsx:68-72` 确实把 `CustomHeadTags` 放在 `<head>`，所以被白名单接受的四个 meta 已位于初始 head。`src/components/CustomHeadTags.tsx:103-124` 则只提取百度统计 URL，并用 Next `afterInteractive` 脚本在运行时插入；原始 HTML 不会保留用户提交的任意 `<script>`，这是当前安全边界。
+- `src/lib/site-config.ts:990-992` 会读取 `landing.analytics.customHeadHtml` 或 `input.analytics.customHeadHtml`；本次 API 返回的顶层 `analytics.customHeadHtml` 已被应用，未发现字段路径错误。
+
+### 结论与后续
+
+- 当前问题仅影响 Bing `msvalidate.01` 验证；百度、Google、360、搜狗四个 meta 已生效。百度统计脚本属于运行时统计，不应拿它替代站点验证 meta。
+- 最小修复是把 `msvalidate.01` 加入受控验证 meta 白名单，保留现有“只解析验证 meta、不直出任意 HTML/脚本”的安全边界；修改后需执行本地构建、Bingbot 初始 head 检查、生产部署和 Bing 验证复测。本轮按审计边界未修改代码、未部署、未提交 IndexNow。

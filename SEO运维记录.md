@@ -803,3 +803,16 @@
 
 - 当前状态为“IndexNow 接收”；不表示 Bing 已抓取、处理、收录、排名或流量提升。
 - Webmaster API 凭证失效问题与 IndexNow 接收分开记录，不影响本次 IndexNow 请求结果。
+
+## 41. 2026-09-02 PUBGM 文章子页面 Bing 提交
+
+### 提交结果
+
+- 从 `https://pubgm.apks.cc/sitemap.xml` 提取 `/articles/` 子页面，排除首页、robots、sitemap 和静态资源。
+- 15 个文章 URL 全部通过提交前校验：同域 HTTPS、HTTP `200`、`text/html`、无 `noindex`、无重定向、self-canonical；跳过 `0` 条。
+- 向 IndexNow 批量提交 15 个文章 canonical URL，接口返回 HTTP `200`。逐条 URL 与校验规则见 `logs/indexnow-submit-20260902-pubgm-articles.json`。
+
+### 状态边界
+
+- 当前状态为“IndexNow 接收”；不表示 Bing 已抓取、处理、收录、排名或流量提升。
+- 后续按 `1/3-7/7-14` 天窗口分别观察 Bing 抓取、URL 处理、页面展现、查询和点击；不重复提交未发生变化的文章 URL。

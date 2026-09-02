@@ -1,0 +1,39 @@
+{
+  "submittedAt": "2026-09-02T08:01:01.445Z",
+  "site": "pubgm.apks.cc",
+  "scope": "sitemap article pages only",
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "validation": {
+    "candidateCount": 15,
+    "urlCount": 15,
+    "skipped": [],
+    "rules": [
+      "same-host https",
+      "HTTP 200",
+      "text/html",
+      "no noindex",
+      "no redirect",
+      "self-canonical"
+    ]
+  },
+  "urls": [
+    "https://pubgm.apks.cc/articles/6a8d147c85b25825e19f515f",
+    "https://pubgm.apks.cc/articles/6a7f3cbd837db46b93680eb5",
+    "https://pubgm.apks.cc/articles/6a75e61bfbb913268c2df761",
+    "https://pubgm.apks.cc/articles/6a69d05a3b651179c5b3d58a",
+    "https://pubgm.apks.cc/articles/6a58acdd3b651179c5643524",
+    "https://pubgm.apks.cc/articles/6a4b0d5642f43ec4abd2b5f9",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638864",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638855",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638844",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638835",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638824",
+    "https://pubgm.apks.cc/articles/6a93c66b42fcccf879638813",
+    "https://pubgm.apks.cc/articles/pubgm-1761061870930",
+    "https://pubgm.apks.cc/articles/pubgm-1761061908342",
+    "https://pubgm.apks.cc/articles/pubgm-1761061901751"
+  ],
+  "status": 200,
+  "response": "",
+  "statusBoundary": "IndexNow 接收通知，不代表 Bing 已抓取、收录、排名或流量变化。"
+}

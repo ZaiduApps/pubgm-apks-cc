@@ -816,3 +816,21 @@
 
 - 当前状态为“IndexNow 接收”；不表示 Bing 已抓取、处理、收录、排名或流量提升。
 - 后续按 `1/3-7/7-14` 天窗口分别观察 Bing 抓取、URL 处理、页面展现、查询和点击；不重复提交未发生变化的文章 URL。
+
+## 42. 2026-09-02 PUBGM Sitemap 提交复核
+
+### 提交前检查
+
+- `https://pubgm.apks.cc/sitemap.xml` 公网返回 HTTP `200`、`application/xml`，包含 `16` 个 URL，全部为 `https://pubgm.apks.cc` 主机；`robots.txt` 已引用该 sitemap。
+- 本轮目标为 Bing Webmaster 的 `SubmitSitemap`，与 IndexNow URL 通知接口分开处理。
+
+### Bing Webmaster API 结果
+
+- `GetUserSites` 返回 HTTP `400`、`InvalidApiKey`。
+- `SubmitSitemap(siteUrl=https://apks.cc/, feedUrl=https://pubgm.apks.cc/sitemap.xml)` 返回 HTTP `400`、`InvalidApiKey`。
+- 脱敏证据：`logs/bing-sitemap-submit-20260902-pubgm.json`。未记录 API key、请求头或完整带密钥请求 URL。
+
+### 状态与后续
+
+- 当前只能确认 sitemap 公网可访问，不能确认 Bing Webmaster 已接收该 sitemap；IndexNow 的 HTTP `200` 不替代 sitemap 提交确认。
+- 需要在 Bing Webmaster 重新生成/配置有效 API key 后重试 `GetUserSites` 与 `SubmitSitemap`；凭证恢复前不继续试错或把失败表述为已提交。

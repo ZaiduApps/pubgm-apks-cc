@@ -1,0 +1,22 @@
+{
+  "attemptedAt": "2026-09-02T08:12:52.959Z",
+  "siteProperty": "https://apks.cc/",
+  "feedUrl": "https://pubgm.apks.cc/sitemap.xml",
+  "endpointMethod": "SubmitSitemap",
+  "preflight": {
+    "sitemapStatus": 200,
+    "sitemapContentType": "application/xml",
+    "sitemapUrlCount": 16,
+    "allUrlsOnHost": true,
+    "robotsReferencesSitemap": true
+  },
+  "getUserSites": {
+    "status": 400,
+    "error": "InvalidApiKey"
+  },
+  "submitSitemap": {
+    "status": 400,
+    "error": "InvalidApiKey"
+  },
+  "statusBoundary": "Bing Webmaster API 未接收确认；IndexNow 接收与 sitemap 提交、抓取、收录分别观测。"
+}

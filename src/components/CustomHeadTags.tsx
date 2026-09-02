@@ -1,16 +1,9 @@
 import Script from 'next/script';
 
-type VerificationMetaTag = {
-  content: string;
-  name: string;
+type CustomMetaTag = {
+  attributes: Record<string, string>;
+  key: string;
 };
-
-const VERIFICATION_META_NAMES = new Set([
-  '360-site-verification',
-  'baidu-site-verification',
-  'google-site-verification',
-  'sogou_site_verification',
-]);
 
 function decodeHtmlAttribute(value: string) {
   return value
@@ -22,30 +15,30 @@ function decodeHtmlAttribute(value: string) {
     .trim();
 }
 
-function getHtmlAttribute(attributes: string, name: string) {
-  const pattern = new RegExp(`${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>` + '`' + `]+))`, 'i');
-  const match = attributes.match(pattern);
-  if (!match) return '';
-  return decodeHtmlAttribute(match[1] || match[2] || match[3] || '');
-}
-
-function getVerificationMetaTags(customHeadHtml: string): VerificationMetaTag[] {
-  const tags: VerificationMetaTag[] = [];
+function getCustomMetaTags(customHeadHtml: string): CustomMetaTag[] {
+  const tags: CustomMetaTag[] = [];
   const seen = new Set<string>();
   const metaTagPattern = /<meta\s+([^>]*?)\/?>/gi;
 
   for (const match of customHeadHtml.matchAll(metaTagPattern)) {
     const attributes = match[1] || '';
-    const name = getHtmlAttribute(attributes, 'name');
-    const content = getHtmlAttribute(attributes, 'content');
+    const parsedAttributes: Record<string, string> = {};
+    const attributePattern = /([a-zA-Z_:][a-zA-Z0-9:._-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>` + '`' + `]+))/g;
 
-    if (!name || !content || !VERIFICATION_META_NAMES.has(name)) continue;
+    for (const attributeMatch of attributes.matchAll(attributePattern)) {
+      const name = attributeMatch[1].toLowerCase();
+      parsedAttributes[name] = decodeHtmlAttribute(
+        attributeMatch[2] || attributeMatch[3] || attributeMatch[4] || '',
+      );
+    }
 
-    const key = `${name}:${content}`;
+    if (Object.keys(parsedAttributes).length === 0) continue;
+
+    const key = JSON.stringify(parsedAttributes);
     if (seen.has(key)) continue;
 
     seen.add(key);
-    tags.push({ name, content });
+    tags.push({ attributes: parsedAttributes, key });
   }
 
   return tags;
@@ -84,17 +77,17 @@ function getBaiduAnalyticsScript(url: string) {
 
 export function CustomHeadTags({ customHeadHtml }: { customHeadHtml?: string }) {
   const html = String(customHeadHtml || '');
-  const verificationTags = getVerificationMetaTags(html);
+  const customMetaTags = getCustomMetaTags(html);
   const baiduAnalyticsUrls = getBaiduAnalyticsUrls(html);
 
-  if (verificationTags.length === 0 && baiduAnalyticsUrls.length === 0) {
+  if (customMetaTags.length === 0 && baiduAnalyticsUrls.length === 0) {
     return null;
   }
 
   return (
     <>
-      {verificationTags.map((tag) => (
-        <meta key={`${tag.name}:${tag.content}`} name={tag.name} content={tag.content} />
+      {customMetaTags.map((tag) => (
+        <meta key={tag.key} {...tag.attributes} />
       ))}
     </>
   );

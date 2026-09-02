@@ -790,3 +790,16 @@
 - Head 注入修复已部署并可观测；后台新增合法 `<meta>` 标签无需再次修改前端白名单。
 - 本轮 metadata 内容与 canonical URL 未改变，不新增 IndexNow 提交；接口接收不等于 Bing 已抓取、收录或流量恢复。
 - 生产继续保留现有域名、端口、PM2、Nginx、Interface、Mongo 边界，未重载其他应用。
+
+## 40. 2026-09-02 PUBGM 首页 Bing 提交
+
+### 提交结果
+
+- 按生产公开 key 文件完成首页 canonical 校验后，向 IndexNow 提交 `https://pubgm.apks.cc/` 单条 URL。
+- IndexNow endpoint 返回 HTTP `200`；候选 `1` 条、提交 `1` 条、跳过 `0` 条。脱敏证据：`logs/indexnow-submit-20260902-pubgm-home.json`。
+- 另行调用 Bing Webmaster `SubmitUrl`（根域属性）返回 HTTP `400`、`InvalidApiKey`；未使用 IndexNow key 冒充 Webmaster 凭证重试，需后续在 Bing Webmaster 重新生成/配置有效 API key。
+
+### 状态边界
+
+- 当前状态为“IndexNow 接收”；不表示 Bing 已抓取、处理、收录、排名或流量提升。
+- Webmaster API 凭证失效问题与 IndexNow 接收分开记录，不影响本次 IndexNow 请求结果。

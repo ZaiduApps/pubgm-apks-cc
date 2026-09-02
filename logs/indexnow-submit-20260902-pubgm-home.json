@@ -1,0 +1,15 @@
+{
+  "submittedAt": "2026-09-02T06:53:27.765Z",
+  "site": "pubgm.apks.cc",
+  "url": "https://pubgm.apks.cc/",
+  "mode": "submit",
+  "validation": {
+    "candidateCount": 1,
+    "urlCount": 1,
+    "skipped": []
+  },
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "status": 200,
+  "response": "",
+  "statusBoundary": "IndexNow 接收通知，不代表 Bing 已抓取、收录、排名或流量变化。"
+}

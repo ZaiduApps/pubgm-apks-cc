@@ -753,7 +753,7 @@
 
 ### 已确认事实
 
-- `http://127.0.0.1:9527/site/landing-config?key=pubgm` 返回 HTTP `200`、`code=0`；配置路径为 `data.analytics.customHeadHtml`，当前字符串长度 `738`，包含百度、Google、360、搜狗、Bing (`msvalidate.01`) 五个验证 meta 以及百度统计脚本。说明管理后台保存和 Interface 返回均正常。
+- `http://127.0.0.1:9527/site/landing-config?key=pubgm` 与香港只读地址 `https://api.hk.apks.cc/site/landing-config?key=pubgm` 均返回 HTTP `200`、`code=0`；配置路径为 `data.analytics.customHeadHtml`，当前字符串长度 `738`，包含百度、Google、360、搜狗、Bing (`msvalidate.01`) 五个验证 meta 以及百度统计脚本。说明管理后台保存、Interface 返回和香港配置源均正常。
 - 生产 `https://pubgm.apks.cc/` 在 Bingbot UA 下返回 HTTP `200`，`CF-Cache-Status: DYNAMIC`。初始 `</head>` 前实际存在：`baidu-site-verification=codeva-9XyV2k6cAS`、`google-site-verification=wheyJrkeJteNmtsowo1dyWiAtd18QqJR0VGilx25600`、`360-site-verification=999219046b1b9e0ef3a7f7c0f481fe20`、`sogou_site_verification=2rU7VTaXRK`；实际不存在 `msvalidate.01=98D40959166AE801B9FBD47F79E8D2BE`。
 - `msvalidate.01` 在响应 body 的 Next RSC 序列化配置中可见，但它是转义后的数据，不是浏览器可识别的 `<meta>`；不能用于 Bing 站点验证。用户看到“body 前没有正确认证标记”的提示与该差异一致。
 
